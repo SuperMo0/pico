@@ -42,6 +42,29 @@ This is a **fully-fledged, production-ready Shopify Online Store 2.0 theme**.
 
 ---
 
+## 1.5 Development Workflow
+
+This project uses a **multi-session, plan-driven workflow**:
+
+1. **PLAN.md** — master roadmap of phases and tasks (updated as we complete each task)
+2. **PROGRESS.md** — running log of what shipped and when
+3. **DISCOVERIES.md** — bugs fixed and gotchas learned
+4. **SKILL.md** — design system reference (read before styling/component work)
+
+**At the start of each session:**
+
+- Read PLAN.md to see what task is next (top unchecked item)
+- Read PROGRESS.md to see what's already shipped
+- Read DISCOVERIES.md to avoid repeating past mistakes
+
+**At the end of each session:**
+
+- Check off the completed task in PLAN.md
+- Add a row to PROGRESS.md (one per completed task, never pre-log)
+- If you discovered a Shopify quirk or made an assumption that turned out wrong, add it to DISCOVERIES.md
+
+**Do not** skip or combine tasks. One unchecked task = one focused session.
+
 ## 2. Shopify Architecture & Liquid Rules
 
 ### 2.1 Dynamic Liquid Objects — MANDATORY
