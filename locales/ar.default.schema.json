@@ -1,0 +1,238 @@
+{
+  "general": {
+    "404": "غير موجود",
+    "announcement_bar": "شريط الإعلانات",
+    "article": "مقالة",
+    "block": "بلوك",
+    "blog": "مدونة",
+    "cart": "السلة",
+    "collection": "فئة",
+    "collections": "الفئات",
+    "collection_card": "بطاقة فئة",
+    "collections_grid": "شبكة الفئات",
+    "colors": "الألوان",
+    "column": "عمود",
+    "content": "المحتوى",
+    "custom_section": "قسم مخصص",
+    "fonts": "الخطوط",
+    "footer": "تذييل الصفحة",
+    "group": "مجموعة",
+    "header": "رأس الصفحة",
+    "layout": "التخطيط",
+    "main": "رئيسي",
+    "page": "صفحة",
+    "password": "كلمة مرور",
+    "primary": "أساسي",
+    "product": "منتج",
+    "row": "صف",
+    "search": "بحث",
+    "secondary": "ثانوي",
+    "section": "قسم",
+    "settings": "إعدادات",
+    "sidebar": "شريط جانبي",
+    "text": "نص",
+    "theme": "الثيم",
+    "typography": "الطباعة"
+  },
+  "labels": {
+    "alignment": "محاذاة",
+    "announcement_bar_section": "شريط الإعلانات",
+    "announcement_link": "رابط الإعلان (اختياري)",
+    "announcement_text": "نص الإعلان",
+    "background": "خلفية",
+    "button_label": "نص الزر",
+    "button_link": "رابط الزر",
+    "color_scheme": "نظام الألوان",
+    "customer_account_menu": "قائمة حساب العميل",
+    "foreground": "مقدمة",
+    "full_width": "عرض كامل",
+    "grid_gap": "مسافة الشبكة",
+    "grid_item_width": "عرض عنصر الشبكة",
+    "heading": "العنوان",
+    "image": "صورة",
+    "input_corner_radius": "نصف قطر زوايا المدخل",
+    "layout_direction": "اتجاه التخطيط",
+    "link": "رابط",
+    "menu": "القائمة",
+    "padding": "الحشو",
+    "page_margin": "هامش الصفحة",
+    "page_width": "عرض الصفحة",
+    "show_announcement": "إظهار شريط الإعلانات",
+    "show_divider": "إظهار الفاصل",
+    "show_payment_icons": "إظهار أيقونات الدفع",
+    "subheading": "العنوان الفرعي",
+    "text": "نص",
+    "text_style": "نمط النص"
+  },
+  "sections": {
+    "announcement_bar": {
+      "name": "شريط الإعلانات"
+    },
+    "header": {
+      "name": "رأس الصفحة",
+      "settings": {
+        "logo": "شعار المتجر",
+        "logo_width": "عرض الشعار (بكسل)",
+        "menu": "قائمة التنقل",
+        "show_search": "إظهار خانة البحث",
+        "sticky_header": "تثبيت الرأس عند التمرير"
+      }
+    },
+    "hero": {
+      "name": "بانر رئيسي",
+      "settings": {
+        "eyebrow_text": "نص المقدمة (eyebrow)",
+        "heading": "العنوان الرئيسي",
+        "subheading": "العنوان الفرعي",
+        "image": "صورة البانر",
+        "image_position": "موضع الصورة",
+        "image_position_right": "يمين",
+        "image_position_left": "يسار",
+        "primary_cta_label": "نص الزر الرئيسي",
+        "primary_cta_url": "رابط الزر الرئيسي",
+        "secondary_cta_label": "نص الزر الثانوي",
+        "secondary_cta_url": "رابط الزر الثانوي"
+      },
+      "presets": {
+        "name": "بانر رئيسي"
+      }
+    },
+    "reassurance_strip": {
+      "name": "شريط الثقة",
+      "blocks": {
+        "item": {
+          "name": "عنصر ثقة",
+          "settings": {
+            "icon": "أيقونة",
+            "label": "النص",
+            "subtext": "نص توضيحي (اختياري)"
+          }
+        }
+      },
+      "presets": {
+        "name": "شريط الثقة"
+      }
+    },
+    "collection_list": {
+      "name": "شبكة الفئات",
+      "settings": {
+        "heading": "العنوان"
+      },
+      "blocks": {
+        "collection": {
+          "name": "فئة",
+          "settings": {
+            "collection": "الفئة"
+          }
+        }
+      },
+      "presets": {
+        "name": "شبكة الفئات"
+      }
+    },
+    "featured_collection": {
+      "name": "مجموعة مميزة",
+      "settings": {
+        "heading": "العنوان",
+        "collection": "المجموعة",
+        "product_count": "عدد المنتجات",
+        "view_all_label": "نص رابط عرض الكل"
+      },
+      "presets": {
+        "name": "مجموعة مميزة"
+      }
+    },
+    "editorial_band": {
+      "name": "بنر تحريري",
+      "settings": {
+        "eyebrow": "نص المقدمة",
+        "heading": "العنوان",
+        "body": "النص",
+        "cta_label": "نص الزر",
+        "cta_url": "رابط الزر",
+        "image": "الصورة",
+        "image_position": "موضع الصورة",
+        "image_position_right": "يمين",
+        "image_position_left": "يسار"
+      },
+      "presets": {
+        "name": "بنر تحريري"
+      }
+    },
+    "collection": {
+      "name": "صفحة الفئة",
+      "settings": {
+        "show_filters": "إظهار الفلاتر",
+        "products_per_page": "المنتجات في الصفحة"
+      }
+    },
+    "product": {
+      "name": "صفحة المنتج",
+      "settings": {
+        "show_breadcrumb": "إظهار مسار التنقل"
+      },
+      "blocks": {
+        "accordion_panel": {
+          "name": "لوحة قابلة للطي",
+          "settings": {
+            "title": "العنوان",
+            "content": "المحتوى"
+          }
+        }
+      }
+    },
+    "cart_drawer": {
+      "name": "سلة التسوق المنزلقة",
+      "settings": {
+        "free_shipping_threshold": "حد الشحن المجاني (ر.س)"
+      }
+    },
+    "footer": {
+      "name": "تذييل الصفحة",
+      "settings": {
+        "logo": "شعار المتجر",
+        "brand_description": "وصف المتجر",
+        "copyright_text": "نص حقوق النشر",
+        "trust_tagline": "عبارة الثقة (أسفل الصفحة)"
+      },
+      "blocks": {
+        "link_list": {
+          "name": "قائمة روابط",
+          "settings": {
+            "heading": "عنوان القائمة",
+            "menu": "القائمة"
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "alignment": {
+      "left": "يسار",
+      "center": "وسط",
+      "right": "يمين"
+    },
+    "direction": {
+      "horizontal": "أفقي",
+      "vertical": "رأسي"
+    },
+    "image_position_right": "يمين",
+    "image_position_left": "يسار",
+    "page_width": {
+      "narrow": "ضيق",
+      "wide": "واسع"
+    },
+    "products_12": "١٢ منتج",
+    "products_24": "٢٤ منتج",
+    "products_48": "٤٨ منتج",
+    "size": {
+      "large": "كبير",
+      "small": "صغير"
+    },
+    "text_style": {
+      "title": "عنوان",
+      "subtitle": "عنوان فرعي",
+      "normal": "نص عادي"
+    }
+  }
+}

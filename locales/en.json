@@ -1,0 +1,141 @@
+{
+  "404": {
+    "title": "404",
+    "not_found": "Page not found.",
+    "back_to_shopping": "Back to shopping"
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "close_modal": "Close",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "blog": {
+    "article_comments": "Comments",
+    "article_metadata_html": "{{ date }} by {{ author }}",
+    "comment_form_body": "Comment",
+    "comment_form_email": "Email",
+    "comment_form_name": "Name",
+    "comment_form_submit": "Post",
+    "comment_form_title": "Add a comment"
+  },
+  "cart": {
+    "checkout": "Checkout",
+    "title": "Cart",
+    "update": "Update",
+    "remove": "Remove",
+    "general": {
+      "title": "Shopping cart",
+      "empty": "Your cart is empty.",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "update": "Update",
+      "remove": "Remove",
+      "quantity": "Quantity"
+    }
+  },
+  "collections": {
+    "title": "Collections"
+  },
+  "customers": {
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "title": "Login"
+    }
+  },
+  "general": {
+    "close": "Close",
+    "loading": "Loading…",
+    "search": "Search",
+    "announcement_bar": "Announcement bar"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "card": "Gift card",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this gift card at checkout"
+  },
+  "password": {
+    "title": "This shop is private",
+    "password": "Password",
+    "enter": "Enter"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search articles, pages, or products",
+    "submit": "Search",
+    "no_results_html": "No results found for {{ terms }}",
+    "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "sections": {
+    "header": {
+      "search_placeholder": "Search for a product…",
+      "cart_label": "Shopping cart",
+      "account_label": "My account",
+      "search_label": "Search"
+    },
+    "announcement_bar": {
+      "text": "Free shipping on orders over 200 SAR · Easy returns within 14 days"
+    },
+    "hero": {},
+    "reassurance_strip": {},
+    "collection_list": {},
+    "featured_collection": {
+      "view_all": "View all"
+    },
+    "editorial_band": {},
+    "collection": {
+      "breadcrumb_home": "Home",
+      "product_count_one": "1 product",
+      "product_count_other": "{{ count }} products",
+      "filter_label": "Filters",
+      "filter_age": "Age",
+      "filter_color": "Color",
+      "clear_filters": "Clear filters",
+      "no_results": "No products match this filter.",
+      "filters_toggle": "Filter products"
+    },
+    "product": {
+      "breadcrumb_home": "Home",
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "color_label": "Color",
+      "size_label": "Size (Age)",
+      "size_guide": "Size guide",
+      "trust_cotton": "100% Cotton",
+      "trust_gentle": "Gentle on skin",
+      "trust_shipping": "Free shipping over 200 SAR",
+      "accordion_details": "Product details",
+      "accordion_fabric": "Fabric & care",
+      "accordion_shipping": "Shipping & returns",
+      "quantity_label": "Quantity"
+    },
+    "cart_drawer": {
+      "title": "Your cart",
+      "empty_heading": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "free_shipping_progress": "Add {{ amount }} SAR for free shipping",
+      "free_shipping_achieved": "You've got free shipping!",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "tax_note": "Tax and shipping calculated at checkout.",
+      "remove_item": "Remove item",
+      "item_count_one": "item",
+      "item_count_other": "items"
+    },
+    "footer": {
+      "copyright": "© 2026 Beeko — All rights reserved.",
+      "trust_tagline": "100% Cotton · Ships within KSA · Secure payment"
+    }
+  }
+}

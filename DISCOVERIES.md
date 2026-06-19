@@ -234,6 +234,38 @@ assign volume_collection_url = volume.collection.value.url
 
 ---
 
+## Locale Files — Arabic Default Store
+
+### Make Arabic the default locale, not English
+
+**Issue:** Started with `en.default.json` and `ar.json`. Every key added to `ar.json` must also exist in `en.default.json` (Shopify validates non-default locales against the default). This means maintaining two full copies of every string for an Arabic-only store — pure overhead.
+
+**Root cause:** Shopify determines the default locale by the filename: the file with `.default.` in its name is the source of truth. Non-default locale files are validated as translations and must be a subset of the default.
+
+**Fix:** Rename the four locale files so Arabic is the default and English is just an optional translation:
+
+```
+locales/ar.default.json         ← Arabic storefront strings (source of truth)
+locales/ar.default.schema.json  ← Arabic schema labels (source of truth)
+locales/en.json                 ← English translation (optional, can be incomplete)
+locales/en.schema.json          ← English schema translation (optional)
+```
+
+Done once via shell:
+```bash
+mv locales/ar.json locales/ar.default.json
+mv locales/ar.schema.json locales/ar.default.schema.json
+mv locales/en.default.json locales/en.json
+mv locales/en.default.schema.json locales/en.schema.json
+```
+
+After this, add new strings **only** to `ar.default.json` and `ar.default.schema.json`. No English file maintenance required.
+
+**Files affected:** All four locale files in `locales/`
+**Date discovered:** 2026-06-20
+
+---
+
 ## Entry Template
 
 When adding a new discovery, copy this template:

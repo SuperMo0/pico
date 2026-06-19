@@ -1,0 +1,70 @@
+{%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
+  <div class="announcement-bar" role="region" aria-label="{{ 'general.announcement_bar' | t }}">
+    <div class="announcement-bar__inner">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">
+          {{- section.settings.announcement_text -}}
+        </a>
+      {%- else -%}
+        <p class="announcement-bar__text">{{- section.settings.announcement_text -}}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .announcement-bar {
+    background-color: var(--ink-900);
+    color: var(--text-on-dark);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-snug);
+    text-align: center;
+    padding-block: var(--space-2);
+    width: 100%;
+  }
+
+  .announcement-bar__inner {
+    padding-inline: var(--container-pad);
+  }
+
+  .announcement-bar__text {
+    margin: 0;
+    color: var(--text-on-dark);
+  }
+
+  .announcement-bar__link {
+    color: var(--text-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity var(--dur-fast) var(--ease-soft);
+  }
+
+  .announcement-bar__link:hover {
+    opacity: 0.8;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.announcement_bar.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "t:labels.show_announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "t:labels.announcement_text"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "t:labels.announcement_link"
+    }
+  ]
+}
+{% endschema %}

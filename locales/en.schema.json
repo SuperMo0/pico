@@ -1,0 +1,239 @@
+{
+  "general": {
+    "404": "Not found",
+    "announcement_bar": "Announcement bar",
+    "article": "Article",
+    "block": "Block",
+    "blog": "Blog",
+    "cart": "Cart",
+    "collection": "Collection",
+    "collections": "Collections",
+    "collection_card": "Collection card",
+    "collections_grid": "Collections grid",
+    "colors": "Colors",
+    "column": "Column",
+    "content": "Content",
+    "custom_section": "Custom section",
+    "fonts": "Fonts",
+    "footer": "Footer",
+    "group": "Group",
+    "header": "Header",
+    "layout": "Layout",
+    "main": "Main",
+    "page": "Page",
+    "password": "Password",
+    "primary": "Primary",
+    "product": "Product",
+    "row": "Row",
+    "search": "Search",
+    "secondary": "Secondary",
+    "section": "Section",
+    "settings": "Settings",
+    "sidebar": "Sidebar",
+    "text": "Text",
+    "theme": "Theme",
+    "typography": "Typography"
+  },
+  "labels": {
+    "alignment": "Alignment",
+    "announcement_bar_section": "Announcement bar",
+    "announcement_link": "Announcement link (optional)",
+    "announcement_text": "Announcement text",
+    "background": "Background",
+    "button_label": "Button label",
+    "button_link": "Button link",
+    "color_scheme": "Color scheme",
+    "customer_account_menu": "Customer account menu",
+    "foreground": "Foreground",
+    "full_width": "Full width",
+    "grid_gap": "Grid spacing",
+    "grid_item_width": "Grid item width",
+    "heading": "Heading",
+    "image": "Image",
+    "input_corner_radius": "Input corner radius",
+    "layout_direction": "Layout direction",
+    "link": "Link",
+    "menu": "Menu",
+    "padding": "Padding",
+    "page_margin": "Page margin",
+    "page_width": "Page width",
+    "show_announcement": "Show announcement bar",
+    "show_divider": "Show divider",
+    "show_payment_icons": "Show payment icons",
+    "subheading": "Subheading",
+    "text": "Text",
+    "text_style": "Text style"
+  },
+  "sections": {
+    "announcement_bar": {
+      "name": "Announcement bar"
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo": "Logo image",
+        "logo_width": "Logo width (px)",
+        "menu": "Navigation menu",
+        "show_search": "Show search",
+        "sticky_header": "Sticky header"
+      }
+    },
+    "hero": {
+      "name": "Hero banner",
+      "settings": {
+        "eyebrow_text": "Eyebrow text",
+        "heading": "Heading",
+        "subheading": "Subheading",
+        "image": "Banner image",
+        "image_position": "Image position",
+        "image_position_right": "Right",
+        "image_position_left": "Left",
+        "primary_cta_label": "Primary button label",
+        "primary_cta_url": "Primary button link",
+        "secondary_cta_label": "Secondary button label",
+        "secondary_cta_url": "Secondary button link"
+      },
+      "presets": {
+        "name": "Hero banner"
+      }
+    },
+    "reassurance_strip": {
+      "name": "Reassurance strip",
+      "settings": {},
+      "blocks": {
+        "item": {
+          "name": "Trust item",
+          "settings": {
+            "icon": "Icon",
+            "label": "Label",
+            "subtext": "Subtext (optional)"
+          }
+        }
+      },
+      "presets": {
+        "name": "Reassurance strip"
+      }
+    },
+    "collection_list": {
+      "name": "Category grid",
+      "settings": {
+        "heading": "Heading"
+      },
+      "blocks": {
+        "collection": {
+          "name": "Category",
+          "settings": {
+            "collection": "Collection"
+          }
+        }
+      },
+      "presets": {
+        "name": "Category grid"
+      }
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "settings": {
+        "heading": "Heading",
+        "collection": "Collection",
+        "product_count": "Number of products",
+        "view_all_label": "View all link label"
+      },
+      "presets": {
+        "name": "Featured collection"
+      }
+    },
+    "editorial_band": {
+      "name": "Editorial band",
+      "settings": {
+        "eyebrow": "Eyebrow text",
+        "heading": "Heading",
+        "body": "Body text",
+        "cta_label": "Button label",
+        "cta_url": "Button link",
+        "image": "Image",
+        "image_position": "Image position",
+        "image_position_right": "Right",
+        "image_position_left": "Left"
+      },
+      "presets": {
+        "name": "Editorial band"
+      }
+    },
+    "collection": {
+      "name": "Collection page",
+      "settings": {
+        "show_filters": "Show filters",
+        "products_per_page": "Products per page"
+      }
+    },
+    "product": {
+      "name": "Product page",
+      "settings": {
+        "show_breadcrumb": "Show breadcrumb"
+      },
+      "blocks": {
+        "accordion_panel": {
+          "name": "Accordion panel",
+          "settings": {
+            "title": "Title",
+            "content": "Content"
+          }
+        }
+      }
+    },
+    "cart_drawer": {
+      "name": "Cart drawer",
+      "settings": {
+        "free_shipping_threshold": "Free shipping threshold (SAR)"
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "logo": "Logo image",
+        "brand_description": "Brand description",
+        "copyright_text": "Copyright text",
+        "trust_tagline": "Trust tagline (bottom bar)"
+      },
+      "blocks": {
+        "link_list": {
+          "name": "Link list",
+          "settings": {
+            "heading": "Column heading",
+            "menu": "Menu"
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "alignment": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    },
+    "direction": {
+      "horizontal": "Horizontal",
+      "vertical": "Vertical"
+    },
+    "image_position_right": "Right",
+    "image_position_left": "Left",
+    "page_width": {
+      "narrow": "Narrow",
+      "wide": "Wide"
+    },
+    "products_12": "12 products",
+    "products_24": "24 products",
+    "products_48": "48 products",
+    "size": {
+      "large": "Large",
+      "small": "Small"
+    },
+    "text_style": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "normal": "Normal text"
+    }
+  }
+}

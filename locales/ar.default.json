@@ -1,0 +1,141 @@
+{
+  "404": {
+    "title": "٤٠٤",
+    "not_found": "الصفحة غير موجودة.",
+    "back_to_shopping": "العودة إلى التسوق"
+  },
+  "accessibility": {
+    "skip_to_content": "انتقل إلى المحتوى",
+    "close_modal": "إغلاق",
+    "open_menu": "فتح القائمة",
+    "close_menu": "إغلاق القائمة"
+  },
+  "blog": {
+    "article_comments": "التعليقات",
+    "article_metadata_html": "{{ date }} بقلم {{ author }}",
+    "comment_form_body": "تعليق",
+    "comment_form_email": "البريد الإلكتروني",
+    "comment_form_name": "الاسم",
+    "comment_form_submit": "نشر",
+    "comment_form_title": "أضِف تعليقًا"
+  },
+  "cart": {
+    "checkout": "إتمام الشراء",
+    "title": "السلة",
+    "update": "تحديث",
+    "remove": "إزالة",
+    "general": {
+      "title": "سلّة التسوق",
+      "empty": "سلّتك فارغة.",
+      "checkout": "إتمام الشراء",
+      "subtotal": "المجموع الفرعي",
+      "update": "تحديث",
+      "remove": "إزالة",
+      "quantity": "الكمية"
+    }
+  },
+  "collections": {
+    "title": "الفئات"
+  },
+  "customers": {
+    "login": {
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "title": "تسجيل الدخول"
+    }
+  },
+  "general": {
+    "announcement_bar": "شريط الإعلانات",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل…",
+    "search": "بحث"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "أضِف إلى محفظة Apple",
+    "card": "بطاقة هدية",
+    "expired": "انتهت صلاحية بطاقة الهدية",
+    "expires_on": "تنتهي في {{ expires_on }}",
+    "use_at_checkout": "استخدم هذه البطاقة عند الدفع"
+  },
+  "password": {
+    "title": "هذا المتجر خاص",
+    "password": "كلمة المرور",
+    "enter": "دخول"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "أضِف إلى السلّة",
+      "sold_out": "نفد المخزون",
+      "unavailable": "غير متوفر"
+    }
+  },
+  "search": {
+    "title": "بحث",
+    "placeholder": "ابحث عن مقالات أو صفحات أو منتجات",
+    "submit": "بحث",
+    "no_results_html": "لا توجد نتائج لـ {{ terms }}",
+    "results_for_html": "{{ count }} نتيجة لـ {{ terms }}"
+  },
+  "sections": {
+    "header": {
+      "search_placeholder": "ابحثي عن منتج…",
+      "cart_label": "سلّة التسوق",
+      "account_label": "حسابي",
+      "search_label": "بحث"
+    },
+    "announcement_bar": {
+      "text": "شحن مجاني للطلبات فوق ٢٠٠ ر.س · إرجاع سهل خلال ١٤ يومًا"
+    },
+    "hero": {},
+    "reassurance_strip": {},
+    "collection_list": {},
+    "featured_collection": {
+      "view_all": "عرض الكل"
+    },
+    "editorial_band": {},
+    "collection": {
+      "breadcrumb_home": "الرئيسية",
+      "product_count_one": "منتج واحد",
+      "product_count_other": "{{ count }} منتج",
+      "filter_label": "الفلاتر",
+      "filter_age": "العمر",
+      "filter_color": "اللون",
+      "clear_filters": "مسح الفلاتر",
+      "no_results": "لا توجد منتجات بهذا الفلتر.",
+      "filters_toggle": "فلترة المنتجات"
+    },
+    "product": {
+      "breadcrumb_home": "الرئيسية",
+      "add_to_cart": "أضِف إلى السلّة",
+      "sold_out": "نفد المخزون",
+      "color_label": "اللون",
+      "size_label": "المقاس (العمر)",
+      "size_guide": "دليل القياس",
+      "trust_cotton": "قطن ١٠٠٪",
+      "trust_gentle": "لطيف على البشرة",
+      "trust_shipping": "شحن مجاني فوق ٢٠٠ ر.س",
+      "accordion_details": "تفاصيل المنتج",
+      "accordion_fabric": "الخامة والعناية",
+      "accordion_shipping": "الشحن والإرجاع",
+      "quantity_label": "الكمية"
+    },
+    "cart_drawer": {
+      "title": "سلّتك",
+      "empty_heading": "سلّتك فارغة الآن.",
+      "continue_shopping": "تابعي التسوّق",
+      "free_shipping_progress": "أضِف {{ amount }} ر.س للحصول على شحن مجاني",
+      "free_shipping_achieved": "رائع — حصلتِ على الشحن المجاني!",
+      "subtotal": "المجموع الفرعي",
+      "checkout": "إتمام الشراء",
+      "tax_note": "الضريبة والشحن تُحتسب عند الدفع.",
+      "remove_item": "إزالة المنتج",
+      "item_count_one": "منتج",
+      "item_count_other": "منتجات"
+    },
+    "footer": {
+      "copyright": "© ٢٠٢٦ بيكو — جميع الحقوق محفوظة.",
+      "trust_tagline": "قطن ١٠٠٪ · شحن داخل المملكة · دفع آمن"
+    }
+  }
+}
