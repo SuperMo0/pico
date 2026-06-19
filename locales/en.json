@@ -79,6 +79,7 @@
   },
   "sections": {
     "header": {
+      "nav_label": "Site navigation",
       "search_placeholder": "Search for a product…",
       "cart_label": "Shopping cart",
       "account_label": "My account",

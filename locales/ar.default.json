@@ -79,6 +79,7 @@
   },
   "sections": {
     "header": {
+      "nav_label": "التنقل في الموقع",
       "search_placeholder": "ابحثي عن منتج…",
       "cart_label": "سلّة التسوق",
       "account_label": "حسابي",

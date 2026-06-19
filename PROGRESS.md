@@ -15,3 +15,6 @@
 | 2026-06-20 | Locales | Translated all en.json keys to Arabic in ar.default.json; 0 locale errors remain | Done |
 | 2026-06-20 | CLAUDE.md | Compacted to ~140 lines; added locale+theme-check rule for new sections | Done |
 | 2026-06-20 | theme.css | Added body margin:0 + box-sizing reset; announcement bar now full-width | Done |
+| 2026-06-20 | Header | Rebuilt sections/header.liquid — sticky bar, logo, linklist nav, icon toolbar | Done |
+| 2026-06-20 | Header | Implemented site-header (hamburger+overlay+focus-trap), search-toggle, cart-count web components | Done |
+| 2026-06-20 | Locales | Added sections.header.nav_label to ar.default.json + en.json; 0 errors on theme check | Done |

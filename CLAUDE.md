@@ -37,13 +37,14 @@ shopify theme check                      # Lint / validate — run after every s
 
 - Every section is its own file in `sections/`. Never embed one section inside another.
 - Every section has a `{% schema %}` with `name`, `settings`, `blocks` (where applicable), and `presets`.
-- Run `shopify theme check` after implementing a section and fix all errors before marking done.
+- **Completion gate (mandatory):** After implementing any section or feature, run `shopify theme check` and fix every reported error to zero before marking the task done or updating `PROGRESS.md`. No exceptions.
 
 ### Locale — Arabic is the default
 
 - `locales/ar.default.json` — all storefront strings (used by `{{ 'key' | t }}`)
 - `locales/ar.default.schema.json` — all schema editor strings (used by `t:` in schema)
 - **When implementing any section:** add ALL new locale keys to both Arabic files first. English files (`en.json`, `en.schema.json`) must be a subset of the Arabic defaults — never add keys there that don't exist in the Arabic files.
+- **Before referencing any locale key** in `{{ 'key' | t }}` or a `t:` schema field, open `locales/ar.default.json` (or `ar.default.schema.json`) and confirm the key is present. Never write the reference first and add the key later.
 - Keys must be namespaced: `sections.<name>.*`, `labels.*`, `general.*`, `accessibility.*`
 - A section is NOT done until `shopify theme check` shows zero `TranslationKeyExists` or `MatchingTranslations` errors.
 
@@ -78,6 +79,13 @@ Static fallback only inside `{% if section.settings.collection == blank %}`.
 - All interactive UI = web components (`class Foo extends HTMLElement`). One component per file. Init in `connectedCallback()`. Scope with `this.querySelector()`.
 - Cross-component events fire on `document` with `theme:` prefix: `document.dispatchEvent(new CustomEvent('theme:cart:updated', { detail: { cart } }))`.
 - `document.currentScript` is always `null` inside `{% javascript %}` blocks — never use it.
+
+### Modularity — prefer reuse over repetition
+
+- **Snippets first:** Any markup used in 2+ sections belongs in `snippets/`. Render with `{% render 'snippet-name', param: value %}`. Never copy-paste Liquid blocks between sections.
+- **Global CSS utilities:** Before writing new CSS, check `assets/theme.css` for an existing utility class. Add shared patterns there; never duplicate them in section stylesheets.
+- **Global JS utilities:** Shared logic (e.g. focus trap, debounce, fetch helpers) lives in a dedicated `assets/*.js` file. Load it once; never inline the same logic in multiple components.
+- If no reusable snippet/utility exists yet but the pattern will recur, create it first, then use it.
 
 ### Accessibility
 
