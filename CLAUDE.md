@@ -1,0 +1,1 @@
+/home/pf/Documents/webdev/shopify/pico/git@github.com:Shopify/skeleton-theme.git/AGENTS.md

@@ -1,0 +1,3 @@
+[environments.env1]
+theme = "pico/main"
+store = "cd13js-gf"
