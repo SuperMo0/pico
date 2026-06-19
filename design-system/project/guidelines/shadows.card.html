@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Shadows" subtitle="Warm-tinted, soft, diffuse. Borders do most of the work." -->
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 28px 24px; background: var(--cream-50); font-family: var(--font-body); }
+  .row { display: flex; gap: 24px; }
+  .col { text-align: center; flex: 1; }
+  .box { height: 64px; background: var(--white); border-radius: var(--radius-md); border: 1px solid var(--border-hairline); }
+  .nm { font-size: 11px; color: var(--ink-700); font-weight: 600; margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-xs)"></div><div class="nm">xs</div></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="nm">sm · hover</div></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="nm">md · menu</div></div>
+    <div class="col"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="nm">lg · dialog</div></div>
+  </div>
+</body>
+</html>

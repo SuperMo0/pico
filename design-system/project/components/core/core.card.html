@@ -1,0 +1,85 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Core — buttons, inputs, badges, chips" subtitle="Beeko UI primitives." -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--cream-50); font-family: var(--font-body); }
+  .sec { margin-bottom: 22px; }
+  .lbl { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-500); font-weight: 600; margin-bottom: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const NS = window.BeekoDesignSystem_e717fe;
+    const { Button, IconButton, Input, Badge, Chip, ColorSwatch, QtyStepper } = NS;
+    const Ic = (n, st) => <i data-lucide={n} style={{ width: 18, height: 18, ...st }} />;
+    function Sec({ label, children }) {
+      return <div className="sec"><div className="lbl">{label}</div><div className="row">{children}</div></div>;
+    }
+    function Demo() {
+      const [qty, setQty] = React.useState(2);
+      const [c, setC] = React.useState('blue');
+      React.useEffect(() => { window.lucide && window.lucide.createIcons(); });
+      return (
+        <div>
+          <Sec label="Buttons">
+            <Button variant="primary">أضِف إلى السلّة</Button>
+            <Button variant="accent" iconStart={Ic('leaf')}>قطن عضوي</Button>
+            <Button variant="outline">تابع التسوّق</Button>
+            <Button variant="ghost">إلغاء</Button>
+            <Button variant="primary" disabled>غير متوفّر</Button>
+          </Sec>
+          <Sec label="Button sizes">
+            <Button size="sm">صغير</Button>
+            <Button size="md">متوسط</Button>
+            <Button size="lg">كبير</Button>
+          </Sec>
+          <Sec label="Icon buttons">
+            <IconButton icon={Ic('search')} label="بحث" variant="outline" />
+            <IconButton icon={Ic('heart')} label="المفضّلة" variant="ghost" />
+            <IconButton icon={Ic('shopping-bag')} label="السلّة" variant="ghost" badge={3} />
+            <IconButton icon={Ic('user')} label="حسابي" variant="solid" round />
+          </Sec>
+          <Sec label="Badges">
+            <Badge tone="neutral">جديد</Badge>
+            <Badge tone="sage">قطن ١٠٠٪</Badge>
+            <Badge tone="sale" solid>خصم ٢٠٪</Badge>
+            <Badge tone="success">متوفّر</Badge>
+            <Badge tone="info">شحن مجاني</Badge>
+          </Sec>
+          <Sec label="Chips">
+            <Chip icon={Ic('leaf', {width:15,height:15})}>قطن ١٠٠٪</Chip>
+            <Chip selectable selected>٦ أشهر</Chip>
+            <Chip selectable>سنة</Chip>
+            <Chip selectable>سنتان</Chip>
+          </Sec>
+          <Sec label="Color swatches">
+            {['blue','pink','peach','mint','sage','lilac','cream','grey'].map(x =>
+              <ColorSwatch key={x} color={x} selected={c===x} onClick={() => setC(x)} />)}
+          </Sec>
+          <div className="sec" style={{ marginBottom: 0 }}>
+            <div className="lbl">Input · Quantity</div>
+            <div className="row" style={{ alignItems: 'flex-end' }}>
+              <div style={{ width: 280 }}>
+                <Input label="البريد الإلكتروني" placeholder="name@example.com" icon={Ic('mail')} />
+              </div>
+              <QtyStepper value={qty} onChange={setQty} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+    setTimeout(() => window.lucide && window.lucide.createIcons(), 60);
+  </script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</body>
+</html>

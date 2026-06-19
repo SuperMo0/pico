@@ -1,0 +1,57 @@
+/* ===========================================================================
+   Beeko — Base element styles & RTL defaults
+   Applied document-wide. Arabic-first, dir=rtl.
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  direction: rtl;
+  text-align: right;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  line-height: var(--lh-heading);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-4);
+}
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+
+p { margin: 0 0 var(--space-4); }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+a:hover { color: var(--link-hover); }
+
+img { display: block; max-width: 100%; }
+
+::selection { background: var(--sage-200); color: var(--ink-900); }
+
+/* Eyebrow / Latin label utility */
+.beeko-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: var(--fw-semibold);
+}

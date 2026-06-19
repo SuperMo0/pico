@@ -1,0 +1,26 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Corner radii" subtitle="Gentle. Nothing sharp, nothing bubbly." -->
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--cream-50); font-family: var(--font-body); }
+  .row { display: flex; gap: 16px; }
+  .col { text-align: center; flex: 1; }
+  .box { height: 64px; background: var(--white); border: 1px solid var(--sand-300); }
+  .nm { font-size: 11px; color: var(--ink-700); font-weight: 600; margin-top: 8px; }
+  .vl { font-size: 10px; color: var(--ink-500); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="col"><div class="box" style="border-radius:var(--radius-xs)"></div><div class="nm">xs</div><div class="vl">4px</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="nm">sm</div><div class="vl">8px</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-md)"></div><div class="nm">md</div><div class="vl">12px</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="nm">lg · card</div><div class="vl">18px</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="nm">xl</div><div class="vl">26px</div></div>
+    <div class="col"><div class="box" style="border-radius:var(--radius-pill)"></div><div class="nm">pill</div><div class="vl">999</div></div>
+  </div>
+</body>
+</html>

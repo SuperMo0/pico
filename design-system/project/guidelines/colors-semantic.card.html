@@ -1,0 +1,33 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic status" subtitle="Success, sale (warm clay), info." -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--cream-50); font-family: var(--font-body); }
+  .row { display: flex; gap: 16px; }
+  .pair { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .bar { display: flex; gap: 8px; align-items: center; }
+  .dot { width: 38px; height: 38px; border-radius: var(--radius-sm); }
+  .tint { flex: 1; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; padding: 0 12px; font-size: 12px; font-weight: 600; }
+  .nm { font-size: 12px; color: var(--ink-700); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="pair">
+      <div class="bar"><div class="dot" style="background:var(--success-600)"></div><div class="tint" style="background:var(--success-100);color:var(--success-600)">متوفّر</div></div>
+      <div class="nm">success</div>
+    </div>
+    <div class="pair">
+      <div class="bar"><div class="dot" style="background:var(--sale-600)"></div><div class="tint" style="background:var(--sale-100);color:var(--sale-600)">خصم ٢٠٪</div></div>
+      <div class="nm">sale · clay</div>
+    </div>
+    <div class="pair">
+      <div class="bar"><div class="dot" style="background:var(--info-600)"></div><div class="tint" style="background:var(--info-100);color:var(--info-600)">شحن مجاني</div></div>
+      <div class="nm">info</div>
+    </div>
+  </div>
+</body>
+</html>

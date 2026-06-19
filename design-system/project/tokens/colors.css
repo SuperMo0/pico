@@ -1,0 +1,89 @@
+/* ===========================================================================
+   Beeko — Color tokens
+   Warm, calm, cotton. A neutral cream-and-ink base lets the pastel
+   products do the talking. One quiet sage accent, used sparingly.
+   =========================================================================== */
+
+:root {
+  /* --- Warm neutrals (the canvas) ------------------------------------- */
+  --cream-50:  #FCFAF6;   /* page background */
+  --cream-100: #F6F1E9;   /* subtle raised surface / hover */
+  --cream-200: #EFE8DC;   /* tinted block, banners */
+  --sand-200:  #E7DECF;   /* hairline borders, dividers */
+  --sand-300:  #D8CCB8;   /* stronger border, disabled fill */
+  --taupe-400: #B6A992;   /* muted icon, decorative */
+
+  --white:     #FFFFFF;   /* product cards, sheets */
+
+  /* --- Warm ink (text + primary chrome) ------------------------------- */
+  --ink-900:   #2B2721;   /* primary text, primary button fill */
+  --ink-800:   #3D372E;
+  --ink-700:   #5A5246;   /* secondary text */
+  --ink-500:   #8C8473;   /* muted text, placeholders */
+  --ink-300:   #B7AF9E;   /* faint captions */
+
+  /* --- Sage accent (organic cotton; used sparingly) ------------------- */
+  --sage-700:  #5E6C4F;   /* accent text on cream, links hover */
+  --sage-600:  #6E7D5C;   /* accent / secondary action */
+  --sage-500:  #84926F;
+  --sage-200:  #D5DCC6;   /* accent tint border */
+  --sage-100:  #E9EEDF;   /* accent tint background */
+
+  /* --- Semantic status ----------------------------------------------- */
+  --success-600: #5E7D55;
+  --success-100: #E7EEDF;
+  --sale-600:    #B0593F;   /* warm clay — discounts / sale price */
+  --sale-100:    #F5E6DF;
+  --info-600:    #5B7385;
+  --info-100:    #E3ECF0;
+
+  /* --- Product palette (the 8 cotton colorways) ----------------------- */
+  --pc-blue:   #BFD6E8;
+  --pc-pink:   #F2CCD6;
+  --pc-peach:  #F5CFAE;
+  --pc-mint:   #BFE3D0;
+  --pc-sage:   #C6CFB0;
+  --pc-lilac:  #D6CCE6;
+  --pc-cream:  #EFE3CC;
+  --pc-grey:   #D5D3CE;
+
+  /* =====================================================================
+     Semantic aliases — reference THESE in components, not raw values.
+     ===================================================================== */
+
+  /* Surfaces */
+  --surface-page:     var(--cream-50);
+  --surface-card:     var(--white);
+  --surface-raised:   var(--cream-100);
+  --surface-sunken:   var(--cream-200);
+  --surface-accent:   var(--sage-100);
+
+  /* Text */
+  --text-strong:      var(--ink-900);
+  --text-body:        var(--ink-700);
+  --text-muted:       var(--ink-500);
+  --text-faint:       var(--ink-300);
+  --text-on-dark:     var(--cream-50);
+  --text-accent:      var(--sage-700);
+  --text-sale:        var(--sale-600);
+
+  /* Borders */
+  --border-hairline:  var(--sand-200);
+  --border-strong:    var(--sand-300);
+  --border-accent:    var(--sage-200);
+  --border-focus:     var(--ink-900);
+
+  /* Interactive — primary = warm ink (premium, product-neutral) */
+  --action-primary:        var(--ink-900);
+  --action-primary-hover:  var(--ink-800);
+  --action-primary-text:   var(--cream-50);
+
+  /* Interactive — secondary = sage */
+  --action-accent:         var(--sage-600);
+  --action-accent-hover:   var(--sage-700);
+  --action-accent-text:    var(--white);
+
+  /* Links */
+  --link:                  var(--ink-900);
+  --link-hover:            var(--sage-700);
+}
