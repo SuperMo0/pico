@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_LHN88W": {
@@ -17,52 +26,61 @@
     },
     "reassurance": {
       "type": "reassurance-strip",
-      "settings": {},
       "blocks": {
         "leaf": {
           "type": "item",
           "settings": {
             "icon": "leaf",
-            "label": "قطن ١٠٠٪"
+            "label": "قطن ١٠٠٪",
+            "subtext": ""
           }
         },
         "feather": {
           "type": "item",
           "settings": {
             "icon": "feather",
-            "label": "لطيف على البشرة"
+            "label": "لطيف على البشرة",
+            "subtext": ""
           }
         },
         "truck": {
           "type": "item",
           "settings": {
             "icon": "truck",
-            "label": "شحن مجاني فوق ٢٠٠ ر.س"
+            "label": "شحن مجاني فوق ٢٠٠ ر.س",
+            "subtext": ""
           }
         },
         "refresh": {
           "type": "item",
           "settings": {
             "icon": "refresh-ccw",
-            "label": "إرجاع سهل ١٤ يومًا"
+            "label": "إرجاع سهل ١٤ يومًا",
+            "subtext": ""
           }
         }
       },
-      "block_order": ["leaf", "feather", "truck", "refresh"]
+      "block_order": [
+        "leaf",
+        "feather",
+        "truck",
+        "refresh"
+      ],
+      "settings": {}
     },
     "categories": {
       "type": "collection-list",
       "settings": {
         "heading": "تسوّقي حسب الفئة"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
         "heading": "الأكثر مبيعًا",
-        "product_count": "4"
+        "collection": "frontpage",
+        "product_count": "4",
+        "view_all_label": ""
       }
     },
     "editorial": {
@@ -72,6 +90,7 @@
         "heading": "خامة تتنفّس، تبقى ناعمة",
         "body": "<p>نختار قطنًا طبيعيًا لطيفًا على البشرة الحسّاسة، ويحتفظ بنعومته بعد كل غسلة.</p>",
         "cta_label": "اعرفي أكثر",
+        "cta_url": "",
         "image_position": "right"
       }
     }
