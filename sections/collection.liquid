@@ -69,6 +69,7 @@
                         endif
                       -%}
                       {%- if is_color_filter -%}
+                        {{value.value.label}}
                         {%- assign swatch_token = 'pc-' | append: value.label | downcase | handleize -%}
                         <a href="{{ chip_url }}"
                            class="collection-filter__swatch{% if value.active %} collection-filter__swatch--active{% endif %}"

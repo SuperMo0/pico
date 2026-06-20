@@ -16,7 +16,7 @@
   endif
   assign age_range     = product.metafields.custom.age_range.value
   assign img_widths    = '200,300,400,600'
-  assign img_sizes     = '(min-width: 768px) 25vw, 50vw'
+  assign img_sizes     = '(min-width: 768px) 25vw, 100vw'
   assign primary_alt   = card_media.alt | default: product.title
   assign primary_style = 'object-fit: cover; object-position: ' | append: card_media.presentation.focal_point
   assign hover_style   = 'object-fit: cover; object-position: ' | append: hover_media.presentation.focal_point

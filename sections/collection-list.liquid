@@ -38,8 +38,7 @@
             {%- else -%}
               {{ 'collection-1' | placeholder_svg_tag: 'collection-list__placeholder' }}
             {%- endif -%}
-
-            <span class="collection-list__card-label">{{ col.title }}</span>
+               <span class="collection-list__card-label">{{ col.title }}</span>
           </div>
         </a>
       {%- endfor -%}
@@ -110,9 +109,10 @@
   font-family: var(--font-display);
   font-weight: var(--fw-bold);
   font-size: var(--fs-h4);
-  color: var(--ink-900);
+  color: var(--ink-800);
   text-align: center;
-  display: block;
+  display: grid;
+  place-items: center;
   overflow-wrap: break-word;
 }
 

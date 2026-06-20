@@ -50,6 +50,9 @@
   --pc-lilac:  #D6CCE6;
   --pc-cream:  #EFE3CC;
   --pc-grey:   #D5D3CE;
+  --pc-green:   #92dfb8;
+  --pc-green:   #92dfb8;
+  --pc-orange:   #da8845;
 
   /* --- Colors: Semantic aliases — use these in components ----------------- */
   --surface-page:          var(--cream-50);
