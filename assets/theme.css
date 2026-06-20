@@ -292,3 +292,60 @@ p {
   color: var(--text-muted);
   font-weight: var(--fw-semibold);
 }
+
+/* ---------------------------------------------------------------------------
+   Button utilities — shared across all sections
+   --------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-md);
+  padding: 12px var(--space-5);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 44px;
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft);
+}
+
+.btn--lg { font-size: var(--fs-body-lg); padding: 14px var(--space-6); }
+
+.btn--primary {
+  background: var(--action-primary);
+  color: var(--action-primary-text);
+  border-color: var(--action-primary);
+}
+.btn--primary:hover {
+  background: var(--action-primary-hover);
+  border-color: var(--action-primary-hover);
+  color: var(--action-primary-text);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--text-strong);
+  border-color: var(--border-strong);
+}
+.btn--outline:hover { background: var(--surface-raised); }
+
+.btn--accent {
+  background: var(--action-accent);
+  color: var(--action-accent-text);
+  border-color: var(--action-accent);
+}
+.btn--accent:hover {
+  background: var(--action-accent-hover);
+  border-color: var(--action-accent-hover);
+  color: var(--action-accent-text);
+}
+
+.btn:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }

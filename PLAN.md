@@ -287,13 +287,13 @@ Accepts variable `product`. Card layout: flex column, `gap: var(--space-3)`. Ima
 
 Layout: 2-column CSS grid `1fr 1fr`, `gap: var(--space-8)`, `align-items: center`. Padding block: `var(--space-10)` top + bottom. Text column: eyebrow (`.beeko-eyebrow`), h1 (`--fs-display` font-size), body paragraph (`--fs-body-lg`, `--text-body`, `max-width: 46ch`), two CTA buttons side-by-side (`gap: var(--space-3)`). Image column: `border-radius: var(--radius-xl)`, `overflow: hidden`, `background: var(--cream-100)`, `aspect-ratio: 4/5`, image fills 100% with `object-fit: cover`. On mobile (< 768px): single column, image below text.
 
-- [ ] Add to `locales/ar.default.schema.json` under `sections.hero.settings`:
+- [x] Add to `locales/ar.default.schema.json` under `sections.hero.settings`:
   - `eyebrow_text`, `heading`, `subheading`, `image`, `image_position`, `image_position_right`, `image_position_left`, `primary_cta_label`, `primary_cta_url`, `secondary_cta_label`, `secondary_cta_url`
   - Add preset name under `sections.hero.presets.name`
 
-- [ ] Add matching English values to `locales/en.schema.json`.
+- [x] Add matching English values to `locales/en.schema.json`.
 
-- [ ] Create `sections/hero.liquid` with full Liquid + schema:
+- [x] Create `sections/hero.liquid` with full Liquid + schema:
 
 ```liquid
 {%- liquid
@@ -337,29 +337,9 @@ Layout: 2-column CSS grid `1fr 1fr`, `gap: var(--space-8)`, `align-items: center
 </section>
 ```
 
-- [ ] Add `{% stylesheet %}` with:
+- [x] Add `{% stylesheet %}` with mobile-first CSS (base: single column, `@media (min-width: 768px)` for 2-col).
 
-```css
-.hero { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-pad); padding-block: var(--space-10); }
-.hero__inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center; }
-.hero__inner--img-left .hero__text { order: 2; }
-.hero__inner--img-left .hero__media { order: 1; }
-.hero__eyebrow { margin-bottom: var(--space-4); }
-.hero__heading { font-size: var(--fs-display); line-height: 1.15; margin-bottom: var(--space-4); }
-.hero__sub { font-size: var(--fs-body-lg); color: var(--text-body); max-width: 46ch; margin-bottom: var(--space-6); }
-.hero__ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-.hero__media { border-radius: var(--radius-xl); overflow: hidden; background: var(--cream-100); aspect-ratio: 4 / 5; }
-.hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero__placeholder { width: 100%; height: 100%; }
-@media (max-width: 767px) {
-  .hero__inner { grid-template-columns: 1fr; }
-  .hero__inner--img-left .hero__text { order: 1; }
-  .hero__inner--img-left .hero__media { order: 2; }
-  .hero__heading { font-size: var(--fs-h1); }
-}
-```
-
-- [ ] Add global button utilities to `assets/theme.css` (if not already present):
+- [x] Add global button utilities to `assets/theme.css` (if not already present):
 
 ```css
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
@@ -376,9 +356,9 @@ Layout: 2-column CSS grid `1fr 1fr`, `gap: var(--space-8)`, `align-items: center
 .btn:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
 ```
 
-- [ ] Add `{% schema %}` with name `t:sections.hero.name`, settings for eyebrow_text, heading, subheading (richtext), image, image_position (select with right/left options), primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url; one preset `t:sections.hero.presets.name`.
+- [x] Add `{% schema %}` with name `t:sections.hero.name`, settings for eyebrow_text, heading, subheading (richtext), image, image_position (select with right/left options), primary_cta_label, primary_cta_url, secondary_cta_label, secondary_cta_url; one preset `t:sections.hero.presets.name`.
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 
