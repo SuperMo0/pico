@@ -50,4 +50,10 @@ Wired all 5 homepage sections in order: hero (preserved existing entry with real
 
 ---
 
+### Task 9 — `sections/cart-drawer.liquid` + `sections/header-group.json` (2026-06-20)
+
+Created slide-in cart drawer panel. All locale keys were already present. Translation strings for the dynamic shipping-progress message are embedded as `data-i18n-*` attributes using `| t: amount: '__AMOUNT__'` so JS can inject the real amount at runtime. Panel slides from `inset-inline-start: 0` (right edge in RTL) via `translateX(100%)` → `translateX(0)` using a CSS `--open` modifier class. `requestAnimationFrame` guards the class toggle so the CSS transition fires after `hidden` is removed. Scroll-lock via `html.scroll-lock { overflow: hidden }` defined in the section stylesheet. `_changeQty` re-dispatches `theme:cart:updated` after `/cart/change.js` resolves so any other listeners (e.g., header count badge) stay in sync. Added `cart-drawer` to `header-group.json` so the drawer renders on every page. `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements

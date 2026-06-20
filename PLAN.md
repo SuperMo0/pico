@@ -622,11 +622,11 @@ Panel: `position: fixed; top: 0; bottom: 0; inset-inline-start: 0; width: 420px;
 4. **Empty state** — shopping-bag icon (40px `--ink-300`), "سلّتك فارغة الآن.", "تابعي التسوّق" outline button
 5. **Footer** — subtotal label + price, primary "إتمام الشراء" button (`routes.cart_url`), tax fine-print
 
-- [ ] Verify all locale keys exist in `locales/ar.default.json` (add if missing): `sections.cart_drawer.title`, `empty_heading`, `continue_shopping`, `free_shipping_progress`, `free_shipping_achieved`, `subtotal`, `checkout`, `tax_note`, `remove_item`, `item_count_one`, `item_count_other`
-- [ ] Verify `locales/ar.default.schema.json` has `sections.cart_drawer.settings.free_shipping_threshold`
-- [ ] Sync English locale files.
+- [x] Verify all locale keys exist in `locales/ar.default.json` (add if missing): all present — no additions needed.
+- [x] Verify `locales/ar.default.schema.json` has `sections.cart_drawer.settings.free_shipping_threshold` — present.
+- [x] Sync English locale files — already in sync.
 
-- [ ] Create `sections/cart-drawer.liquid` with full markup (schema: `free_shipping_threshold` number setting, default 200):
+- [x] Create `sections/cart-drawer.liquid` with full markup (schema: `free_shipping_threshold` number setting, default 200):
 
 ```liquid
 <cart-drawer id="cart-drawer" class="cart-drawer" aria-modal="true" role="dialog" aria-label="{{ 'sections.cart_drawer.title' | t }}" hidden>
@@ -668,9 +668,9 @@ Panel: `position: fixed; top: 0; bottom: 0; inset-inline-start: 0; width: 420px;
 </cart-drawer>
 ```
 
-- [ ] Add `{% stylesheet %}` matching CartDrawer.jsx layout exactly (scrim, panel slide, shipping bar, item row, footer).
+- [x] Add `{% stylesheet %}` matching CartDrawer.jsx layout exactly (scrim, panel slide, shipping bar, item row, footer).
 
-- [ ] Add `{% javascript %}` with `<cart-drawer>` web component:
+- [x] Add `{% javascript %}` with `<cart-drawer>` web component:
   - Listens for `theme:cart:updated` on `document`; calls `this._renderCart(cart)` to rebuild items list, update count, subtotal, shipping bar
   - `open()`: removes `hidden`, sets `transform: translateX(0)` via class, adds `scroll-lock` to `<html>`
   - `close()`: adds `hidden` back, removes scroll-lock
@@ -678,9 +678,9 @@ Panel: `position: fixed; top: 0; bottom: 0; inset-inline-start: 0; width: 420px;
   - ESC key calls `close()`
   - `_renderCart(cart)`: builds item rows from `cart.items` (thumbnail, title, variant, qty AJAX stepper, remove button, line price), shows/hides empty state, updates subtotal, updates shipping bar width
 
-- [ ] Modify `sections/header-group.json`: add `"cart-drawer": { "type": "cart-drawer", "settings": {} }` to sections object and add `"cart-drawer"` to order array.
+- [x] Modify `sections/header-group.json`: add `"cart-drawer": { "type": "cart-drawer", "settings": {} }` to sections object and add `"cart-drawer"` to order array.
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
 
 ---
 
