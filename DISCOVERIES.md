@@ -95,6 +95,32 @@ Wrap in `DOMContentLoaded` if the element may not exist yet at script parse time
 
 ## CSS & Layout
 
+### `.shopify-section` grid already constrains container width — never add `max-width`
+
+**Issue:** Added `max-width: var(--container-max); margin-inline: auto;` to `__inner` divs inside every section, expecting that to limit content width.
+
+**Root cause:** `assets/critical.css` defines `.shopify-section` as a 3-column CSS grid:
+`[margin] [content-column] [margin]`. Every direct child defaults to `grid-column: 2` (the content column), whose width is already controlled by `--page-width` and `--page-margin`. The inner `max-width` is therefore redundant and can interfere.
+
+**Bad:**
+
+```css
+.hero__inner { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-pad); }
+```
+
+**Fix:** Remove `max-width` from all `__inner` containers. Use only `padding-inline`:
+
+```css
+.hero__inner { padding-inline: var(--container-pad); }
+```
+
+For sections that need an **edge-to-edge background** (footer, hero, editorial band): add class `full-width` to the section root element. This triggers `.shopify-section > .full-width { grid-column: 1 / -1 }` — background spans full viewport. Inner container still uses only `padding-inline`, no `max-width`.
+
+**Files affected:** All section `{% stylesheet %}` blocks
+**Date discovered:** 2026-06-20
+
+---
+
 ### Grid collapses when a conditionally-rendered child is missing
 
 **Issue:** Gallery grid used `grid-template-columns: 72px 1fr`. On single-media products, the thumbnail `<ol>` is not rendered, so the stage `<div>` auto-places into the first (72px) column, squashing the image to 72px wide.

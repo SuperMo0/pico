@@ -5,7 +5,7 @@
     "article": "مقالة",
     "block": "بلوك",
     "blog": "مدونة",
-    "cart": "السلة",
+    "cart": "السلّة",
     "collection": "فئة",
     "collections": "الفئات",
     "collection_card": "بطاقة فئة",
@@ -62,7 +62,8 @@
     "show_payment_icons": "إظهار أيقونات الدفع",
     "subheading": "العنوان الفرعي",
     "text": "نص",
-    "text_style": "نمط النص"
+    "text_style": "نمط النص",
+    "cart_type": "نوع عرض السلّة"
   },
   "sections": {
     "announcement_bar": {
@@ -193,7 +194,8 @@
         "logo": "شعار المتجر",
         "brand_description": "وصف المتجر",
         "copyright_text": "نص حقوق النشر",
-        "trust_tagline": "عبارة الثقة (أسفل الصفحة)"
+        "trust_tagline": "عبارة الثقة (أسفل الصفحة)",
+        "logo_width": "عرض الشعار"
       },
       "blocks": {
         "link_list": {
@@ -233,6 +235,10 @@
       "title": "عنوان",
       "subtitle": "عنوان فرعي",
       "normal": "نص عادي"
+    },
+    "cart_type": {
+      "drawer": "درج منزلق",
+      "page": "صفحة السلّة"
     }
   }
 }

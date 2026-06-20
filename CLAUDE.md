@@ -83,6 +83,8 @@ Static fallback only inside `{% if section.settings.collection == blank %}`.
 ### Styling
 
 - All colors, type, spacing, and motion from tokens in `assets/theme.css` — never raw hex, font family, or magic numbers.
+- **Never add `max-width: var(--container-max)` to section inner containers.** The `.shopify-section` class in `assets/critical.css` is a 3-column CSS grid whose middle column is already width-constrained by `--page-width`. Every direct child of `.shopify-section` defaults to `grid-column: 2` (the constrained column). Adding `max-width` on inner `__inner` divs is redundant. Use only `padding-inline: var(--container-pad)` for horizontal breathing room.
+- **Full-width sections** (those that need an edge-to-edge background, e.g. footer, hero): add class `full-width` to the section's root element — this spans `grid-column: 1 / -1` (full viewport). The inner container still must NOT use `max-width: var(--container-max)`, only `padding-inline: var(--container-pad)`.
 - Global stylesheet (`assets/theme.css`): body defaults, h1–h6 base, box-sizing reset, `.visually-hidden`, shared utilities.
 - Section `{% stylesheet %}`: layout unique to that section only. No re-declaring inherited fonts/colors.
 - **Mobile-first — non-negotiable:** Write base styles for the smallest screen (≤767px). Use only `@media (min-width: …)` to progressively enhance for larger viewports. Never use `@media (max-width: …)` to "patch" a desktop layout for mobile.
@@ -128,6 +130,7 @@ Known gotchas (do not re-derive — also in DISCOVERIES.md):
 - Single-variant products synthesize `Title / Default Title` — guard with `unless product.has_only_default_variant`
 - Multi-line `image_tag` filter chains break under auto-formatters — pre-compute params in `{% liquid %}` blocks
 - CSS Grid reflows on conditional children — test single-item edge cases
+- **Never set `max-width: var(--container-max)` on `__inner` divs** — `.shopify-section` grid already constrains width; use only `padding-inline: var(--container-pad)`. Add `full-width` class to the section root for edge-to-edge backgrounds.
 
 ---
 

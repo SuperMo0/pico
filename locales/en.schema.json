@@ -62,7 +62,8 @@
     "show_payment_icons": "Show payment icons",
     "subheading": "Subheading",
     "text": "Text",
-    "text_style": "Text style"
+    "text_style": "Text style",
+    "cart_type": "Cart style"
   },
   "sections": {
     "announcement_bar": {
@@ -194,7 +195,8 @@
         "logo": "Logo image",
         "brand_description": "Brand description",
         "copyright_text": "Copyright text",
-        "trust_tagline": "Trust tagline (bottom bar)"
+        "trust_tagline": "Trust tagline (bottom bar)",
+        "logo_width": "Logo width"
       },
       "blocks": {
         "link_list": {
@@ -234,6 +236,10 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
+    },
+    "cart_type": {
+      "drawer": "Sliding drawer",
+      "page": "Cart page"
     }
   }
 }

@@ -56,4 +56,10 @@ Created slide-in cart drawer panel. All locale keys were already present. Transl
 
 ---
 
+### Task 10 — `sections/footer.liquid` (full rebuild) (2026-06-20)
+
+Full rebuild of the footer section. Dark ink-900 background, 4-col grid desktop (`1.4fr 1fr 1fr 1fr`) → 2-col at 601px → 1-col on mobile. Column 1: logo image picker tinted cream via CSS `filter: brightness(0) invert(1)` + brand description richtext, falling back to shop.name. Columns 2–4: up to 3 `link_list` blocks (heading + menu). Bottom bar: copyright + trust tagline, flex row space-between. Both copyright and trust tagline fall back to locale keys (`sections.footer.copyright` / `sections.footer.trust_tagline`) when not set by merchant. Added `logo_width` key to both `ar.default.schema.json` and `en.schema.json` (was missing). Updated `sections/footer-group.json` to remove deprecated `menu`/`show_payment_icons` settings. `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
+
+---
+
 ## Active Refinements

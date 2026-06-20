@@ -691,16 +691,16 @@ Panel: `position: fixed; top: 0; bottom: 0; inset-inline-start: 0; width: 420px;
 
 `background: var(--ink-900)`, `color: var(--cream-200)`, `margin-top: var(--space-12)`. Inner: `max-width: var(--container-max)`, `padding: var(--space-10) var(--container-pad) var(--space-7)`. Grid: `grid-template-columns: 1.4fr 1fr 1fr 1fr`, `gap: var(--space-7)`. Column 1: logo image picker (tinted cream on dark) + brand description richtext. Columns 2–4: each a `link_list` block — heading (`--cream-50`, `--font-display`, fw-bold, `--fs-h4`) + `<ul>` of links (`--cream-200`, `--font-body`, `--fs-sm`). Bottom bar: `border-top: 1px solid rgba(252,250,246,0.14)`, flex row space-between, copyright text + trust tagline. Responsive: 2-col on tablet (≤ 900px), 1-col on mobile (≤ 600px).
 
-- [ ] Verify locale keys (add if missing): `sections.footer.copyright`, `sections.footer.trust_tagline` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
-- [ ] Sync English locale files.
+- [x] Verify locale keys (add if missing): `sections.footer.copyright`, `sections.footer.trust_tagline` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
+- [x] Sync English locale files.
 
-- [ ] Fully rewrite `sections/footer.liquid` replacing the skeleton. Logo uses `image_tag` with `widths:` and `sizes:`. Links loop via `section.blocks` of type `link_list` using `block.settings.menu.links`. Copyright and trust tagline from schema text settings. No hardcoded links or text.
+- [x] Fully rewrite `sections/footer.liquid` replacing the skeleton. Logo uses `image_tag` with `widths:` and `sizes:`. Links loop via `section.blocks` of type `link_list` using `block.settings.menu.links`. Copyright and trust tagline from schema text settings. No hardcoded links or text.
 
-- [ ] Add `{% stylesheet %}` matching footer design (dark bg, 4-col grid, bottom bar, responsive breakpoints).
+- [x] Add `{% stylesheet %}` matching footer design (dark bg, 4-col grid, bottom bar, responsive breakpoints).
 
-- [ ] Add schema: logo (image_picker), logo_width (range 40–200 default 120), brand_description (richtext), copyright_text (text), trust_tagline (text); blocks of type `link_list` each with heading (text) and menu (link_list), max 3 blocks; no presets (footer is a static section).
+- [x] Add schema: logo (image_picker), logo_width (range 40–200 default 120), brand_description (richtext), copyright_text (text), trust_tagline (text); blocks of type `link_list` each with heading (text) and menu (link_list), max 3 blocks; no presets (footer is a static section).
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 

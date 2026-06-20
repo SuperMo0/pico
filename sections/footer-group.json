@@ -14,8 +14,8 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "logo_width": 120,
+        "brand_description": "<p>ملابس منزلية قطنية للأطفال، بألوان هادئة وخامات لطيفة على البشرة. صُنعت لتدوم ناعمة.</p>"
       }
     }
   },

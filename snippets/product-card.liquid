@@ -145,10 +145,13 @@
 .product-card__wishlist:hover { color: var(--sale-600); }
 .product-card__wishlist:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
 
+.product-card__media { cursor: pointer; }
+
 .product-card__quick-add-wrap {
   position: absolute;
   inset-inline: 10px;
   bottom: 10px;
+  z-index: 3;
   transform: translateY(120%);
   opacity: 0;
   transition: transform var(--dur-base) var(--ease-soft), opacity var(--dur-base) var(--ease-soft);
@@ -214,10 +217,8 @@
 
 @media (hover: none) {
   .product-card__quick-add-wrap {
-    position: static;
     transform: none;
     opacity: 1;
-    padding-top: var(--space-2);
   }
   .product-card__wishlist {
     width: 44px;
@@ -235,10 +236,27 @@
 {% javascript %}
 class ProductCard extends HTMLElement {
   connectedCallback() {
-    this._form = this.querySelector('.product-card__quick-add-form');
-    this._btn  = this.querySelector('.product-card__quick-add-btn');
+    this._form     = this.querySelector('.product-card__quick-add-form');
+    this._btn      = this.querySelector('.product-card__quick-add-btn');
+    this._mediaEl  = this.querySelector('.product-card__media');
+
     if (this._form) {
       this._form.addEventListener('submit', this._handleSubmit.bind(this));
+    }
+
+    if (this._mediaEl) {
+      this._mediaEl.addEventListener('click', (e) => {
+        if (e.target.closest('button, a, form')) return;
+        const url = this.dataset.productUrl;
+        if (url) window.location.href = url;
+      });
+      this._mediaEl.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        if (e.target.closest('button, a, form')) return;
+        e.preventDefault();
+        const url = this.dataset.productUrl;
+        if (url) window.location.href = url;
+      });
     }
   }
 

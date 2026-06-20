@@ -82,11 +82,20 @@
           </a>
         {%- endif -%}
 
-        <a
-          href="{{ routes.cart_url }}"
-          class="site-header__icon-btn site-header__cart-btn"
-          aria-label="{{ 'sections.header.cart_label' | t }}"
-        >
+        {%- if settings.cart_type == 'drawer' -%}
+          <button
+            type="button"
+            class="site-header__icon-btn site-header__cart-btn"
+            aria-label="{{ 'sections.header.cart_label' | t }}"
+            data-open-cart
+          >
+        {%- else -%}
+          <a
+            href="{{ routes.cart_url }}"
+            class="site-header__icon-btn site-header__cart-btn"
+            aria-label="{{ 'sections.header.cart_label' | t }}"
+          >
+        {%- endif -%}
           {% render 'icon', icon: 'shopping-bag', size: 20 %}
           <cart-count
             class="site-header__cart-badge"
@@ -98,7 +107,11 @@
               <span>{{ cart.item_count }}</span>
             {%- endif -%}
           </cart-count>
-        </a>
+        {%- if settings.cart_type == 'drawer' -%}
+          </button>
+        {%- else -%}
+          </a>
+        {%- endif -%}
       </div>
     </div>
 
@@ -178,7 +191,6 @@
   }
 
   .site-header__inner {
-    max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: var(--container-pad);
     height: 72px;
@@ -498,6 +510,13 @@
       this._overlay = this.querySelector('.site-header__overlay');
       this._scrim = this.querySelector('.site-header__overlay-scrim');
       this._closeBtn = this.querySelector('[data-close-overlay]');
+      this._cartBtn = this.querySelector('[data-open-cart]');
+
+      if (this._cartBtn) {
+        this._cartBtn.addEventListener('click', () => {
+          document.dispatchEvent(new CustomEvent('theme:cart:open'));
+        });
+      }
 
       if (this._hamburger) {
         this._hamburger.addEventListener('click', () => this._openNav());
