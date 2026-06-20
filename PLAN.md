@@ -494,11 +494,11 @@ Schema: `heading` (text), up to 8 blocks of type `collection` (collection picker
 
 Header row: h2 left, "عرض الكل ←" link right (`font-size: var(--fs-sm)`, `font-weight: 600`, links to `section.settings.collection.url`). Product grid: 4-col desktop, 2-col tablet (≥ 480px), 2-col mobile, `gap: var(--grid-gutter)`. Products from `section.settings.collection.products`, sliced to `section.settings.product_count`. Each product rendered via `{% render 'product-card', product: product %}`. Empty state when `section.settings.collection == blank`.
 
-- [ ] Add locale keys (verify first):
+- [x] Add locale keys (verify first):
   - `locales/ar.default.json` → `sections.featured_collection.view_all` (already exists: "عرض الكل")
   - `locales/ar.default.schema.json` → `sections.featured_collection.settings.heading`, `settings.collection`, `settings.product_count`, `settings.view_all_label`
 
-- [ ] Create `sections/featured-collection.liquid`:
+- [x] Create `sections/featured-collection.liquid`:
 
 ```liquid
 {%- liquid
@@ -528,7 +528,7 @@ Header row: h2 left, "عرض الكل ←" link right (`font-size: var(--fs-sm)`
 </section>
 ```
 
-- [ ] Add `{% stylesheet %}`:
+- [x] Add `{% stylesheet %}`:
 
 ```css
 .featured-collection { padding-block: var(--space-10); }
@@ -541,8 +541,8 @@ Header row: h2 left, "عرض الكل ←" link right (`font-size: var(--fs-sm)`
 @media (max-width: 767px) { .featured-collection__grid { grid-template-columns: repeat(2, 1fr); } }
 ```
 
-- [ ] Add schema: `heading` (text), `collection` (collection picker), `product_count` (select: 4/8/12), `view_all_label` (text), preset.
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Add schema: `heading` (text), `collection` (collection picker), `product_count` (select: 4/8/12), `view_all_label` (text), preset.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 
@@ -553,72 +553,14 @@ Header row: h2 left, "عرض الكل ←" link right (`font-size: var(--fs-sm)`
 
 Outer wrapper: `max-width: var(--container-max)`, `padding-inline: var(--container-pad)`, `padding-block: var(--space-10)`. Inner band: 2-col grid `1fr 1fr`, `border-radius: var(--radius-xl)`, `overflow: hidden`, `background: var(--sage-100)`. Text col: `padding: var(--space-8)`, flex column, `justify-content: center`. Eyebrow (`.beeko-eyebrow`, `margin-bottom: 12px`), h2 (`--fs-h1`), p (`--fs-body-lg`, `--ink-800`, `max-width: 40ch`, `margin-bottom: var(--space-5)`), accent button. Image col: `aspect-ratio: 1/1`, `background: var(--cream-100)`, image fills 100% cover. Image left or right via `section.settings.image_position`. Mobile: stacked, text first.
 
-- [ ] Add locale keys (verify first): `sections.editorial_band` in both schema files.
+- [x] Add locale keys (verify first): `sections.editorial_band` in both schema files.
 
-- [ ] Create `sections/editorial-band.liquid`:
+- [x] Create `sections/editorial-band.liquid` — mobile-first, image params pre-computed in `{% liquid %}` block per DISCOVERIES.md.
 
-```liquid
-{%- assign eb_img = section.settings.image -%}
-{%- assign eb_pos = section.settings.image_position | default: 'right' -%}
-<section class="editorial-band shopify-section-padding" aria-labelledby="eb-heading-{{ section.id }}">
-  <div class="editorial-band__outer">
-    <div class="editorial-band__band{% if eb_pos == 'left' %} editorial-band__band--img-left{% endif %}">
-      <div class="editorial-band__text">
-        {%- if section.settings.eyebrow != blank -%}
-          <div class="beeko-eyebrow editorial-band__eyebrow">{{ section.settings.eyebrow }}</div>
-        {%- endif -%}
-        <h2 id="eb-heading-{{ section.id }}" class="editorial-band__heading">{{ section.settings.heading }}</h2>
-        {%- if section.settings.body != blank -%}
-          <div class="editorial-band__body">{{ section.settings.body }}</div>
-        {%- endif -%}
-        {%- if section.settings.cta_label != blank -%}
-          <a href="{{ section.settings.cta_url }}" class="btn btn--accent">{{ section.settings.cta_label }}</a>
-        {%- endif -%}
-      </div>
-      <div class="editorial-band__media">
-        {%- if eb_img != blank -%}
-          {{ eb_img | image_url: width: 800 | image_tag:
-            alt: eb_img.alt | default: section.settings.heading,
-            widths: '400,600,800',
-            sizes: '(min-width: 768px) 50vw, 100vw',
-            loading: 'lazy',
-            style: "object-position: {{ eb_img.presentation.focal_point }}"
-          }}
-        {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'editorial-band__placeholder' }}
-        {%- endif -%}
-      </div>
-    </div>
-  </div>
-</section>
-```
+- [x] Add `{% stylesheet %}` — mobile-first: base 1-col, `@media (min-width: 768px)` for 2-col and img-left order swap (plan used `max-width` — corrected to `min-width`).
 
-- [ ] Add `{% stylesheet %}`:
-
-```css
-.editorial-band { padding-block: var(--space-10); }
-.editorial-band__outer { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-pad); }
-.editorial-band__band { display: grid; grid-template-columns: 1fr 1fr; border-radius: var(--radius-xl); overflow: hidden; background: var(--sage-100); }
-.editorial-band__band--img-left .editorial-band__text { order: 2; }
-.editorial-band__band--img-left .editorial-band__media { order: 1; }
-.editorial-band__text { padding: var(--space-8); display: flex; flex-direction: column; justify-content: center; }
-.editorial-band__eyebrow { margin-bottom: 12px; }
-.editorial-band__heading { font-size: var(--fs-h1); margin-bottom: var(--space-4); }
-.editorial-band__body { font-size: var(--fs-body-lg); color: var(--ink-800); max-width: 40ch; margin-bottom: var(--space-5); }
-.editorial-band__body p { margin: 0; }
-.editorial-band__media { aspect-ratio: 1 / 1; background: var(--cream-100); overflow: hidden; }
-.editorial-band__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.editorial-band__placeholder { width: 100%; height: 100%; }
-@media (max-width: 767px) {
-  .editorial-band__band { grid-template-columns: 1fr; }
-  .editorial-band__band--img-left .editorial-band__text { order: 1; }
-  .editorial-band__band--img-left .editorial-band__media { order: 2; }
-  .editorial-band__heading { font-size: var(--fs-h2); }
-}
-```
-
-- [ ] Add schema: eyebrow (text), heading (text), body (richtext), cta_label (text), cta_url (url), image (image_picker), image_position (select right/left), preset.
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Add schema: eyebrow (text), heading (text), body (richtext), cta_label (text), cta_url (url), image (image_picker), image_position (select right/left), preset.
+- [x] Run `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
 
 ---
 
@@ -626,7 +568,7 @@ Outer wrapper: `max-width: var(--container-max)`, `padding-inline: var(--contain
 
 **Files:** Modify `templates/index.json`
 
-- [ ] Rewrite `templates/index.json` to include all homepage sections in order: hero → reassurance-strip → collection-list → featured-collection → editorial-band:
+- [x] Rewrite `templates/index.json` to include all homepage sections in order: hero → reassurance-strip → collection-list → featured-collection → editorial-band:
 
 ```json
 {
@@ -662,7 +604,7 @@ Outer wrapper: `max-width: var(--container-max)`, `padding-inline: var(--contain
 }
 ```
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
 - [ ] Start `shopify theme dev` and visually confirm all sections appear in correct order with correct layout.
 
 ---

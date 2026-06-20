@@ -28,6 +28,8 @@ Every color, spacing value, border-radius, font size, and column count in the JS
 - `/liquid-skills:shopify-liquid-themes` — Liquid syntax, schema patterns, filter reference
 - `/liquid-skills:liquid-theme-standards` — CSS/JS coding standards
 
+**Each skill needs to be invoked only once per session.** If a skill was already loaded earlier in the same conversation, do not invoke it again — the content is already in context.
+
 If any file or skill is missing, STOP and report it.
 
 ---

@@ -32,4 +32,22 @@ Created category grid section. Mobile-first: 2-col base grid, 4-col at 768px (pl
 
 ---
 
+### Task 6 — `sections/featured-collection.liquid` (2026-06-20)
+
+Created featured collection section. Renders up to 4/8/12 products via `{% render 'product-card' %}`. Mobile-first 2-col base → 4-col at 768px (plan used `max-width` — corrected). Fixed plan's broken filter chain `view_all_label | default: '...' | t` — used a `{% liquid %}` block to pick label vs. locale key explicitly. Placeholder grid uses `'product-' | append: i` cycling 1-4 SVGs. OrphanedSnippet warning for product-card is now resolved. `shopify theme check` — 0 errors.
+
+---
+
+### Task 7 — `sections/editorial-band.liquid` (2026-06-20)
+
+Created sage-100 2-col editorial band section. All locale keys were already present in both schema and storefront files — no additions needed. Image params pre-computed in `{% liquid %}` block per DISCOVERIES.md to prevent auto-formatter mangling. CSS is mobile-first: base 1-col grid, heading at `--fs-h2`; `@media (min-width: 768px)` switches to 2-col and `--fs-h1`, and applies `order` swap for `--img-left` modifier only at desktop width (plan used `max-width: 767px` — corrected to `min-width: 768px`). `shopify theme check` — 0 errors.
+
+---
+
+### Task 8 — `templates/index.json` (2026-06-20)
+
+Wired all 5 homepage sections in order: hero (preserved existing entry with real Shopify image URL) → reassurance (4 trust blocks pre-filled) → categories (empty blocks, merchant adds collections via editor) → bestsellers (heading + count pre-filled) → editorial (copy pre-filled, merchant adds image). Stripped the auto-generated JS comment block (Shopify re-adds it on next push). `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements
