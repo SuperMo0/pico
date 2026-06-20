@@ -91,8 +91,12 @@
       "text": "شحن مجاني للطلبات فوق ٢٠٠ ر.س · إرجاع سهل خلال ١٤ يومًا"
     },
     "hero": {},
-    "reassurance_strip": {},
-    "collection_list": {},
+    "reassurance_strip": {
+      "name": "شريط الثقة"
+    },
+    "collection_list": {
+      "name": "شبكة الفئات"
+    },
     "featured_collection": {
       "view_all": "عرض الكل"
     },

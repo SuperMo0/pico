@@ -1,0 +1,121 @@
+<section class="reassurance-strip" aria-label="{{ 'sections.reassurance_strip.name' | t }}">
+  <div class="reassurance-strip__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.label != blank -%}
+        <div class="reassurance-strip__item" {{ block.shopify_attributes }}>
+          <span class="reassurance-strip__icon" aria-hidden="true">
+            {%- render 'icon', icon: block.settings.icon, size: 20 -%}
+          </span>
+          <div class="reassurance-strip__text">
+            <span class="reassurance-strip__label">{{ block.settings.label }}</span>
+            {%- if block.settings.subtext != blank -%}
+              <span class="reassurance-strip__sub">{{ block.settings.subtext }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.reassurance-strip {
+  background: var(--surface-sunken);
+  border-block: 1px solid var(--border-hairline);
+}
+
+.reassurance-strip__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-5) var(--container-pad);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.reassurance-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.reassurance-strip__icon {
+  color: var(--sage-600);
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.reassurance-strip__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.reassurance-strip__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--ink-800);
+  overflow-wrap: break-word;
+}
+
+.reassurance-strip__sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  overflow-wrap: break-word;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.reassurance_strip.name",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:sections.reassurance_strip.blocks.item.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.reassurance_strip.blocks.item.settings.icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "refresh-ccw", "label": "Refresh" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "shopping-bag", "label": "Shopping bag" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.reassurance_strip.blocks.item.settings.label"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "t:sections.reassurance_strip.blocks.item.settings.subtext"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.reassurance_strip.presets.name",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "leaf", "label": "قطن ١٠٠٪" } },
+        { "type": "item", "settings": { "icon": "feather", "label": "لطيف على البشرة" } },
+        { "type": "item", "settings": { "icon": "truck", "label": "شحن مجاني فوق ٢٠٠ ر.س" } },
+        { "type": "item", "settings": { "icon": "refresh-ccw", "label": "إرجاع سهل ١٤ يومًا" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

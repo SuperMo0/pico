@@ -1,0 +1,175 @@
+<section
+  class="collection-list"
+  aria-labelledby="cl-heading-{{ section.id }}"
+>
+  <div class="collection-list__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 id="cl-heading-{{ section.id }}" class="collection-list__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {%- else -%}
+      <span id="cl-heading-{{ section.id }}" class="visually-hidden">
+        {{ 'sections.collection_list.name' | t }}
+      </span>
+    {%- endif -%}
+
+    <div class="collection-list__grid">
+      {%- for block in section.blocks -%}
+        {%- assign col = block.settings.collection -%}
+        <a
+          href="{{ col.url | default: '#' }}"
+          class="collection-list__card"
+          {{ block.shopify_attributes }}
+        >
+          <div class="collection-list__card-img-wrap">
+            {%- if col.featured_image -%}
+              {%- liquid
+                assign cl_alt   = col.featured_image.alt | default: col.title
+                assign cl_style = 'object-fit: cover; object-position: ' | append: col.featured_image.presentation.focal_point
+              -%}
+              {{ col.featured_image | image_url: width: 600 | image_tag:
+                alt: cl_alt,
+                class: 'collection-list__img',
+                widths: '300,500,600',
+                sizes: '(min-width: 768px) 25vw, 50vw',
+                loading: 'lazy',
+                style: cl_style
+              }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'collection-list__placeholder' }}
+            {%- endif -%}
+
+            <span class="collection-list__card-label">{{ col.title }}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.collection-list {
+  padding-block: var(--space-10);
+}
+
+.collection-list__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.collection-list__heading {
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-6);
+  margin-top: 0;
+}
+
+.collection-list__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gutter);
+}
+
+@media (min-width: 768px) {
+  .collection-list__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.collection-list__card {
+  display: block;
+  text-decoration: none;
+}
+
+.collection-list__card-img-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--cream-100);
+  position: relative;
+}
+
+.collection-list__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--dur-slow) var(--ease-soft);
+}
+
+.collection-list__card:hover .collection-list__img {
+  transform: scale(1.04);
+}
+
+.collection-list__card-label {
+  position: absolute;
+  inset-inline: 12px;
+  bottom: 12px;
+  background: rgba(252, 250, 246, 0.94);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h4);
+  color: var(--ink-900);
+  text-align: center;
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.collection-list__placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: none) {
+  .collection-list__card:hover .collection-list__img {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-list__img {
+    transition: none;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.collection_list.name",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.collection_list.settings.heading",
+      "default": "تسوّقي حسب الفئة"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "t:sections.collection_list.blocks.collection.name",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:sections.collection_list.blocks.collection.settings.collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collection_list.presets.name",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

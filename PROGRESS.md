@@ -20,4 +20,16 @@ Replaced all inline SVG / `inline_asset_content` icon references in `sections/he
 
 ---
 
+### Task 4 — `sections/reassurance-strip.liquid` (2026-06-20)
+
+Created trust/reassurance strip section. Flex row with `flex-wrap: wrap` handles mobile reflow naturally — no breakpoint needed. Each block renders an icon (via `snippets/icon.liquid`) + label + optional subtext. Icon select limited to the 6 icons actually defined in `icon.liquid` (leaf, feather, truck, refresh-ccw, heart, shopping-bag) — plan referenced `shield`, `star`, `package` which don't exist yet. Added `sections.reassurance_strip.name` key to `ar.default.json` and `en.json` (was missing from storefront locale). Schema and schema locale keys were already present. `shopify theme check` — 0 errors.
+
+---
+
+### Task 5 — `sections/collection-list.liquid` (2026-06-20)
+
+Created category grid section. Mobile-first: 2-col base grid, 4-col at 768px (plan had `max-width` — corrected to `min-width`). Image params pre-computed in `{% liquid %}` block. Fallback `visually-hidden` span used as `aria-labelledby` target when heading is blank. Added `sections.collection_list.name` to `ar.default.json` and `en.json` (was missing from storefront locale). Schema locale keys were already complete. `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements

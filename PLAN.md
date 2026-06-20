@@ -369,11 +369,11 @@ Layout: 2-column CSS grid `1fr 1fr`, `gap: var(--space-8)`, `align-items: center
 
 Strip: `background: var(--surface-sunken)`, `border-block: 1px solid var(--border-hairline)`. Inner: `max-width: var(--container-max)`, flex row, `justify-content: space-between`, `flex-wrap: wrap`, `gap: var(--space-5)`, `padding: var(--space-5)`. Each item: flex row, `gap: 10px`, icon in `--sage-600`, label in `--ink-800` `--font-body` `--fs-sm` `font-weight: 600`. Icons: Lucide (rendered via `snippets/icon.liquid`). Schema: up to 8 blocks of type `item`, each with `icon` (select: leaf/feather/truck/refresh-ccw/shield/star/heart/package) and `label` (text) and `subtext` (text, optional).
 
-- [ ] Add to `locales/ar.default.schema.json` under `sections.reassurance_strip`: `name`, `blocks.item.name`, `blocks.item.settings.icon`, `blocks.item.settings.label`, `blocks.item.settings.subtext`.
-- [ ] Add to `locales/ar.default.json` under `sections.reassurance_strip`: preset content if needed.
-- [ ] Sync English locale files.
+- [x] Add to `locales/ar.default.schema.json` under `sections.reassurance_strip`: `name`, `blocks.item.name`, `blocks.item.settings.icon`, `blocks.item.settings.label`, `blocks.item.settings.subtext`.
+- [x] Add to `locales/ar.default.json` under `sections.reassurance_strip`: preset content if needed.
+- [x] Sync English locale files.
 
-- [ ] Create `sections/reassurance-strip.liquid`:
+- [x] Create `sections/reassurance-strip.liquid`:
 
 ```liquid
 <section class="reassurance-strip">
@@ -393,7 +393,7 @@ Strip: `background: var(--surface-sunken)`, `border-block: 1px solid var(--borde
 </section>
 ```
 
-- [ ] Add `{% stylesheet %}`:
+- [x] Add `{% stylesheet %}`:
 
 ```css
 .reassurance-strip { background: var(--surface-sunken); border-block: 1px solid var(--border-hairline); }
@@ -408,8 +408,8 @@ Strip: `background: var(--surface-sunken)`, `border-block: 1px solid var(--borde
 .reassurance-strip__sub { font-family: var(--font-body); font-size: var(--fs-xs); color: var(--text-muted); }
 ```
 
-- [ ] Add schema with 4 default blocks (leaf/قطن ١٠٠٪, feather/لطيف على البشرة, truck/شحن مجاني فوق ٢٠٠ ر.س, refresh-ccw/إرجاع سهل ١٤ يومًا), max_blocks: 8, preset name.
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Add schema with 4 default blocks (leaf/قطن ١٠٠٪, feather/لطيف على البشرة, truck/شحن مجاني فوق ٢٠٠ ر.س, refresh-ccw/إرجاع سهل ١٤ يومًا), max_blocks: 8, preset name.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 
@@ -422,11 +422,11 @@ Section heading h2 (`--fs-h2`, `margin-bottom: var(--space-6)`). 4-col CSS grid 
 
 Schema: `heading` (text), up to 8 blocks of type `collection` (collection picker). Fallback: when block collection is blank render placeholder SVG.
 
-- [ ] Add locale keys (verify first):
+- [x] Add locale keys (verify first):
   - `locales/ar.default.schema.json` → `sections.collection_list.name`, `settings.heading`, `blocks.collection.name`, `blocks.collection.settings.collection`
   - `locales/en.schema.json` → matching English values
 
-- [ ] Create `sections/collection-list.liquid`:
+- [x] Create `sections/collection-list.liquid`:
 
 ```liquid
 <section class="collection-list shopify-section-padding" aria-labelledby="cl-heading-{{ section.id }}">
@@ -459,7 +459,7 @@ Schema: `heading` (text), up to 8 blocks of type `collection` (collection picker
 </section>
 ```
 
-- [ ] Add `{% stylesheet %}`:
+- [x] Add `{% stylesheet %}`:
 
 ```css
 .collection-list { padding-block: var(--space-10); }
@@ -482,8 +482,8 @@ Schema: `heading` (text), up to 8 blocks of type `collection` (collection picker
 }
 ```
 
-- [ ] Add schema: `heading` setting, blocks of type `collection` (collection picker), max_blocks: 8, preset.
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Add schema: `heading` setting, blocks of type `collection` (collection picker), max_blocks: 8, preset.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 

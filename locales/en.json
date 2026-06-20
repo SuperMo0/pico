@@ -91,8 +91,12 @@
       "text": "Free shipping on orders over 200 SAR · Easy returns within 14 days"
     },
     "hero": {},
-    "reassurance_strip": {},
-    "collection_list": {},
+    "reassurance_strip": {
+      "name": "Reassurance strip"
+    },
+    "collection_list": {
+      "name": "Category grid"
+    },
     "featured_collection": {
       "view_all": "View all"
     },
