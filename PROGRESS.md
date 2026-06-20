@@ -62,4 +62,22 @@ Full rebuild of the footer section. Dark ink-900 background, 4-col grid desktop 
 
 ---
 
+### Task 11 — `sections/collection.liquid` (full rebuild) (2026-06-20)
+
+Full rebuild of the collection page. All locale keys were already present in both `ar.default.json` and `en.json` — no additions needed. `paginate.items` used for accurate filtered product count (not `collection.products_count` which is unfiltered). Filter sidebar renders `list`-type filters from `collection.filters` as chips (all filters) or swatches (when `filter.label == 'اللون'`). `<collection-filters>` web component handles mobile toggle (adding `--open` class to sidebar) and AJAX filter updates: intercepts `data-filter-url` link clicks, fetches the new URL, parses the HTML response, and replaces the product grid + sidebar innerHTML. Sidebar hidden on mobile via CSS (`display: none`), always visible on desktop (`@media (min-width: 768px)`), no `!important` needed. `products_per_page` select uses the string value from schema (`"12"` etc.) with `| default: 12` fallback. `templates/collection.json` already wired correctly (`type: "collection"`, key `"main"`). `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
+
+---
+
+### Task 12 — `sections/product.liquid` (full rebuild) (2026-06-20)
+
+Full rebuild of the product page. All locale keys and schema keys were already present in both Arabic and English files. Used `<details>/<summary>` for the accordion (native browser toggle, no JS web component needed — more accessible, simpler). Key decisions: `product.featured_media` for the initial main image (not `product.images[0]`); `thumbnail data-main-src` stores the 900w URL for JS gallery swapping (srcset cleared on swap to avoid stale sizes); `{% form 'product', product %}` generates the Shopify form (CSRF + cart route handled automatically). Four web components in the `{% javascript %}` block: `<product-gallery>` (thumbnail click → update main image src + object-position), `<variant-picker>` (tracks selected options via position→value map, finds matching variant, dispatches `variant:changed` event), `<quantity-input>` (±1 clamped 1–99), `<product-form>` (listens for `variant:changed` to update price + ATC button state; intercepts form submit for AJAX `/cart/add.js` → dispatches `theme:cart:updated`). Money formatting handled via `shop.money_format` passed as `data-money-format` attribute (since `{% javascript %}` blocks cannot use Liquid). `{{ amount }}` in JS block causes theme check error — workaround: fallback to `{amount}` (single braces) + regex handles both. `templates/product.json` already wired correctly. `shopify theme check` — 0 errors (3 acceptable Google Fonts RemoteAsset warnings only).
+
+---
+
+### Product page — block-driven refactor + variant picker fix (2026-06-20)
+
+Refactored `sections/product.liquid` to make the info column fully block-driven. Added 6 new block types: `title`, `price`, `description`, `variant_picker`, `buy_buttons`, `trust`. Kept `accordion_panel`. The `product-form` web component now wraps the entire info column (non-form elements inside `<form>` is valid HTML). The `product-json` script sits inside `product-form` but outside the `<form>` tag. Variant picker fix: instead of detecting option names to decide what to render, the code now loops ALL `product.options_with_values` and always renders every option — name detection is used only to choose display style (swatches vs chips). This fixes the "only 1 picker showing" bug regardless of exact option name spelling. Size guide link on non-color options is controlled via a `show_size_guide` checkbox + `size_guide_page` page-picker on the `variant_picker` block. Preset now includes 4 accordion blocks in correct order: "دليل المقاسات" (between variant_picker and buy_buttons), then product details / fabric / shipping. Added locale keys: `gallery_label`, `quantity_decrement`, `quantity_increment` to `ar.default.json` and `en.json`; all new block type keys to `ar.default.schema.json` and `en.schema.json`. `shopify theme check` — 0 errors on `sections/product.liquid` (all reported errors are from `docs/product.liquid` reference file only).
+
+---
+
 ## Active Refinements

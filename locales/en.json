@@ -68,7 +68,8 @@
       "add_to_cart": "Add to cart",
       "add_to_wishlist": "Add to wishlist",
       "sold_out": "Sold out",
-      "unavailable": "Unavailable"
+      "unavailable": "Unavailable",
+      "sale_badge": "Sale"
     }
   },
   "search": {
@@ -125,7 +126,10 @@
       "accordion_details": "Product details",
       "accordion_fabric": "Fabric & care",
       "accordion_shipping": "Shipping & returns",
-      "quantity_label": "Quantity"
+      "quantity_label": "Quantity",
+      "quantity_decrement": "Decrease",
+      "quantity_increment": "Increase",
+      "gallery_label": "Product gallery"
     },
     "cart_drawer": {
       "title": "Your cart",

@@ -1,17 +1,78 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "show_breadcrumb": true
+      },
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_size_guide": true
+          }
+        },
+        "size_guide": {
+          "type": "accordion_panel",
+          "settings": {
+            "title": "دليل المقاسات",
+            "content": "<p>راجع جدول المقاسات للعثور على المقاس المناسب لطفلك.</p>"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "trust": {
+          "type": "trust",
+          "settings": {}
+        },
+        "accordion_details": {
+          "type": "accordion_panel",
+          "settings": {
+            "title": "تفاصيل المنتج",
+            "content": "<p>تفاصيل عن المنتج.</p>"
+          }
+        },
+        "accordion_fabric": {
+          "type": "accordion_panel",
+          "settings": {
+            "title": "الخامة والعناية",
+            "content": "<p>قطن ١٠٠٪. يُغسل في الغسالة على ٣٠°. لا يُستخدم مبيّض.</p>"
+          }
+        },
+        "accordion_shipping": {
+          "type": "accordion_panel",
+          "settings": {
+            "title": "الشحن والإرجاع",
+            "content": "<p>شحن مجاني للطلبات فوق ٢٠٠ ر.س. إرجاع سهل خلال ١٤ يومًا.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "description",
+        "variant_picker",
+        "size_guide",
+        "buy_buttons",
+        "trust",
+        "accordion_details",
+        "accordion_fabric",
+        "accordion_shipping"
+      ]
     }
   },
   "order": [

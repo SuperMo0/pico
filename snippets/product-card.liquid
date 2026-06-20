@@ -11,6 +11,9 @@
   assign card_media    = product.featured_media
   assign hover_media   = product.media[1]
   assign card_badge    = product.metafields.custom.badge.value
+  if card_badge == blank and product.compare_at_price > product.price
+    assign card_badge = 'products.product.sale_badge' | t
+  endif
   assign age_range     = product.metafields.custom.age_range.value
   assign img_widths    = '200,300,400,600'
   assign img_sizes     = '(min-width: 768px) 25vw, 50vw'
@@ -236,27 +239,10 @@
 {% javascript %}
 class ProductCard extends HTMLElement {
   connectedCallback() {
-    this._form     = this.querySelector('.product-card__quick-add-form');
-    this._btn      = this.querySelector('.product-card__quick-add-btn');
-    this._mediaEl  = this.querySelector('.product-card__media');
-
+    this._form = this.querySelector('.product-card__quick-add-form');
+    this._btn  = this.querySelector('.product-card__quick-add-btn');
     if (this._form) {
       this._form.addEventListener('submit', this._handleSubmit.bind(this));
-    }
-
-    if (this._mediaEl) {
-      this._mediaEl.addEventListener('click', (e) => {
-        if (e.target.closest('button, a, form')) return;
-        const url = this.dataset.productUrl;
-        if (url) window.location.href = url;
-      });
-      this._mediaEl.addEventListener('keydown', (e) => {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        if (e.target.closest('button, a, form')) return;
-        e.preventDefault();
-        const url = this.dataset.productUrl;
-        if (url) window.location.href = url;
-      });
     }
   }
 

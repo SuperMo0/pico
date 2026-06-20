@@ -88,8 +88,10 @@ Wrap in `DOMContentLoaded` if the element may not exist yet at script parse time
 {{ media.preview_image | image_url: width: 1400 | image_tag: loading: img_loading, widths: '600,900,1200,1600', sizes: '(min-width: 1024px) 50vw, 100vw', alt: img_alt, class: 'product-media-gallery__img', style: img_style }}
 ```
 
-**Files affected:** `snippets/product-media-gallery.liquid` (media rendering loop)
+**Files affected:** `snippets/product-media-gallery.liquid` (media rendering loop), `sections/product.liquid` (gallery thumbnails + main image)
 **Date discovered:** 2026-05-21
+
+**Variant:** pipes inside named-parameter values (`id: 'prefix-' | append: var` or `style: 'x:y;' | append: focal`) also break — the `|` terminates the named-param list and starts a new filter. Always pre-compute ANY value that uses a pipe, then pass the variable directly to `image_tag`.
 
 ---
 
@@ -270,7 +272,7 @@ assign volume_collection_url = volume.collection.value.url
 
 **Fix:** Rename the four locale files so Arabic is the default and English is just an optional translation:
 
-```
+```text
 locales/ar.default.json         ← Arabic storefront strings (source of truth)
 locales/ar.default.schema.json  ← Arabic schema labels (source of truth)
 locales/en.json                 ← English translation (optional, can be incomplete)
@@ -278,6 +280,7 @@ locales/en.schema.json          ← English schema translation (optional)
 ```
 
 Done once via shell:
+
 ```bash
 mv locales/ar.json locales/ar.default.json
 mv locales/ar.schema.json locales/ar.default.schema.json

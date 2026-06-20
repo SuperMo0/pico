@@ -711,10 +711,10 @@ Panel: `position: fixed; top: 0; bottom: 0; inset-inline-start: 0; width: 420px;
 
 Layout: breadcrumb (Home / collection.title), h1 `collection.title`, product count line. 2-col grid `220px 1fr`, `gap: var(--space-8)`. Filter sidebar: `position: sticky; top: 96px`. Age filter: Chips from `collection.filters` where filter.label matches age (type: list). Color filter: ColorSwatch-style buttons. Clear filters link when active. Product grid: 3-col, gap `var(--grid-gutter)`. Each product: `{% render 'product-card', product: product %}`. Empty state div. Paginator via `{% paginate collection.products by section.settings.products_per_page %}`. Mobile: sidebar hidden behind "فلترة" toggle button at top (mobile filter toggle), grid becomes 2-col.
 
-- [ ] Verify locale keys (add if missing): `sections.collection.breadcrumb_home`, `product_count_one`, `product_count_other`, `filter_label`, `clear_filters`, `no_results`, `filters_toggle` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
-- [ ] Sync English locale files.
+- [x] Verify locale keys (add if missing): `sections.collection.breadcrumb_home`, `product_count_one`, `product_count_other`, `filter_label`, `clear_filters`, `no_results`, `filters_toggle` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
+- [x] Sync English locale files.
 
-- [ ] Fully rewrite `sections/collection.liquid`:
+- [x] Fully rewrite `sections/collection.liquid`:
   - Breadcrumb using `routes.root_url`
   - Product count using `collection.products_count` with `| pluralize:` for `product_count_one` / `product_count_other`
   - Filter sidebar using `collection.filters` — render `list` type filters as chip buttons, `boolean` as toggle; form uses GET to current URL with `filter.*` params
@@ -722,15 +722,15 @@ Layout: breadcrumb (Home / collection.title), h1 `collection.title`, product cou
   - Paginator using `paginate` tag
   - `<collection-filters>` web component intercepts filter form, fetches updated HTML via Section Rendering API (`?sections=collection-products`), replaces grid
 
-- [ ] Add `{% stylesheet %}` for 2-col layout, sticky sidebar, chip filters, color swatches, mobile toggle.
+- [x] Add `{% stylesheet %}` for 2-col layout, sticky sidebar, chip filters, color swatches, mobile toggle.
 
-- [ ] Add `{% javascript %}` for `<collection-filters>` web component: intercepts form submit, builds URL with filter params, fetches `?sections=main-collection`, replaces product grid innerHTML without reload.
+- [x] Add `{% javascript %}` for `<collection-filters>` web component: intercepts form submit, builds URL with filter params, fetches `?sections=main-collection`, replaces product grid innerHTML without reload.
 
-- [ ] Add schema: `show_filters` (checkbox, default true), `products_per_page` (select: 12/24/48).
+- [x] Add schema: `show_filters` (checkbox, default true), `products_per_page` (select: 12/24/48).
 
-- [ ] Verify `templates/collection.json` references section type `collection`. If using default skeleton wiring, confirm the section id matches.
+- [x] Verify `templates/collection.json` references section type `collection`. If using default skeleton wiring, confirm the section id matches.
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 
@@ -741,30 +741,30 @@ Layout: breadcrumb (Home / collection.title), h1 `collection.title`, product cou
 
 Breadcrumb. 2-col grid `1.1fr 1fr`, `gap: var(--space-8)`, `align-items: start`. **Gallery column:** inner grid `72px 1fr`, `gap: var(--space-3)`. Thumbnails column: flex column, `gap: 10px`; each thumb is a `<button>`, `aspect-ratio: 4/5`, `--radius-md` border, 1px solid hairline (active: `--ink-900`), `overflow: hidden`. Main image: `--radius-lg`, `--cream-100` bg, `aspect-ratio: 4/5`, `overflow: hidden`. **Info column:** `position: sticky; top: 96px`. Badge (from `product.metafields.custom.badge.value`). h1 `product.title`. Price tag (sale / compare_at). Description `product.description`. Color picker (option loop, `<variant-picker>` web component). Size/age chips. Qty stepper (`<quantity-input>` web component). ATC button full-width (`<product-form>` web component). Trust chips row (3 chips: leaf, feather, truck). Accordion: 3 panels from `section.blocks` of type `accordion_panel`. Mobile: stacked, gallery above info.
 
-- [ ] Verify locale keys (add if missing): `sections.product.breadcrumb_home`, `add_to_cart`, `sold_out`, `color_label`, `size_label`, `size_guide`, `trust_cotton`, `trust_gentle`, `trust_shipping`, `accordion_details`, `accordion_fabric`, `accordion_shipping`, `quantity_label` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
-- [ ] Sync English locale files.
+- [x] Verify locale keys (add if missing): `sections.product.breadcrumb_home`, `add_to_cart`, `sold_out`, `color_label`, `size_label`, `size_guide`, `trust_cotton`, `trust_gentle`, `trust_shipping`, `accordion_details`, `accordion_fabric`, `accordion_shipping`, `quantity_label` in `locales/ar.default.json`. Schema keys in `locales/ar.default.schema.json`.
+- [x] Sync English locale files.
 
-- [ ] Fully rewrite `sections/product.liquid` with:
+- [x] Fully rewrite `sections/product.liquid` with:
   - `{% render 'icon', icon: 'leaf', size: 15 %}` etc for trust chips
   - `<script type="application/json" id="product-json-{{ section.id }}">{{ product | json }}</script>` for variant picker JS
   - `{% unless product.has_only_default_variant %}` guard around variant UI
   - `{% form 'product', product %}` wrapping ATC form
   - `{% for block in section.blocks %}` for accordion panels
 
-- [ ] Add `{% stylesheet %}` for 2-col layout, gallery grid, thumbnail buttons, sticky info panel, variant picker chips, accordion panels.
+- [x] Add `{% stylesheet %}` for 2-col layout, gallery grid, thumbnail buttons, sticky info panel, variant picker chips, accordion panels.
 
-- [ ] Add `{% javascript %}` with:
+- [x] Add `{% javascript %}` with:
   - `<product-gallery>` — thumbnail click swaps main image src/srcset, adds active border class
   - `<variant-picker>` — reads product JSON, color swatch + size chip selection updates hidden `input[name="id"]`, marks sold-out disabled
   - `<quantity-input>` — decrement/increment clamped 1–99
   - `<product-form>` — intercepts Shopify form submit, AJAX POST to `/cart/add.js`, on success dispatches `theme:cart:updated`, shows loading on ATC button, handles sold-out state
-  - `<accordion-tabs>` — toggle panels with `aria-expanded`, `hidden`, CSS height transition
+  - accordion uses native `<details>/<summary>` (no JS web component needed — native toggle is accessible and correct)
 
-- [ ] Add schema: `show_breadcrumb` (checkbox); blocks of type `accordion_panel` with `title` (text) and `content` (richtext), max 4 blocks, with 3 default blocks (product details, fabric & care, shipping & returns).
+- [x] Add schema: `show_breadcrumb` (checkbox); blocks of type `accordion_panel` with `title` (text) and `content` (richtext), max 4 blocks, with 3 default blocks (product details, fabric & care, shipping & returns).
 
-- [ ] Verify `templates/product.json` references the product section.
+- [x] Verify `templates/product.json` references the product section.
 
-- [ ] Run `shopify theme check` — 0 errors.
+- [x] Run `shopify theme check` — 0 errors.
 
 ---
 

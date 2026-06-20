@@ -173,6 +173,28 @@
         "show_breadcrumb": "إظهار مسار التنقل"
       },
       "blocks": {
+        "title": {
+          "name": "العنوان"
+        },
+        "price": {
+          "name": "السعر"
+        },
+        "description": {
+          "name": "الوصف"
+        },
+        "variant_picker": {
+          "name": "اختيار المتغير",
+          "settings": {
+            "show_size_guide": "إظهار رابط دليل القياس",
+            "size_guide_page": "صفحة دليل القياس"
+          }
+        },
+        "buy_buttons": {
+          "name": "أزرار الشراء"
+        },
+        "trust": {
+          "name": "شرائح الثقة"
+        },
         "accordion_panel": {
           "name": "لوحة قابلة للطي",
           "settings": {

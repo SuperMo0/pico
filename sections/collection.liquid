@@ -1,47 +1,443 @@
-{% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
+{%- liquid
+  assign products_per_page = section.settings.products_per_page | default: 12
+-%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+<section class="collection" aria-labelledby="coll-heading-{{ section.id }}">
+  <div class="collection__inner">
 
-<h1>{{ collection.title }}</h1>
+    <nav class="collection__breadcrumb" aria-label="breadcrumb">
+      <a href="{{ routes.root_url }}" class="collection__breadcrumb-link">{{ 'sections.collection.breadcrumb_home' | t }}</a>
+      <span class="collection__breadcrumb-sep" aria-hidden="true">/</span>
+      <span aria-current="page">{{ collection.title }}</span>
+    </nav>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
+    <h1 id="coll-heading-{{ section.id }}" class="collection__title">{{ collection.title }}</h1>
+
+    {%- paginate collection.products by products_per_page -%}
+
+      <p class="collection__count">
+        {%- if paginate.items == 1 -%}
+          {{ 'sections.collection.product_count_one' | t }}
+        {%- else -%}
+          {{ 'sections.collection.product_count_other' | t: count: paginate.items }}
+        {%- endif -%}
+      </p>
+
+      {%- liquid
+        assign active_filter_count = 0
+        for filter in collection.filters
+          assign active_filter_count = active_filter_count | plus: filter.active_values.size
+        endfor
+      -%}
+
+      <collection-filters
+        class="collection__layout{% unless section.settings.show_filters %} collection__layout--no-sidebar{% endunless %}"
+        data-section-id="{{ section.id }}">
+
+        {%- if section.settings.show_filters -%}
+
+          <button type="button"
+                  class="collection__filters-toggle btn btn--outline"
+                  data-filters-toggle
+                  aria-expanded="false"
+                  aria-controls="coll-sidebar-{{ section.id }}">
+            {{ 'sections.collection.filters_toggle' | t }}
+          </button>
+
+          <aside class="collection__sidebar"
+                 id="coll-sidebar-{{ section.id }}"
+                 aria-label="{{ 'sections.collection.filter_label' | t }}"
+                 data-collection-sidebar>
+
+            {%- for filter in collection.filters -%}
+              {%- if filter.type == 'list' and filter.values.size > 0 -%}
+                {%- liquid
+                  assign is_color_filter = false
+                  if filter.label == 'اللون' or filter.label == 'Color'
+                    assign is_color_filter = true
+                  endif
+                -%}
+                <div class="collection-filter">
+                  <h3 class="collection-filter__heading">{{ filter.label }}</h3>
+                  <div class="collection-filter__values{% if is_color_filter %} collection-filter__values--swatches{% endif %}">
+                    {%- for value in filter.values -%}
+                      {%- liquid
+                        if value.active
+                          assign chip_url = value.url_to_remove
+                        else
+                          assign chip_url = value.url_to_add
+                        endif
+                      -%}
+                      {%- if is_color_filter -%}
+                        {%- assign swatch_token = 'pc-' | append: value.label | downcase | handleize -%}
+                        <a href="{{ chip_url }}"
+                           class="collection-filter__swatch{% if value.active %} collection-filter__swatch--active{% endif %}"
+                           style="background: var(--{{ swatch_token }}, var(--cream-100));"
+                           aria-label="{{ value.label }}"
+                           title="{{ value.label }}"
+                           data-filter-url="{{ chip_url }}"></a>
+                      {%- else -%}
+                        <a href="{{ chip_url }}"
+                           class="collection-filter__chip{% if value.active %} collection-filter__chip--active{% endif %}"
+                           data-filter-url="{{ chip_url }}">
+                          {{ value.label }}
+                        </a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if active_filter_count > 0 -%}
+              <a href="{{ collection.url }}"
+                 class="collection__clear-filters"
+                 data-filter-url="{{ collection.url }}">
+                {{ 'sections.collection.clear_filters' | t }}
+              </a>
+            {%- endif -%}
+
+          </aside>
+
+        {%- endif -%}
+
+        <div class="collection__products"
+             id="CollectionGrid-{{ section.id }}"
+             aria-live="polite">
+
+          {%- if paginate.items == 0 -%}
+            <div class="collection__empty">
+              <p>{{ 'sections.collection.no_results' | t }}</p>
+            </div>
+          {%- else -%}
+            <div class="collection__grid">
+              {%- for product in collection.products -%}
+                {%- render 'product-card', product: product -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if paginate.pages > 1 -%}
+            <div class="collection__pagination">
+              {{ paginate | default_pagination }}
+            </div>
+          {%- endif -%}
+
         </div>
-      </div>
-    {% endfor %}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
+      </collection-filters>
+
+    {%- endpaginate -%}
+
+  </div>
+</section>
 
 {% stylesheet %}
-  .collection-products {
+.collection {
+  padding-block: var(--space-7) var(--space-8);
+}
+
+.collection__inner {
+  padding-inline: var(--container-pad);
+}
+
+.collection__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.collection__breadcrumb-link {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.collection__breadcrumb-link:hover { color: var(--text-accent); }
+.collection__breadcrumb-link:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+.collection__title {
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-2);
+}
+
+.collection__count {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+
+/* Mobile-first: stacked layout */
+collection-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.collection__filters-toggle {
+  width: 100%;
+}
+
+.collection__sidebar {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.collection__sidebar--open {
+  display: flex;
+}
+
+.collection-filter__heading {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-3);
+  color: var(--text-strong);
+}
+
+.collection-filter__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.collection-filter__values--swatches {
+  gap: 6px;
+}
+
+.collection-filter__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+  text-decoration: none;
+  background: transparent;
+  min-height: 36px;
+  transition: background var(--dur-fast) var(--ease-soft),
+              border-color var(--dur-fast) var(--ease-soft),
+              color var(--dur-fast) var(--ease-soft);
+}
+
+.collection-filter__chip--active {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--cream-50);
+}
+
+.collection-filter__chip:hover:not(.collection-filter__chip--active) {
+  background: var(--surface-raised);
+}
+
+.collection-filter__chip:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+.collection-filter__swatch {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-hairline);
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-soft),
+              transform var(--dur-fast) var(--ease-soft);
+}
+
+.collection-filter__swatch--active {
+  border: 2px solid var(--ink-900);
+  transform: scale(1.15);
+}
+
+.collection-filter__swatch:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+.collection__clear-filters {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--sage-700);
+  text-decoration: none;
+}
+
+.collection__clear-filters:hover { text-decoration: underline; }
+.collection__clear-filters:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+/* Product grid: 2-col on mobile */
+.collection__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.collection__empty {
+  padding: var(--space-10);
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  background: var(--surface-raised);
+  border-radius: var(--radius-lg);
+}
+
+.collection__pagination {
+  margin-top: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.collection__products[aria-busy="true"] {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-soft);
+}
+
+/* Desktop: 2-col sidebar + grid layout */
+@media (min-width: 768px) {
+  collection-filters.collection__layout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: 220px 1fr;
+    gap: var(--space-8);
+    align-items: start;
   }
+
+  collection-filters.collection__layout--no-sidebar {
+    display: block;
+  }
+
+  .collection__filters-toggle {
+    display: none;
+  }
+
+  .collection__sidebar {
+    display: flex;
+    position: sticky;
+    top: 96px;
+  }
+
+  .collection__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (hover: none) {
+  .collection-filter__chip,
+  .collection-filter__swatch {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-filter__chip,
+  .collection-filter__swatch,
+  .collection__products { transition: none; }
+}
 {% endstylesheet %}
+
+{% javascript %}
+class CollectionFilters extends HTMLElement {
+  #grid = null;
+  #sidebar = null;
+  #toggle = null;
+  #controller = null;
+
+  connectedCallback() {
+    const sectionId = this.dataset.sectionId;
+    this.#grid    = document.getElementById(`CollectionGrid-${sectionId}`);
+    this.#sidebar = this.querySelector('[data-collection-sidebar]');
+    this.#toggle  = this.querySelector('[data-filters-toggle]');
+
+    this.#toggle?.addEventListener('click', this.#handleToggle.bind(this));
+    this.addEventListener('click', this.#handleFilterClick.bind(this));
+    window.addEventListener('popstate', this.#handlePopState.bind(this));
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('popstate', this.#handlePopState.bind(this));
+    this.#controller?.abort();
+  }
+
+  #handleToggle() {
+    const isOpen = this.#sidebar?.classList.contains('collection__sidebar--open');
+    this.#sidebar?.classList.toggle('collection__sidebar--open', !isOpen);
+    this.#toggle?.setAttribute('aria-expanded', String(!isOpen));
+  }
+
+  #handleFilterClick(event) {
+    const link = event.target.closest('[data-filter-url]');
+    if (!link) return;
+    event.preventDefault();
+    this.#fetchFiltered(link.dataset.filterUrl, true);
+  }
+
+  #handlePopState() {
+    this.#fetchFiltered(window.location.href, false);
+  }
+
+  async #fetchFiltered(url, pushState) {
+    this.#controller?.abort();
+    this.#controller = new AbortController();
+
+    if (this.#grid) this.#grid.setAttribute('aria-busy', 'true');
+
+    try {
+      const response = await fetch(url, {
+        signal: this.#controller.signal,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+
+      if (!response.ok) return;
+      if (pushState) history.pushState({}, '', url);
+
+      const html = await response.text();
+      const doc  = new DOMParser().parseFromString(html, 'text/html');
+
+      const newGrid = doc.getElementById(`CollectionGrid-${this.dataset.sectionId}`);
+      if (newGrid && this.#grid) this.#grid.innerHTML = newGrid.innerHTML;
+
+      const newSidebar = doc.querySelector('[data-collection-sidebar]');
+      if (newSidebar && this.#sidebar) this.#sidebar.innerHTML = newSidebar.innerHTML;
+
+    } catch (error) {
+      if (error.name !== 'AbortError') console.error('CollectionFilters fetch error:', error);
+    } finally {
+      if (this.#grid) this.#grid.removeAttribute('aria-busy');
+    }
+  }
+}
+
+if (!customElements.get('collection-filters')) {
+  customElements.define('collection-filters', CollectionFilters);
+}
+{% endjavascript %}
 
 {% schema %}
 {
-  "name": "t:general.collection",
-  "settings": []
+  "name": "t:sections.collection.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "t:sections.collection.settings.show_filters",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "products_per_page",
+      "label": "t:sections.collection.settings.products_per_page",
+      "options": [
+        { "value": "12", "label": "12" },
+        { "value": "24", "label": "24" },
+        { "value": "48", "label": "48" }
+      ],
+      "default": "12"
+    }
+  ]
 }
 {% endschema %}
