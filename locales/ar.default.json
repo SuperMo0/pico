@@ -66,6 +66,7 @@
   "products": {
     "product": {
       "add_to_cart": "أضِف إلى السلّة",
+      "add_to_wishlist": "أضِف إلى المفضّلة",
       "sold_out": "نفد المخزون",
       "unavailable": "غير متوفر"
     }

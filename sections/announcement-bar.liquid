@@ -1,5 +1,5 @@
 {%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
-  <div class="announcement-bar" role="region" aria-label="{{ 'general.announcement_bar' | t }}">
+  <div class="announcement-bar full-width" role="region" aria-label="{{ 'general.announcement_bar' | t }}">
     <div class="announcement-bar__inner">
       {%- if section.settings.announcement_link != blank -%}
         <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">

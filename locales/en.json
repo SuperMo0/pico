@@ -66,6 +66,7 @@
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
+      "add_to_wishlist": "Add to wishlist",
       "sold_out": "Sold out",
       "unavailable": "Unavailable"
     }

@@ -6,10 +6,21 @@
 
 ## 0. Session Start — Read These First (every session)
 
-1. `PLAN.md` — what's next (top unchecked item)
+1. `PLAN.md` — to know the important instrcutions and what's next (top unchecked item)
 2. `PROGRESS.md` — what's already shipped
 3. `DISCOVERIES.md` — known gotchas; check before writing code
 4. `design-system/project/SKILL.md` — brand tokens, voice, visual rules
+
+**Before implementing any section or feature — read the matching JSX prototype file first:**
+
+- `design-system/project/ui_kits/storefront/Header.jsx` → header
+- `design-system/project/ui_kits/storefront/Home.jsx` → hero, reassurance strip, category grid, featured collection, editorial band
+- `design-system/project/ui_kits/storefront/Listing.jsx` → collection page
+- `design-system/project/ui_kits/storefront/Product.jsx` → product page
+- `design-system/project/ui_kits/storefront/CartDrawer.jsx` → cart drawer
+- `design-system/project/ui_kits/storefront/Footer.jsx` → footer
+
+Every color, spacing value, border-radius, font size, and column count in the JSX is the source of truth. Do not invent layout — transcribe it.
 
 **For any section, feature, styling, or layout task — also invoke these skills before writing a line:**
 
@@ -37,7 +48,7 @@ shopify theme check                      # Lint / validate — run after every s
 
 - Every section is its own file in `sections/`. Never embed one section inside another.
 - Every section has a `{% schema %}` with `name`, `settings`, `blocks` (where applicable), and `presets`.
-- **Completion gate (mandatory):** After implementing any section or feature, run `shopify theme check` and fix every reported error to zero before marking the task done or updating `PROGRESS.md`. No exceptions.
+- **Completion gate (mandatory):** After implementing any section or feature, run `shopify theme check` and fix every reported error to zero before marking the task done in PLANE.MD and updating `PROGRESS.md`. No exceptions.
 
 ### Locale — Arabic is the default
 
@@ -72,7 +83,10 @@ Static fallback only inside `{% if section.settings.collection == blank %}`.
 - All colors, type, spacing, and motion from tokens in `assets/theme.css` — never raw hex, font family, or magic numbers.
 - Global stylesheet (`assets/theme.css`): body defaults, h1–h6 base, box-sizing reset, `.visually-hidden`, shared utilities.
 - Section `{% stylesheet %}`: layout unique to that section only. No re-declaring inherited fonts/colors.
-- Mobile-first. `@media (min-width: …)` for larger breakpoints. No fixed widths on containers.
+- **Mobile-first — non-negotiable:** Write base styles for the smallest screen (≤767px). Use only `@media (min-width: …)` to progressively enhance for larger viewports. Never use `@media (max-width: …)` to "patch" a desktop layout for mobile.
+- **Touch fallbacks are mandatory:** Any interaction that depends on `:hover` (slide-up panels, reveal buttons, overlay controls) MUST have an `@media (hover: none)` block that makes the same functionality always visible or tap-accessible. Hover-only UI is unusable on mobile.
+- **Minimum touch target:** Every `<button>`, `<a>`, or `<input>` must be at least 44×44px on mobile. Use `@media (hover: none)` to enlarge interactive elements if needed.
+- **No fixed widths on containers.** Use `max-width` + `padding-inline` instead. `width: 100%` is the floor, not the ceiling.
 
 ### JavaScript
 
@@ -119,15 +133,11 @@ Known gotchas (do not re-derive — also in DISCOVERIES.md):
 
 ### `PLAN.md` — task roadmap
 
-One unchecked item = one focused session. Do not skip or combine tasks.
+One unchecked item = one focused session. Do not skip or combine tasks.make sure to mark task as completed when you finish.
 
 ### `PROGRESS.md` — completion log
 
-Add one row on every completion (never pre-log):
-
-```text
-| YYYY-MM-DD | <Area> | <Description under 55 chars> | Done |
-```
+add some context of what was implemented and the desicion that you made, 1-3 lines so that next agent can continue from where you left.
 
 ### `DISCOVERIES.md` — wrong assumptions that caused bugs
 
@@ -161,3 +171,11 @@ Add an entry whenever a bug was caused by a wrong assumption about Shopify:
 ## 5. Commits
 
 Do not commit unless the user explicitly says to.
+
+---
+
+## 6. Task Execution
+
+- **One task at a time.** Complete a task, report back to the user, and wait for explicit instruction before starting the next task.
+- Never chain tasks automatically. "Implement the next step" means exactly one task.
+- After each task: report what was done, run `shopify theme check`, update `PROGRESS.md`, then stop.
