@@ -47,14 +47,21 @@
             href="{{ routes.search_url }}"
             class="site-header__icon-btn js-search-trigger"
             aria-label="{{ 'sections.header.search_label' | t }}"
-            aria-expanded="false"
+           
             aria-controls="site-search"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="8.5" cy="8.5" r="5"/><path d="M15 15l-2.5-2.5"/>
-            </svg>
+            {% render 'icon', icon: 'search', size: 20 %}
           </a>
         {%- endif -%}
+
+        <button
+          type="button"
+          class="site-header__icon-btn"
+          aria-label="{{ 'sections.header.wishlist_label' | t }}"
+          data-open-wishlist
+        >
+          {% render 'icon', icon: 'heart', size: 20 %}
+        </button>
 
         {%- if shop.customer_accounts_enabled -%}
           <shopify-account
@@ -62,7 +69,8 @@
             class="site-header__icon-btn"
             aria-label="{{ 'sections.header.account_label' | t }}"
           >
-            {{ 'icon-account.svg' | inline_asset_content }}
+            <div slot="signed-out-avatar">{% render 'icon', icon: 'user', size: 20 %}</div>
+            <div slot="signed-in-avatar">{% render 'icon', icon: 'user', size: 20 %}</div>
           </shopify-account>
         {%- else -%}
           <a
@@ -70,7 +78,7 @@
             class="site-header__icon-btn"
             aria-label="{{ 'sections.header.account_label' | t }}"
           >
-            {{ 'icon-account.svg' | inline_asset_content }}
+            {% render 'icon', icon: 'user', size: 20 %}
           </a>
         {%- endif -%}
 
@@ -79,7 +87,7 @@
           class="site-header__icon-btn site-header__cart-btn"
           aria-label="{{ 'sections.header.cart_label' | t }}"
         >
-          {{ 'icon-cart.svg' | inline_asset_content }}
+          {% render 'icon', icon: 'shopping-bag', size: 20 %}
           <cart-count
             class="site-header__cart-badge"
             aria-live="polite"
@@ -106,15 +114,11 @@
               aria-label="{{ 'sections.header.search_label' | t }}"
             >
             <button type="submit" class="site-header__icon-btn" aria-label="{{ 'search.submit' | t }}">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="8.5" cy="8.5" r="5"/><path d="M15 15l-2.5-2.5"/>
-              </svg>
+              {% render 'icon', icon: 'search', size: 20 %}
             </button>
           </form>
           <button type="button" class="site-header__icon-btn site-header__search-close" aria-label="{{ 'general.close' | t }}">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
-              <path d="M4 4l12 12M16 4L4 16"/>
-            </svg>
+            {% render 'icon', icon: 'x', size: 20 %}
           </button>
         </div>
       </search-toggle>
@@ -138,9 +142,7 @@
           aria-label="{{ 'accessibility.close_menu' | t }}"
           data-close-overlay
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
-            <path d="M4 4l12 12M16 4L4 16"/>
-          </svg>
+          {% render 'icon', icon: 'x', size: 20 %}
         </button>
       </div>
       {%- if section.settings.menu != blank -%}
@@ -182,7 +184,7 @@
     height: 72px;
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-6);
   }
 
   .site-header__hamburger {
@@ -576,7 +578,7 @@
         if (e.key === 'Escape' && !this.hidden) this._closeSearch();
       });
       document.addEventListener('click', (e) => {
-        if (!this.hidden && !this.contains(e.target) && e.target !== this._trigger) {
+        if (!this.hidden && !this.contains(e.target) && !this._trigger.contains(e.target)) {
           this._closeSearch();
         }
       });

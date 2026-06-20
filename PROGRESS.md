@@ -14,4 +14,10 @@ Added `.btn` / `.btn--primary` / `.btn--outline` / `.btn--accent` / `.btn--lg` u
 
 ---
 
+### Header + Announcement Bar alignment to design system (2026-06-20)
+
+Replaced all inline SVG / `inline_asset_content` icon references in `sections/header.liquid` with `{% render 'icon', icon: '...', size: 20 %}`. Added wishlist heart button ("المفضّلة") between search and account icons. Switched `shopify-account` inner to use `slot="signed-out-avatar"` / `slot="signed-in-avatar"` slots. Changed cart icon from `icon-cart.svg` to `shopping-bag`, account from `icon-account.svg` to `user`. Fixed inner gap from `--space-5` to `--space-6` (matches JSX). Updated `sections/announcement-bar.liquid`: font-size `--fs-xs`, weight `--fw-medium`, tighter padding `--space-2 --space-4`. Added `wishlist_label` locale key to `ar.default.json` and `en.json`.
+
+---
+
 ## Active Refinements

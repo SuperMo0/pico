@@ -84,6 +84,7 @@
       "search_placeholder": "Search for a product…",
       "cart_label": "Shopping cart",
       "account_label": "My account",
+      "wishlist_label": "Wishlist",
       "search_label": "Search"
     },
     "announcement_bar": {

@@ -6,7 +6,7 @@
 
 ## 0. Session Start — Read These First (every session)
 
-1. `PLAN.md` — to know the important instrcutions and what's next (top unchecked item)
+1. `PLAN.md` — to know the important instrcutions at the top and what's next (top unchecked item)
 2. `PROGRESS.md` — what's already shipped
 3. `DISCOVERIES.md` — known gotchas; check before writing code
 4. `design-system/project/SKILL.md` — brand tokens, voice, visual rules
