@@ -110,4 +110,10 @@ Reworked `sections/hero.liquid` from a 2-column text+image grid into a full-widt
 
 ---
 
+### Floating WhatsApp button — `sections/whatsapp-button.liquid` (2026-06-21)
+
+New standalone section: a fixed circular WhatsApp FAB (chosen over the official English-only branded pill — the store is Arabic/RTL, so a language-neutral icon FAB fits the brand better). Merchant enters a **phone number** (international, no zeros/symbols) + an **optional pre-filled message**; the section strips stray `+ - ( ) space` from the number and builds the `https://wa.me/<number>?text=<url_encode message>` link in a `{% liquid %}` block per WhatsApp's docs. Renders nothing when the phone is blank. **Position** is a 4-corner `select` whose values are full modifier classes (`whatsapp-fab--br/bl/tr/tl`, default bottom-right), each setting `inset-block`/`inset-inline` via logical properties (so corners are visual, RTL-safe) + `env(safe-area-inset-bottom)` for notched phones. Brand green `#25d366` (hover `#1da851`) is intentionally hardcoded in the stylesheet as a recognized brand mark — commented to flag the deliberate palette exception; glyph color uses `--cream-50` token. The WhatsApp logo is inlined as a `fill="currentColor"` glyph (NOT added to `snippets/icon.liquid`, which is stroke-only `fill="none"` and would render the solid mark as an outline). `z-index: 60` sits above page content but below the cart drawer scrim (90/100). 56px target (>44px), `:focus-visible` ring, reduced-motion guard. Added `sections.whatsapp_button.aria_label` to storefront locales and `sections.whatsapp_button.*` (name + settings + 4 position labels) to both schema locales. Section is preset-enabled (merchant adds it per template; add to a section group like footer-group for site-wide display). `shopify theme check` — 0 errors (3 acceptable Google Fonts warnings only).
+
+---
+
 ## Active Refinements

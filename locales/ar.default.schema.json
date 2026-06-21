@@ -237,6 +237,20 @@
     },
     "wishlist": {
       "name": "صفحة المفضّلة"
+    },
+    "whatsapp_button": {
+      "name": "زر واتساب عائم",
+      "settings": {
+        "phone": "رقم واتساب",
+        "phone_info": "بالصيغة الدولية بدون أصفار أو رموز أو مسافات. مثال: 9665XXXXXXXX",
+        "message": "رسالة مُعبّأة مسبقًا (اختياري)",
+        "message_info": "تظهر تلقائيًا في حقل الكتابة عند فتح المحادثة.",
+        "position": "الموضع",
+        "position_bottom_right": "أسفل اليمين",
+        "position_bottom_left": "أسفل اليسار",
+        "position_top_right": "أعلى اليمين",
+        "position_top_left": "أعلى اليسار"
+      }
     }
   },
   "options": {

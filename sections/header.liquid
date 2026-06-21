@@ -9,7 +9,7 @@
   assign sticky_mode = section.settings.sticky_header
 -%}
 
-<site-header class="site-header full-width{% if sticky_mode == 'always' %} site-header--sticky{% elsif sticky_mode == 'smart' %} site-header--smart{% endif %}" id="site-header" role="banner">
+<site-header class="site-header {% if sticky_mode == 'always' %} site-header--sticky{% elsif sticky_mode == 'smart' %} site-header--smart{% endif %}" id="site-header" role="banner">
   <div class="site-header__bar">
     <div class="site-header__inner">
 
@@ -246,10 +246,6 @@
   @media (min-width: 768px) {
     .site-header__hamburger {
       display: none;
-    }
-    .site-header__inner{
-      padding-inline: 5%;
-
     }
   }
 

@@ -164,6 +164,9 @@
       "loading": "Loading…",
       "view_product": "View product",
       "remove": "Remove from wishlist"
+    },
+    "whatsapp_button": {
+      "aria_label": "Chat with us on WhatsApp"
     }
   }
 }

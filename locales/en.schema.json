@@ -238,6 +238,20 @@
     },
     "wishlist": {
       "name": "Wishlist page"
+    },
+    "whatsapp_button": {
+      "name": "Floating WhatsApp button",
+      "settings": {
+        "phone": "WhatsApp number",
+        "phone_info": "International format, no leading zeros, plus signs, spaces, or dashes. Example: 1XXXXXXXXXX",
+        "message": "Pre-filled message (optional)",
+        "message_info": "Automatically appears in the chat text field when the chat opens.",
+        "position": "Position",
+        "position_bottom_right": "Bottom right",
+        "position_bottom_left": "Bottom left",
+        "position_top_right": "Top right",
+        "position_top_left": "Top left"
+      }
     }
   },
   "options": {

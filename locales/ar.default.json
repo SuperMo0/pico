@@ -164,6 +164,9 @@
       "loading": "جارٍ التحميل…",
       "view_product": "عرض المنتج",
       "remove": "إزالة من المفضّلة"
+    },
+    "whatsapp_button": {
+      "aria_label": "تواصل معنا عبر واتساب"
     }
   }
 }
