@@ -1,10 +1,15 @@
 {%- liquid
-  assign logo_w = section.settings.logo_width | default: 120
+  assign logo_img = settings.logo
+  unless logo_img
+    assign logo_img = shop.brand.logo
+  endunless
+  assign logo_w = settings.logo_width | default: 120
+  assign logo_alt = logo_img.alt | default: shop.name
   assign show_search = section.settings.show_search
-  assign sticky = section.settings.sticky_header
+  assign sticky_mode = section.settings.sticky_header
 -%}
 
-<site-header class="site-header{% if sticky %} site-header--sticky{% endif %}" id="site-header" role="banner">
+<site-header class="site-header{% if sticky_mode == 'always' %} site-header--sticky{% elsif sticky_mode == 'smart' %} site-header--smart{% endif %}" id="site-header" role="banner">
   <div class="site-header__bar">
     <div class="site-header__inner">
 
@@ -20,11 +25,8 @@
       </button>
 
       <a href="{{ routes.root_url }}" class="site-header__logo-link" aria-label="{{ shop.name }}">
-        {%- if section.settings.logo != blank -%}
-          {%- liquid
-            assign logo_alt = section.settings.logo.alt | default: shop.name
-          -%}
-          {{ section.settings.logo | image_url: width: logo_w | image_tag: alt: logo_alt, width: logo_w, class: 'site-header__logo-img', loading: 'eager', fetchpriority: 'high' }}
+        {%- if logo_img != blank -%}
+          {{ logo_img | image_url: width: logo_w | image_tag: alt: logo_alt, width: logo_w, class: 'site-header__logo-img', loading: 'eager', fetchpriority: 'high' }}
         {%- else -%}
           <span class="site-header__shop-name">{{ shop.name }}</span>
         {%- endif -%}
@@ -188,6 +190,19 @@
     position: sticky;
     top: 0;
     z-index: 50;
+  }
+
+  .site-header--smart .site-header__bar {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 50;
+    transition: transform 250ms ease-out;
+    will-change: transform;
+  }
+
+  .site-header--smart.is-hidden .site-header__bar {
+    transform: translateY(-100%);
   }
 
   .site-header__inner {
@@ -506,11 +521,17 @@
 {% javascript %}
   class SiteHeader extends HTMLElement {
     connectedCallback() {
+      this._bar      = this.querySelector('.site-header__bar');
       this._hamburger = this.querySelector('.site-header__hamburger');
       this._overlay = this.querySelector('.site-header__overlay');
       this._scrim = this.querySelector('.site-header__overlay-scrim');
       this._closeBtn = this.querySelector('[data-close-overlay]');
       this._cartBtn = this.querySelector('[data-open-cart]');
+
+      if (this.classList.contains('site-header--smart')) {
+        this.style.minHeight = this._bar.offsetHeight + 'px';
+        this._initSmartSticky();
+      }
 
       if (this._cartBtn) {
         this._cartBtn.addEventListener('click', () => {
@@ -557,6 +578,22 @@
           'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
         )
       );
+    }
+
+    _initSmartSticky() {
+      let lastY = window.scrollY;
+      const threshold = this._bar.offsetHeight;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y < threshold) {
+          this.classList.remove('is-hidden');
+        } else if (y > lastY) {
+          this.classList.add('is-hidden');
+        } else {
+          this.classList.remove('is-hidden');
+        }
+        lastY = y;
+      }, { passive: true });
     }
 
     _trapFocus(e) {
@@ -646,21 +683,6 @@
   "name": "t:sections.header.name",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "t:sections.header.settings.logo"
-    },
-    {
-      "type": "range",
-      "id": "logo_width",
-      "label": "t:sections.header.settings.logo_width",
-      "min": 60,
-      "max": 300,
-      "step": 10,
-      "default": 120,
-      "unit": "px"
-    },
-    {
       "type": "link_list",
       "id": "menu",
       "label": "t:sections.header.settings.menu",
@@ -679,10 +701,15 @@
       "default": true
     },
     {
-      "type": "checkbox",
+      "type": "select",
       "id": "sticky_header",
       "label": "t:sections.header.settings.sticky_header",
-      "default": true
+      "options": [
+        { "value": "off",    "label": "t:options.sticky_header.off" },
+        { "value": "always", "label": "t:options.sticky_header.always" },
+        { "value": "smart",  "label": "t:options.sticky_header.smart" }
+      ],
+      "default": "smart"
     }
   ]
 }

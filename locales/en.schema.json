@@ -5,6 +5,7 @@
     "article": "Article",
     "block": "Block",
     "blog": "Blog",
+    "brand": "Brand",
     "cart": "Cart",
     "collection": "Collection",
     "collections": "Collections",
@@ -63,7 +64,9 @@
     "subheading": "Subheading",
     "text": "Text",
     "text_style": "Text style",
-    "cart_type": "Cart style"
+    "cart_type": "Cart style",
+    "logo": "Logo image",
+    "logo_width": "Logo width (px)"
   },
   "sections": {
     "announcement_bar": {
@@ -72,11 +75,9 @@
     "header": {
       "name": "Header",
       "settings": {
-        "logo": "Logo image",
-        "logo_width": "Logo width (px)",
         "menu": "Navigation menu",
         "show_search": "Show search",
-        "sticky_header": "Sticky header"
+        "sticky_header": "Header scroll behavior"
       }
     },
     "hero": {
@@ -214,11 +215,9 @@
     "footer": {
       "name": "Footer",
       "settings": {
-        "logo": "Logo image",
         "brand_description": "Brand description",
         "copyright_text": "Copyright text",
-        "trust_tagline": "Trust tagline (bottom bar)",
-        "logo_width": "Logo width"
+        "trust_tagline": "Trust tagline (bottom bar)"
       },
       "blocks": {
         "link_list": {
@@ -262,6 +261,11 @@
     "cart_type": {
       "drawer": "Sliding drawer",
       "page": "Cart page"
+    },
+    "sticky_header": {
+      "off": "Off",
+      "always": "Always sticky",
+      "smart": "Smart (hide on scroll down)"
     }
   }
 }

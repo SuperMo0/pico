@@ -86,4 +86,16 @@ Rewrote `sections/cart-drawer.liquid` to use Shopify's Section Rendering API (pu
 
 ---
 
+### Global logo + shop.brand.logo fallback (2026-06-21)
+
+Moved logo picker out of both `sections/header.liquid` and `sections/footer.liquid` into `config/settings_schema.json` as a new "Brand" group (`settings.logo` + `settings.logo_width`). Both sections now resolve the logo via: `settings.logo` → `shop.brand.logo` → `shop.name` text fallback. Removed redundant `logo` / `logo_width` settings from both section schemas. Added `general.brand`, `labels.logo`, `labels.logo_width` to `ar.default.schema.json` and `en.schema.json`; removed the now-dead `sections.header.settings.logo/logo_width` and `sections.footer.settings.logo/logo_width` keys. `shopify theme check` — 0 errors.
+
+---
+
+### Smart sticky header (2026-06-21)
+
+Replaced `sticky_header` checkbox with a three-way select: `off` / `always` / `smart`. `always` keeps the existing `position: sticky` approach (in-flow, no JS). `smart` uses `position: fixed; inset-inline: 0` on `.site-header__bar` with `transform: translateY(-100%) / translateY(0)` and 250ms ease-out transition — host element gets `minHeight` set from JS so the grid layout doesn't collapse. `_initSmartSticky()` on `SiteHeader`: passive scroll listener, hides after user scrolls past the bar's own height (threshold), reveals immediately on any upward scroll. Default is `smart`. Added `options.sticky_header.*` locale keys (off/always/smart) to both Arabic and English schema files. `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements

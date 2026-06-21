@@ -5,6 +5,7 @@
     "article": "مقالة",
     "block": "بلوك",
     "blog": "مدونة",
+    "brand": "العلامة التجارية",
     "cart": "السلّة",
     "collection": "فئة",
     "collections": "الفئات",
@@ -63,7 +64,9 @@
     "subheading": "العنوان الفرعي",
     "text": "نص",
     "text_style": "نمط النص",
-    "cart_type": "نوع عرض السلّة"
+    "cart_type": "نوع عرض السلّة",
+    "logo": "شعار المتجر",
+    "logo_width": "عرض الشعار (بكسل)"
   },
   "sections": {
     "announcement_bar": {
@@ -72,11 +75,9 @@
     "header": {
       "name": "رأس الصفحة",
       "settings": {
-        "logo": "شعار المتجر",
-        "logo_width": "عرض الشعار (بكسل)",
         "menu": "قائمة التنقل",
         "show_search": "إظهار خانة البحث",
-        "sticky_header": "تثبيت الرأس عند التمرير"
+        "sticky_header": "سلوك التمرير"
       }
     },
     "hero": {
@@ -213,11 +214,9 @@
     "footer": {
       "name": "تذييل الصفحة",
       "settings": {
-        "logo": "شعار المتجر",
         "brand_description": "وصف المتجر",
         "copyright_text": "نص حقوق النشر",
-        "trust_tagline": "عبارة الثقة (أسفل الصفحة)",
-        "logo_width": "عرض الشعار"
+        "trust_tagline": "عبارة الثقة (أسفل الصفحة)"
       },
       "blocks": {
         "link_list": {
@@ -261,6 +260,11 @@
     "cart_type": {
       "drawer": "درج منزلق",
       "page": "صفحة السلّة"
+    },
+    "sticky_header": {
+      "off": "إيقاف",
+      "always": "تثبيت دائم",
+      "smart": "ذكي (يختفي عند التمرير للأسفل)"
     }
   }
 }
