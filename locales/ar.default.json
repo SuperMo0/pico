@@ -153,8 +153,8 @@
     },
     "wishlist": {
       "title": "المفضّلة",
-      "empty_message": "لم تضيفي أي منتج إلى مفضّلتك بعد.",
-      "continue_shopping": "تسوّقي الآن",
+      "empty_message": "لا توجد منتجات في مفضّلتك بعد.",
+      "continue_shopping": "تسوّق الآن",
       "loading": "جارٍ التحميل…",
       "view_product": "عرض المنتج",
       "remove": "إزالة من المفضّلة"

@@ -3,14 +3,25 @@
 
   class WishlistManager {
     constructor() {
-      var cid = window.__wishlistCustomerId;
-      this._key = cid ? 'beeko_wishlist_' + cid : 'beeko_wishlist_guest';
+      var cid        = window.__wishlistCustomerId;
+      this._guestKey = 'beeko_wishlist_guest';
+      this._key      = cid ? 'beeko_wishlist_' + cid : this._guestKey;
+
+      // When a logged-in customer visits, pull in any items saved as a guest
+      if (cid && this._key !== this._guestKey) {
+        var guestItems = this._readKey(this._guestKey);
+        if (guestItems.length) {
+          var merged = Array.from(new Set(guestItems.concat(this._read())));
+          this._save(merged, false);
+          localStorage.removeItem(this._guestKey);
+        }
+      }
 
       // Merge server-saved handles from customer metafield (read-only; write sync requires Customer Account API)
       var serverItems = window.__wishlistServerItems;
       if (Array.isArray(serverItems) && serverItems.length) {
-        var merged = Array.from(new Set(serverItems.concat(this._read())));
-        this._save(merged, false);
+        var mergedServer = Array.from(new Set(serverItems.concat(this._read())));
+        this._save(mergedServer, false);
       }
     }
 
@@ -31,8 +42,10 @@
       this.add(h); return true;
     }
 
-    _read() {
-      try { return JSON.parse(localStorage.getItem(this._key) || '[]'); }
+    _read()       { return this._readKey(this._key); }
+
+    _readKey(key) {
+      try { return JSON.parse(localStorage.getItem(key) || '[]'); }
       catch (e) { return []; }
     }
 

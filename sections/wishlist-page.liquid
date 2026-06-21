@@ -9,7 +9,8 @@
   <div class="wishlist-page__inner">
     <h1 id="wishlist-heading" class="wishlist-page__title">{{ 'sections.wishlist.title' | t }}</h1>
 
-    <div class="wishlist-page__loading" id="wishlist-loading" aria-live="polite" hidden>
+    <div class="wishlist-page__loading" id="wishlist-loading" aria-live="polite">
+      <div class="wishlist-page__spinner" aria-hidden="true"></div>
       <span class="visually-hidden">{{ 'sections.wishlist.loading' | t }}</span>
     </div>
 
@@ -68,6 +69,21 @@
   display: flex;
   justify-content: center;
   padding: var(--space-10) 0;
+}
+
+.wishlist-page__loading[hidden] { display: none; }
+
+.wishlist-page__spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--cream-200);
+  border-top-color: var(--ink-700);
+  animation: wishlist-spin 0.75s linear infinite;
+}
+
+@keyframes wishlist-spin {
+  to { transform: rotate(360deg); }
 }
 
 .wishlist-card {
@@ -174,22 +190,32 @@ class WishlistPage extends HTMLElement {
       loading: this.dataset.i18nLoading || 'Loading…'
     };
     this._moneyFormat = this.dataset.moneyFormat || '{amount}';
+    this._rendering   = false;
 
-    if (window.wishlist) {
-      this._render();
-    } else {
-      document.addEventListener('theme:wishlist:ready', () => this._render(), { once: true });
-    }
+    // Poll until wishlist.js has set window.wishlist — guards against defer-order variance
+    const tryRender = () => {
+      if (window.wishlist) { this._render(); }
+      else { requestAnimationFrame(tryRender); }
+    };
+    tryRender();
 
-    document.addEventListener('theme:wishlist:updated', () => this._onUpdated());
+    document.addEventListener('theme:wishlist:updated', () => {
+      if (!this._rendering) this._onUpdated();
+    });
   }
 
   async _render() {
+    this._rendering = true;
     var handles = window.wishlist.getAll();
-    if (handles.length === 0) { this._showEmpty(); return; }
+
+    if (handles.length === 0) {
+      this._showEmpty();
+      this._rendering = false;
+      return;
+    }
 
     this._loading.hidden = false;
-    this._empty.hidden = true;
+    this._empty.hidden   = true;
     this._grid.innerHTML = '';
 
     var results = await Promise.all(
@@ -202,8 +228,9 @@ class WishlistPage extends HTMLElement {
 
     this._loading.hidden = true;
     var products = results.filter(Boolean);
-    if (products.length === 0) { this._showEmpty(); return; }
+    if (products.length === 0) { this._showEmpty(); this._rendering = false; return; }
     this._grid.innerHTML = products.map(p => this._cardHTML(p)).join('');
+    this._rendering = false;
   }
 
   _onUpdated() {
