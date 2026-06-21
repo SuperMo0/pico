@@ -23,7 +23,7 @@
 -%}
 
 <product-card class="product-card" data-product-url="{{ product.url }}">
-  <div class="product-card__media">
+  <div class="product-card__media"{% if hover_media %} data-has-hover{% endif %}>
     {%- if card_media -%}
       {{ card_media | image_url: width: 600 | image_tag: alt: primary_alt, class: 'product-card__img product-card__img--primary', widths: img_widths, sizes: img_sizes, loading: 'lazy', style: primary_style }}
       {%- if hover_media -%}
@@ -71,7 +71,7 @@
 
     <div class="product-card__price">
       {%- if product.compare_at_price > product.price -%}
-        <span class="product-card__price--sale">{{ product.price | money }}</span>
+        <span class="product-card__price--regular">{{ product.price | money }}</span>
         <s class="product-card__price--was">{{ product.compare_at_price | money }}</s>
       {%- else -%}
         <span class="product-card__price--regular">{{ product.price | money }}</span>
@@ -225,9 +225,12 @@
   font-size: var(--fs-sm);
 }
 
-.product-card__price--sale { color: var(--text-sale); font-weight: var(--fw-semibold); margin-inline-end: 6px; }
 .product-card__price--was { color: var(--text-muted); }
-.product-card__price--regular { color: var(--text-strong); }
+.product-card__price--regular { color: var(--text-sale); font-weight: var(--fw-semibold); margin-inline-end: 6px; }
+.product__price--regular{
+  color: var(--text-sale);
+
+}
 
 @media (hover: none) {
   .product-card__quick-add-wrap {
@@ -274,12 +277,15 @@ class ProductCard extends HTMLElement {
 
       if (!response.ok) throw new Error('cart/add failed');
 
-      const cartResponse = await fetch('/cart.js', {
+      const cartSectionId = document.getElementById('cart-drawer')?.dataset.sectionId || 'cart-drawer';
+      const cartResponse = await fetch(`/cart.js?sections=${cartSectionId}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
       });
       const cart = await cartResponse.json();
 
-      document.dispatchEvent(new CustomEvent('theme:cart:updated', { detail: { cart } }));
+      document.dispatchEvent(new CustomEvent('theme:cart:updated', {
+        detail: { cart, sectionHtml: cart.sections?.[cartSectionId] }
+      }));
     } catch (err) {
       console.error('ProductCard quick-add error:', err);
     } finally {

@@ -28,7 +28,7 @@ endif
         {% render 'icon', icon: 'chevron-down', size: 24 %}
       </button>
 
-      <div class="featured-collection__grid">
+      <div class="featured-collection__grid" data-slider-track>
         {%- if fc_col != blank -%}
         {%- for product in fc_col.products limit: fc_count -%}
         <div>{% render 'product-card', product: product %}</div>
@@ -231,35 +231,3 @@ height: 100%;
 {% endschema %}
 
 
-{% javascript %}
-  class SliderComponent extends HTMLElement {
-  connectedCallback() {
-    this.slider = this.querySelector('.featured-collection__grid');
-    this.buttons = this.querySelectorAll('.fc-slider-btn');
-    
-    this.buttons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // Evaluate direction: 1 for next, -1 for previous
-        const isNext = e.currentTarget.name === 'next';
-        const direction = isNext ? 1 : -1;
-        
-        // In an RTL layout, scrolling "Next" (leftwards) means scrollBy needs a negative value
-        const isRtl = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
-        const scrollMultiplier = isRtl ? -1 : 1;
-        
-        // Scroll by ~90% of the visible container width
-        const scrollAmount = (this.slider.clientWidth * 0.9) * direction * scrollMultiplier;
-        
-        this.slider.scrollBy({
-          left: scrollAmount,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }
-}
-
-if (!customElements.get('slider-component')) {
-  customElements.define('slider-component', SliderComponent);
-}
-{% endjavascript %}

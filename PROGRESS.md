@@ -80,4 +80,10 @@ Refactored `sections/product.liquid` to make the info column fully block-driven.
 
 ---
 
+### Cart drawer — Section Rendering API refactor (2026-06-21)
+
+Rewrote `sections/cart-drawer.liquid` to use Shopify's Section Rendering API (push model, matching Dawn). Liquid now renders all cart content server-side — items, prices (`| money` in store currency), shipping bar progress, empty vs. filled state via `{% if cart.item_count > 0 %}`. Eliminated `_money()` (was hardcoded ر.س), `_esc()`, and all `items.map(...)` JS string-building. Fixed empty state always showing (`display:flex` was overriding `[hidden]` — removed hidden attributes entirely, Liquid conditionals handle it). Fixed checkout button: was `<a href="{{ routes.cart_url }}">` (went to cart page); now `<form method="post"><button name="checkout">` (goes directly to checkout). Updated `snippets/product-card.liquid` and `sections/product.liquid`: both fetch `/cart.js?sections=${cartSectionId}` (single request, replaces bare `/cart.js`) and dispatch `theme:cart:updated` with `{ cart, sectionHtml }`. Cart drawer `#changeQty` posts to `/cart/change.js` with `sections: [sectionId]` — single request returns cart JSON + rendered HTML, applied directly. `CartCount` in header unchanged (reads `e.detail.cart.item_count`). `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements
