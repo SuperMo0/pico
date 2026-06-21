@@ -114,8 +114,8 @@
   transition: opacity var(--dur-slow) var(--ease-soft);
 }
 
-.product-card:hover .product-card__img--primary { transform: scale(1.03); opacity: 0; }
-.product-card:hover .product-card__img--primary:only-child { opacity: 1; transform: scale(1.03); }
+.product-card:hover .product-card__img--primary { transform: scale(1.03); }
+.product-card:hover .product-card__media[data-has-hover] .product-card__img--primary { opacity: 0; }
 .product-card:hover .product-card__img--hover { opacity: 1; }
 
 .product-card__badge {
