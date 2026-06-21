@@ -8,7 +8,9 @@
     "skip_to_content": "انتقل إلى المحتوى",
     "close_modal": "إغلاق",
     "open_menu": "فتح القائمة",
-    "close_menu": "إغلاق القائمة"
+    "close_menu": "إغلاق القائمة",
+    "previous": "السابق",
+    "next": "التالي"
   },
   "blog": {
     "article_comments": "التعليقات",

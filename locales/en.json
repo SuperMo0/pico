@@ -8,7 +8,9 @@
     "skip_to_content": "Skip to content",
     "close_modal": "Close",
     "open_menu": "Open menu",
-    "close_menu": "Close menu"
+    "close_menu": "Close menu",
+    "previous": "Previous",
+    "next": "Next"
   },
   "blog": {
     "article_comments": "Comments",
