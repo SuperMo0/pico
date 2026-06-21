@@ -515,10 +515,10 @@ class CartDrawer extends HTMLElement {
     });
 
     document.addEventListener('theme:cart:open', () => {
-      fetch(`/cart.js?sections=${this._sectionId}`)
+      fetch(`${window.location.pathname}?sections=${this._sectionId}`)
         .then((r) => r.json())
         .then((data) => {
-          this.#applySection(data.sections?.[this._sectionId]);
+          this.#applySection(data[this._sectionId]);
           this.open();
         })
         .catch((err) => console.error('[cart-drawer]', err));

@@ -963,14 +963,15 @@ class ProductForm extends HTMLElement {
       if (!res.ok) throw new Error(`cart/add ${res.status}`);
 
       const cartSectionId = document.getElementById('cart-drawer')?.dataset.sectionId || 'cart-drawer';
-      const cartRes = await fetch(`/cart.js?sections=${cartSectionId}`, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        signal: this.#atcController.signal
-      });
+      const [cartRes, sectionRes] = await Promise.all([
+        fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: this.#atcController.signal }),
+        fetch(`${window.location.pathname}?sections=${cartSectionId}`, { signal: this.#atcController.signal })
+      ]);
       const cart = await cartRes.json();
+      const sectionData = await sectionRes.json();
 
       document.dispatchEvent(new CustomEvent('theme:cart:updated', {
-        detail: { cart, sectionHtml: cart.sections?.[cartSectionId] }
+        detail: { cart, sectionHtml: sectionData[cartSectionId] }
       }));
     } catch (err) {
       if (err.name !== 'AbortError') console.error('ProductForm submit error:', err);

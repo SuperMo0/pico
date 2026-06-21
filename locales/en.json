@@ -91,7 +91,7 @@
       "search_label": "Search"
     },
     "announcement_bar": {
-      "text": "Free shipping on orders over 200 SAR · Easy returns within 14 days"
+      "text": "Free shipping · Easy returns within 14 days"
     },
     "hero": {},
     "reassurance_strip": {
@@ -124,7 +124,7 @@
       "size_guide": "Size guide",
       "trust_cotton": "100% Cotton",
       "trust_gentle": "Gentle on skin",
-      "trust_shipping": "Free shipping over 200 SAR",
+      "trust_shipping": "Free shipping",
       "accordion_details": "Product details",
       "accordion_fabric": "Fabric & care",
       "accordion_shipping": "Shipping & returns",
@@ -137,7 +137,7 @@
       "title": "Your cart",
       "empty_heading": "Your cart is empty.",
       "continue_shopping": "Continue shopping",
-      "free_shipping_progress": "Add {{ amount }} SAR for free shipping",
+      "free_shipping_progress": "Add {{ amount }} for free shipping",
       "free_shipping_achieved": "You've got free shipping!",
       "subtotal": "Subtotal",
       "checkout": "Checkout",

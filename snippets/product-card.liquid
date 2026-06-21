@@ -278,13 +278,15 @@ class ProductCard extends HTMLElement {
       if (!response.ok) throw new Error('cart/add failed');
 
       const cartSectionId = document.getElementById('cart-drawer')?.dataset.sectionId || 'cart-drawer';
-      const cartResponse = await fetch(`/cart.js?sections=${cartSectionId}`, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      });
-      const cart = await cartResponse.json();
+      const [cartRes, sectionRes] = await Promise.all([
+        fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } }),
+        fetch(`${window.location.pathname}?sections=${cartSectionId}`)
+      ]);
+      const cart = await cartRes.json();
+      const sectionData = await sectionRes.json();
 
       document.dispatchEvent(new CustomEvent('theme:cart:updated', {
-        detail: { cart, sectionHtml: cart.sections?.[cartSectionId] }
+        detail: { cart, sectionHtml: sectionData[cartSectionId] }
       }));
     } catch (err) {
       console.error('ProductCard quick-add error:', err);

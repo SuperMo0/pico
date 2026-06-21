@@ -91,7 +91,7 @@
       "search_label": "بحث"
     },
     "announcement_bar": {
-      "text": "شحن مجاني للطلبات فوق ٢٠٠ ر.س · إرجاع سهل خلال ١٤ يومًا"
+      "text": "شحن مجاني · إرجاع سهل خلال ١٤ يومًا"
     },
     "hero": {},
     "reassurance_strip": {
@@ -124,7 +124,7 @@
       "size_guide": "دليل القياس",
       "trust_cotton": "قطن ١٠٠٪",
       "trust_gentle": "لطيف على البشرة",
-      "trust_shipping": "شحن مجاني فوق ٢٠٠ ر.س",
+      "trust_shipping": "شحن مجاني",
       "accordion_details": "تفاصيل المنتج",
       "accordion_fabric": "الخامة والعناية",
       "accordion_shipping": "الشحن والإرجاع",
@@ -137,7 +137,7 @@
       "title": "سلّتك",
       "empty_heading": "سلّتك فارغة الآن.",
       "continue_shopping": "تابعي التسوّق",
-      "free_shipping_progress": "أضِف {{ amount }} ر.س للحصول على شحن مجاني",
+      "free_shipping_progress": "أضِف {{ amount }} للحصول على شحن مجاني",
       "free_shipping_achieved": "رائع — حصلتِ على الشحن المجاني!",
       "subtotal": "المجموع الفرعي",
       "checkout": "إتمام الشراء",
