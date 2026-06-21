@@ -13,9 +13,39 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "link_list_H6tjQL": {
+          "type": "link_list",
+          "settings": {
+            "heading": "تسوق",
+            "menu": "main-menu"
+          }
+        },
+        "link_list_Mw6KVR": {
+          "type": "link_list",
+          "settings": {
+            "heading": "المساعدة",
+            "menu": "footer"
+          }
+        },
+        "link_list_DLFzgk": {
+          "type": "link_list",
+          "settings": {
+            "heading": "عن بيكو",
+            "menu": "about-us"
+          }
+        }
+      },
+      "block_order": [
+        "link_list_H6tjQL",
+        "link_list_Mw6KVR",
+        "link_list_DLFzgk"
+      ],
       "settings": {
         "logo_width": 120,
-        "brand_description": "<p>ملابس منزلية قطنية للأطفال، بألوان هادئة وخامات لطيفة على البشرة. صُنعت لتدوم ناعمة.</p>"
+        "brand_description": "<p>ملابس منزلية قطنية للأطفال، بألوان هادئة وخامات لطيفة على البشرة. صُنعت لتدوم ناعمة.</p>",
+        "copyright_text": "",
+        "trust_tagline": ""
       }
     }
   },
