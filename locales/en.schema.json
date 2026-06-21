@@ -93,13 +93,14 @@
         "heading": "Heading",
         "subheading": "Subheading",
         "image": "Banner image",
-        "image_position": "Image position",
-        "image_position_right": "Right",
-        "image_position_left": "Left",
         "primary_cta_label": "Primary button label",
         "primary_cta_url": "Primary button link",
         "secondary_cta_label": "Secondary button label",
-        "secondary_cta_url": "Secondary button link"
+        "secondary_cta_url": "Secondary button link",
+        "text_color": "Text color",
+        "text_color_light": "Light (on dark image)",
+        "text_color_dark": "Dark (on light image)",
+        "overlay_opacity": "Image overlay darkness"
       },
       "presets": {
         "name": "Hero banner"

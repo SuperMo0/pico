@@ -93,13 +93,14 @@
         "heading": "العنوان الرئيسي",
         "subheading": "العنوان الفرعي",
         "image": "صورة البانر",
-        "image_position": "موضع الصورة",
-        "image_position_right": "يمين",
-        "image_position_left": "يسار",
         "primary_cta_label": "نص الزر الرئيسي",
         "primary_cta_url": "رابط الزر الرئيسي",
         "secondary_cta_label": "نص الزر الثانوي",
-        "secondary_cta_url": "رابط الزر الثانوي"
+        "secondary_cta_url": "رابط الزر الثانوي",
+        "text_color": "لون النص",
+        "text_color_light": "فاتح (فوق صورة داكنة)",
+        "text_color_dark": "داكن (فوق صورة فاتحة)",
+        "overlay_opacity": "تعتيم الطبقة فوق الصورة"
       },
       "presets": {
         "name": "بانر رئيسي"

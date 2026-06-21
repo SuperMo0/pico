@@ -1,104 +1,131 @@
 {%- liquid
-  assign img_pos  = section.settings.image_position | default: 'right'
   assign hero_img = section.settings.image
-  assign img_alt  = hero_img.alt | default: section.settings.heading
-  assign img_style = 'object-fit: cover; object-position: ' | append: hero_img.presentation.focal_point
+  assign text_variant = section.settings.text_color | default: 'light'
+  assign veil = section.settings.overlay_opacity | default: 45
+  assign veil_alpha = veil | divided_by: 100.0
+
+  if hero_img != blank
+    assign img_alt = hero_img.alt | default: section.settings.heading
+    assign img_style = 'object-position: ' | append: hero_img.presentation.focal_point
+  endif
 -%}
 
-<section class="hero" aria-labelledby="hero-heading-{{ section.id }}">
-  <div class="hero__inner{% if img_pos == 'left' %} hero__inner--img-left{% endif %}">
+<section
+  class="hero full-width hero--text-{{ text_variant }}"
+  aria-labelledby="hero-heading-{{ section.id }}"
+  style="--hero-veil-alpha: {{ veil_alpha }};"
+>
+  <div class="hero__media">
+    {%- if hero_img != blank -%}
+      {{ hero_img | image_url: width: 2400 | image_tag: alt: img_alt, class: 'hero__img', widths: '600,900,1200,1600,2000,2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', style: img_style }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'hero__img hero__img--placeholder' }}
+    {%- endif -%}
+    <div class="hero__veil" aria-hidden="true"></div>
+  </div>
 
-    <div class="hero__text">
-      {%- if section.settings.eyebrow_text != blank -%}
-        <div class="beeko-eyebrow hero__eyebrow">{{ section.settings.eyebrow_text }}</div>
-      {%- endif -%}
+  <div class="hero__content">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <p class="beeko-eyebrow hero__eyebrow">{{ section.settings.eyebrow_text }}</p>
+    {%- endif -%}
 
-      <h1 id="hero-heading-{{ section.id }}" class="hero__heading">
-        {{ section.settings.heading }}
-      </h1>
+    <h1 id="hero-heading-{{ section.id }}" class="hero__heading">
+      {{ section.settings.heading }}
+    </h1>
 
-      {%- if section.settings.subheading != blank -%}
-        <div class="hero__sub">{{ section.settings.subheading }}</div>
-      {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <div class="hero__sub">{{ section.settings.subheading }}</div>
+    {%- endif -%}
 
+    {%- if section.settings.primary_cta_label != blank or section.settings.secondary_cta_label != blank -%}
       <div class="hero__ctas">
         {%- if section.settings.primary_cta_label != blank -%}
-          <a href="{{ section.settings.primary_cta_url }}" class="btn btn--primary btn--lg">
+          <a href="{{ section.settings.primary_cta_url | default: routes.all_products_collection_url }}" class="btn btn--lg hero__cta hero__cta--primary">
             {{ section.settings.primary_cta_label }}
           </a>
         {%- endif -%}
         {%- if section.settings.secondary_cta_label != blank -%}
-          <a href="{{ section.settings.secondary_cta_url }}" class="btn btn--outline btn--lg">
+          <a href="{{ section.settings.secondary_cta_url | default: routes.all_products_collection_url }}" class="btn btn--lg hero__cta hero__cta--secondary">
             {{ section.settings.secondary_cta_label }}
           </a>
         {%- endif -%}
       </div>
-    </div>
-
-    <div class="hero__media">
-      {%- if hero_img != blank -%}
-        {{ hero_img | image_url: width: 900 | image_tag: alt: img_alt, widths: '400,600,900', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', style: img_style }}
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'hero__placeholder' }}
-      {%- endif -%}
-    </div>
-
+    {%- endif -%}
   </div>
 </section>
 
 {% stylesheet %}
 .hero {
-  margin-inline: auto;
-  padding-inline: var(--container-pad);
-  padding-block: var(--space-8);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 80vh;
+  min-height: 80dvh;
+  padding-block: 0;
+  overflow: hidden;
+  isolation: isolate;
+  padding-bottom: var(--space-5);
 }
 
-.hero__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-.hero__text {
-  order: 1;
-}
+.hero--text-light { --hero-text: var(--cream-50); --hero-veil-rgb: 43, 39, 33; }
+.hero--text-dark  { --hero-text: var(--ink-900);  --hero-veil-rgb: 252, 250, 246; }
 
 .hero__media {
-  order: 2;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--cream-100);
-  aspect-ratio: 4 / 5;
-  max-height: 60vw;
 }
 
-.hero__media img {
+.hero__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.hero__placeholder {
+/* Mobile: veil rises from the bottom so low-anchored text stays legible. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(var(--hero-veil-rgb), var(--hero-veil-alpha)) 0%,
+    rgba(var(--hero-veil-rgb), calc(var(--hero-veil-alpha) * 0.42)) 38%,
+    rgba(var(--hero-veil-rgb), 0) 62%
+  );
+}
+
+.hero__content {
+  position: relative;
   width: 100%;
-  height: 100%;
+  padding-inline: var(--container-pad);
+  padding-block-end: var(--space-8);
+  text-align: start;
+  color: var(--hero-text);
 }
 
 .hero__eyebrow {
-  margin-bottom: var(--space-4);
+  color: var(--hero-text);
+  opacity: 0.92;
+  margin-bottom: var(--space-3);
 }
 
 .hero__heading {
-  font-size: var(--fs-h1);
+  font-size: clamp(var(--fs-h2), 6vw, 2.75rem);
   line-height: var(--lh-tight);
-  margin-bottom: var(--space-4);
+  color: var(--hero-text);
+  margin: 0 0 var(--space-4);
+  max-width: 18ch;
 }
 
 .hero__sub {
   font-size: var(--fs-body-lg);
-  color: var(--text-body);
-  max-width: 46ch;
-  margin-bottom: var(--space-6);
+  color: var(--hero-text);
+  opacity: 0.92;
+  max-width: 42ch;
+  margin-bottom: var(--space-5);
 }
 
 .hero__sub p { margin: 0; }
@@ -109,28 +136,83 @@
   flex-wrap: wrap;
 }
 
+/* Hero CTAs flip color with the chosen text variant so they pop on the photo. */
+.hero--text-light .hero__cta--primary {
+  background: var(--cream-50);
+  color: var(--ink-900);
+  border-color: var(--cream-50);
+}
+.hero--text-light .hero__cta--primary:hover {
+  background: #fff;
+  border-color: #fff;
+}
+.hero--text-light .hero__cta--secondary {
+  background: transparent;
+  color: var(--cream-50);
+  border-color: rgba(252, 250, 246, 0.85);
+}
+.hero--text-light .hero__cta--secondary:hover {
+  background: rgba(252, 250, 246, 0.14);
+}
+
+.hero--text-dark .hero__cta--primary {
+  background: var(--ink-900);
+  color: var(--cream-50);
+  border-color: var(--ink-900);
+}
+.hero--text-dark .hero__cta--primary:hover {
+  background: var(--ink-800);
+  border-color: var(--ink-800);
+}
+.hero--text-dark .hero__cta--secondary {
+  background: transparent;
+  color: var(--ink-900);
+  border-color: var(--ink-900);
+}
+.hero--text-dark .hero__cta--secondary:hover {
+  background: rgba(43, 39, 33, 0.06);
+}
+
+.hero__cta {
+  min-height: 44px;
+}
+
+/* Desktop: text centers over a calmer, flat wash. */
 @media (min-width: 768px) {
   .hero {
-    padding-block: var(--space-10);
+    justify-content: center;
+    min-height: clamp(440px, 72vh, 760px);
   }
 
-  .hero__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-8);
-    align-items: center;
+  .hero__veil {
+    background: rgba(var(--hero-veil-rgb), calc(var(--hero-veil-alpha) * 0.62));
   }
 
-  .hero__media {
-    max-height: none;
+  .hero__content {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-block-end: 0;
+    text-align: center;
   }
 
   .hero__heading {
     font-size: var(--fs-display);
-    line-height: 1.15;
+    line-height: var(--lh-heading);
+    max-width: 22ch;
+    margin-inline: auto;
   }
 
-  .hero__inner--img-left .hero__text { order: 2; }
-  .hero__inner--img-left .hero__media { order: 1; }
+  .hero__sub {
+    margin-inline: auto;
+  }
+
+  .hero__ctas {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta { transition: none; }
 }
 {% endstylesheet %}
 
@@ -147,13 +229,12 @@
       "type": "text",
       "id": "heading",
       "label": "t:sections.hero.settings.heading",
-      "default": "قطن ناعم… ليوم كامل من اللعب والراحة"
+      "default": "قطن ناعم لكل لحظات اللعب"
     },
     {
       "type": "richtext",
       "id": "subheading",
-      "label": "t:sections.hero.settings.subheading",
-      "default": "<p>ملابس منزلية مريحة بألوان هادئة، مصنوعة من قطن لطيف على بشرة طفلك.</p>"
+      "label": "t:sections.hero.settings.subheading"
     },
     {
       "type": "image_picker",
@@ -162,13 +243,23 @@
     },
     {
       "type": "select",
-      "id": "image_position",
-      "label": "t:sections.hero.settings.image_position",
+      "id": "text_color",
+      "label": "t:sections.hero.settings.text_color",
       "options": [
-        { "value": "right", "label": "t:sections.hero.settings.image_position_right" },
-        { "value": "left",  "label": "t:sections.hero.settings.image_position_left" }
+        { "value": "light", "label": "t:sections.hero.settings.text_color_light" },
+        { "value": "dark", "label": "t:sections.hero.settings.text_color_dark" }
       ],
-      "default": "right"
+      "default": "light"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:sections.hero.settings.overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 45
     },
     {
       "type": "text",
@@ -184,8 +275,7 @@
     {
       "type": "text",
       "id": "secondary_cta_label",
-      "label": "t:sections.hero.settings.secondary_cta_label",
-      "default": "حديثو الولادة"
+      "label": "t:sections.hero.settings.secondary_cta_label"
     },
     {
       "type": "url",

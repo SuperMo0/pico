@@ -14,14 +14,12 @@
       "name": "t:sections.hero.presets.name",
       "settings": {
         "eyebrow_text": "مجموعة المنزل",
-        "heading": "قطن ناعم… ليوم كامل من اللعب والراحة",
-        "subheading": "<p>ملابس منزلية مريحة بألوان هادئة، مصنوعة من قطن لطيف على بشرة طفلك.</p>",
+        "heading": "قطن ناعم لكل لحظات اللعب",
         "image": "shopify://shop_images/21626523-9802-4957-9ee6-91a86253f488.jpg",
-        "image_position": "right",
-        "primary_cta_label": "وصل حديثا",
-        "primary_cta_url": "",
-        "secondary_cta_label": "حديثو الولادة",
-        "secondary_cta_url": ""
+        "text_color": "light",
+        "overlay_opacity": 45,
+        "primary_cta_label": "تسوّقي المجموعة",
+        "primary_cta_url": ""
       }
     },
     "categories": {

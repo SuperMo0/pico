@@ -136,7 +136,7 @@
 
   /* --- Spacing: Layout ---------------------------------------------------- */
   --container-max:  1240px;
-  --container-pad:  var(--space-5);
+  --container-pad:  var(--space-1);
   --section-gap:    var(--space-12);
   --grid-gutter:    var(--space-5);
 

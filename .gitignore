@@ -15,3 +15,7 @@ node_modules/
 ## Release files
 release
 *.zip
+hero-image/*
+
+# Visual brainstorm companion artifacts
+.superpowers/

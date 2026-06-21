@@ -104,4 +104,10 @@ Added global social media icon system. Five platforms: Instagram, TikTok, Facebo
 
 ---
 
+### Hero — full-bleed overlay redesign (2026-06-21)
+
+Reworked `sections/hero.liquid` from a 2-column text+image grid into a full-width image hero with text overlaid (design chosen via visual brainstorm). Mobile-first: `full-width` class (spans the `.shopify-section` grid edge-to-edge), `min-height: 80dvh`, image as a `z-index:-1` background layer, a bottom-rising gradient **veil** for legibility, and eyebrow + h1 + single CTA anchored to the bottom (`text-align: start`). Desktop (`@media min-width:768px`): content **centers** over a flatter wash, heading scales to `--fs-display`. Two modifier classes drive theming: `hero--text-light/dark` set `--hero-text` + `--hero-veil-rgb` (white text on ink veil, or ink text on cream veil); CTA colors flip to match so they pop on the photo. Veil strength is merchant-controlled via `overlay_opacity` range (0–80%) piped into `--hero-veil-alpha` as an inline style. Image still comes from `section.settings.image` (focal-point `object-position`); blank falls back to `placeholder_svg_tag`. Dropped the now-irrelevant `image_position` setting; added `text_color` + `overlay_opacity` settings and locale keys to both schema locale files. Updated `templates/index.json` hero entry to the minimal one-CTA design. `shopify theme check` — 0 errors (3 acceptable Google Fonts warnings only).
+
+---
+
 ## Active Refinements
