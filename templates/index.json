@@ -15,11 +15,14 @@
       "settings": {
         "eyebrow_text": "مجموعة المنزل",
         "heading": "قطن ناعم لكل لحظات اللعب",
+        "subheading": "",
         "image": "shopify://shop_images/21626523-9802-4957-9ee6-91a86253f488.jpg",
         "text_color": "light",
         "overlay_opacity": 45,
-        "primary_cta_label": "تسوّقي المجموعة",
-        "primary_cta_url": ""
+        "primary_cta_label": "تسوّق المجموعة",
+        "primary_cta_url": "shopify://collections/frontpage",
+        "secondary_cta_label": "",
+        "secondary_cta_url": ""
       }
     },
     "categories": {
@@ -76,7 +79,8 @@
         "heading": "خامة تتنفّس، تبقى ناعمة",
         "body": "<p>نختار قطنًا طبيعيًا لطيفًا على البشرة الحسّاسة، يحتفظ بنعومته بعد كل غسلة.</p>",
         "cta_label": "اعرفي أكثر",
-        "cta_url": "",
+        "cta_url": "shopify://pages/contact",
+        "image": "shopify://shop_images/83e08215-ef22-4442-a0b3-696344c1a661_a5902dae-eddc-47ae-8aa5-d613550669e8.jpg",
         "image_position": "right"
       }
     }

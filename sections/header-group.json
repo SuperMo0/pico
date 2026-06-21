@@ -24,7 +24,8 @@
       "settings": {
         "menu": "main-menu",
         "customer_account_menu": "customer-account-main-menu",
-        "show_search": true
+        "show_search": true,
+        "sticky_header": "smart"
       }
     },
     "cart-drawer": {
@@ -32,11 +33,21 @@
       "settings": {
         "free_shipping_threshold": 200
       }
+    },
+    "whatsapp_button_jXiiGA": {
+      "type": "whatsapp-button",
+      "name": "t:sections.whatsapp_button.name",
+      "settings": {
+        "phone": "201006864406",
+        "message": "",
+        "position": "whatsapp-fab--br"
+      }
     }
   },
   "order": [
     "announcement-bar",
     "header",
-    "cart-drawer"
+    "cart-drawer",
+    "whatsapp_button_jXiiGA"
   ]
 }
