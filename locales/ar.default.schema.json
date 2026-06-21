@@ -66,7 +66,13 @@
     "text_style": "نمط النص",
     "cart_type": "نوع عرض السلّة",
     "logo": "شعار المتجر",
-    "logo_width": "عرض الشعار (بكسل)"
+    "logo_width": "عرض الشعار (بكسل)",
+    "social_media_header": "روابط التواصل الاجتماعي",
+    "social_instagram_url": "رابط إنستغرام",
+    "social_tiktok_url": "رابط تيك توك",
+    "social_facebook_url": "رابط فيسبوك",
+    "social_twitter_url": "رابط تويتر / إكس",
+    "social_youtube_url": "رابط يوتيوب"
   },
   "sections": {
     "announcement_bar": {

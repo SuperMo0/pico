@@ -170,6 +170,9 @@
           {%- endfor -%}
         </nav>
       {%- endif -%}
+      <div class="site-header__overlay-social">
+        {%- render 'social-icons', tone: 'dark' -%}
+      </div>
     </div>
   </div>
 </site-header>
@@ -535,6 +538,12 @@
   .site-header__overlay-link:focus-visible {
     outline: 2px solid var(--border-focus);
     outline-offset: 2px;
+  }
+
+  .site-header__overlay-social {
+    padding: var(--space-5);
+    border-top: 1px solid var(--border-hairline);
+    margin-top: auto;
   }
 
   html.scroll-lock {

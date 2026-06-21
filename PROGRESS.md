@@ -98,4 +98,10 @@ Replaced `sticky_header` checkbox with a three-way select: `off` / `always` / `s
 
 ---
 
+### Social media icons — footer, mobile menu, announcement bar (2026-06-21)
+
+Added global social media icon system. Five platforms: Instagram, TikTok, Facebook, Twitter/X, YouTube. URLs managed via Theme Settings ("Social media links" group in `config/settings_schema.json`) so they're set once and shared everywhere. New `snippets/social-icons.liquid` handles the rendering (renders nothing when all URLs are blank). New social icon paths added to `snippets/icon.liquid` (`instagram`, `tiktok`, `facebook`, `twitter-x`, `youtube`). Icons appear in three places: (1) footer — below brand description with `tone: 'light'` (cream color); (2) mobile burger menu — at the bottom of the overlay panel with `tone: 'dark'` (ink color), pushed to bottom via `margin-top: auto`; (3) announcement bar — desktop only (`display: none` on mobile, flex at 768px), first column in a 3-col flex layout so social icons appear on the visual right in RTL, text stays centered, empty spacer balances the layout. Icons sized 32px in announcement bar, 40px elsewhere (44px touch target via `@media (hover: none)`). `shopify theme check` — 0 errors (3 acceptable Google Fonts warnings only).
+
+---
+
 ## Active Refinements

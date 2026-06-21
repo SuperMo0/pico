@@ -89,6 +89,36 @@
     ]
   },
   {
+    "name": "t:labels.social_media_header",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram_url",
+        "label": "t:labels.social_instagram_url"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_url",
+        "label": "t:labels.social_tiktok_url"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_url",
+        "label": "t:labels.social_facebook_url"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_url",
+        "label": "t:labels.social_twitter_url"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_url",
+        "label": "t:labels.social_youtube_url"
+      }
+    ]
+  },
+  {
     "name": "t:general.colors",
     "settings": [
       {

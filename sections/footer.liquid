@@ -37,6 +37,7 @@
         {%- if section.settings.brand_description != blank -%}
           <div class="footer__brand-desc">{{ section.settings.brand_description }}</div>
         {%- endif -%}
+        {%- render 'social-icons', tone: 'light' -%}
       </div>
 
       {%- for block in section.blocks -%}
@@ -121,6 +122,11 @@
 
 .footer__brand-desc p {
   margin: 0;
+}
+
+.footer__brand .social-icons {
+  margin-top: var(--space-5);
+  margin-inline-start: calc(var(--space-1) * -1);
 }
 
 .footer__col-heading {

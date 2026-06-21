@@ -1,13 +1,19 @@
 {%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
   <div class="announcement-bar full-width" role="region" aria-label="{{ 'general.announcement_bar' | t }}">
     <div class="announcement-bar__inner">
-      {%- if section.settings.announcement_link != blank -%}
-        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">
-          {{- section.settings.announcement_text -}}
-        </a>
-      {%- else -%}
-        <p class="announcement-bar__text">{{- section.settings.announcement_text -}}</p>
-      {%- endif -%}
+      <div class="announcement-bar__social">
+        {%- render 'social-icons', size: 16 -%}
+      </div>
+      <div class="announcement-bar__body">
+        {%- if section.settings.announcement_link != blank -%}
+          <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">
+            {{- section.settings.announcement_text -}}
+          </a>
+        {%- else -%}
+          <p class="announcement-bar__text">{{- section.settings.announcement_text -}}</p>
+        {%- endif -%}
+      </div>
+      <div class="announcement-bar__spacer" aria-hidden="true"></div>
     </div>
   </div>
 {%- endif -%}
@@ -20,12 +26,44 @@
     font-size: var(--fs-xs);
     font-weight: var(--fw-medium);
     line-height: var(--lh-snug);
-    text-align: center;
     width: 100%;
   }
 
   .announcement-bar__inner {
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--container-pad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .announcement-bar__body {
+    flex: 1;
+    text-align: center;
+  }
+
+  .announcement-bar__social {
+    display: none;
+    flex: 1;
+    align-items: center;
+  }
+
+  .announcement-bar__spacer {
+    display: none;
+    flex: 1;
+  }
+
+  @media (min-width: 768px) {
+    .announcement-bar__inner {
+      justify-content: space-between;
+    }
+
+    .announcement-bar__social {
+      display: flex;
+    }
+
+    .announcement-bar__spacer {
+      display: block;
+    }
   }
 
   .announcement-bar__text {
@@ -42,6 +80,16 @@
 
   .announcement-bar__link:hover {
     opacity: 0.8;
+  }
+
+  .announcement-bar__social .social-icons__link {
+    width: 32px;
+    height: 32px;
+    color: var(--text-on-dark);
+  }
+
+  .announcement-bar__social .social-icons__link:hover {
+    opacity: 0.75;
   }
 {% endstylesheet %}
 

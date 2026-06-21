@@ -10,7 +10,12 @@
     "open_menu": "فتح القائمة",
     "close_menu": "إغلاق القائمة",
     "previous": "السابق",
-    "next": "التالي"
+    "next": "التالي",
+    "follow_instagram": "تابعينا على إنستغرام",
+    "follow_tiktok": "تابعينا على تيك توك",
+    "follow_facebook": "تابعينا على فيسبوك",
+    "follow_twitter": "تابعينا على تويتر",
+    "follow_youtube": "تابعينا على يوتيوب"
   },
   "blog": {
     "article_comments": "التعليقات",

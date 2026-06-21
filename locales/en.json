@@ -10,7 +10,12 @@
     "open_menu": "Open menu",
     "close_menu": "Close menu",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "follow_instagram": "Follow us on Instagram",
+    "follow_tiktok": "Follow us on TikTok",
+    "follow_facebook": "Follow us on Facebook",
+    "follow_twitter": "Follow us on Twitter",
+    "follow_youtube": "Follow us on YouTube"
   },
   "blog": {
     "article_comments": "Comments",
