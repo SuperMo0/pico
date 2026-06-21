@@ -116,4 +116,10 @@ New standalone section: a fixed circular WhatsApp FAB (chosen over the official 
 
 ---
 
+### Hero viewport height fix — mobile scrolling (2026-06-21)
+
+Fixed mobile scrolling behavior where the hero image stretched when the browser's address bar and bottom controls hid during scroll. Root cause: `min-height: 80dvh` (dynamic viewport height) expands as the viewport grows. Solution: changed to `min-height: 80svh` (small viewport height), which locks the height at the smallest possible viewport regardless of browser UI visibility. This is the standard modern approach to prevent layout shift on mobile. `shopify theme check` — 0 errors.
+
+---
+
 ## Active Refinements
