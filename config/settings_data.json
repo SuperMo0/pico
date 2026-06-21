@@ -8,5 +8,10 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "social_instagram_url": "https://www.google.com",
+    "social_tiktok_url": "https://www.google.com",
+    "social_facebook_url": "https://www.google.com",
+    "content_for_index": []
+  }
 }
