@@ -9,7 +9,7 @@
   assign sticky_mode = section.settings.sticky_header
 -%}
 
-<site-header class="site-header{% if sticky_mode == 'always' %} site-header--sticky{% elsif sticky_mode == 'smart' %} site-header--smart{% endif %}" id="site-header" role="banner">
+<site-header class="site-header full-width{% if sticky_mode == 'always' %} site-header--sticky{% elsif sticky_mode == 'smart' %} site-header--smart{% endif %}" id="site-header" role="banner">
   <div class="site-header__bar">
     <div class="site-header__inner">
 
@@ -56,14 +56,13 @@
           </a>
         {%- endif -%}
 
-        <button
-          type="button"
+        <a
+          href="/pages/wishlist"
           class="site-header__icon-btn"
           aria-label="{{ 'sections.header.wishlist_label' | t }}"
-          data-open-wishlist
         >
           {% render 'icon', icon: 'heart', size: 20 %}
-        </button>
+        </a>
 
         {%- if shop.customer_accounts_enabled -%}
           <shopify-account
@@ -186,27 +185,24 @@
     border-bottom: 1px solid var(--border-hairline);
   }
 
-  .site-header--sticky .site-header__bar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .site-header--smart .site-header__bar {
+  .site-header--sticky.is-fixed .site-header__bar,
+  .site-header--smart.is-fixed .site-header__bar {
     position: fixed;
     top: 0;
     inset-inline: 0;
     z-index: 50;
+  }
+
+  .site-header--smart .site-header__bar {
     transition: transform 250ms ease-out;
     will-change: transform;
   }
 
-  .site-header--smart.is-hidden .site-header__bar {
+  .site-header--smart.is-fixed.is-hidden .site-header__bar {
     transform: translateY(-100%);
   }
 
   .site-header__inner {
-    margin-inline: auto;
     padding-inline: var(--container-pad);
     height: 72px;
     display: flex;
@@ -246,6 +242,10 @@
   @media (min-width: 768px) {
     .site-header__hamburger {
       display: none;
+    }
+    .site-header__inner{
+      padding-inline: 5%;
+
     }
   }
 
@@ -528,9 +528,10 @@
       this._closeBtn = this.querySelector('[data-close-overlay]');
       this._cartBtn = this.querySelector('[data-open-cart]');
 
-      if (this.classList.contains('site-header--smart')) {
-        this.style.minHeight = this._bar.offsetHeight + 'px';
-        this._initSmartSticky();
+      if (this.classList.contains('site-header--sticky')) {
+        this._initSticky('always');
+      } else if (this.classList.contains('site-header--smart')) {
+        this._initSticky('smart');
       }
 
       if (this._cartBtn) {
@@ -580,17 +581,29 @@
       );
     }
 
-    _initSmartSticky() {
+    _initSticky(mode) {
+      const naturalTop = this.getBoundingClientRect().top + window.scrollY;
+      this.style.minHeight = this._bar.offsetHeight + 'px';
+      let isFixed = false;
       let lastY = window.scrollY;
-      const threshold = this._bar.offsetHeight;
+
       window.addEventListener('scroll', () => {
         const y = window.scrollY;
-        if (y < threshold) {
-          this.classList.remove('is-hidden');
-        } else if (y > lastY) {
-          this.classList.add('is-hidden');
-        } else {
-          this.classList.remove('is-hidden');
+        if (y >= naturalTop) {
+          if (!isFixed) {
+            this.classList.add('is-fixed');
+            isFixed = true;
+          }
+          if (mode === 'smart') {
+            if (y > lastY + 4) {
+              this.classList.add('is-hidden');
+            } else if (y < lastY - 4) {
+              this.classList.remove('is-hidden');
+            }
+          }
+        } else if (isFixed) {
+          this.classList.remove('is-fixed', 'is-hidden');
+          isFixed = false;
         }
         lastY = y;
       }, { passive: true });

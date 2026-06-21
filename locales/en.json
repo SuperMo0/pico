@@ -71,7 +71,8 @@
       "add_to_wishlist": "Add to wishlist",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
-      "sale_badge": "Sale"
+      "sale_badge": "Sale",
+      "remove_from_wishlist": "Remove from wishlist"
     }
   },
   "search": {
@@ -149,6 +150,14 @@
     "footer": {
       "copyright": "© 2026 Beeko — All rights reserved.",
       "trust_tagline": "100% Cotton · Ships within KSA · Secure payment"
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "empty_message": "You haven't added any products to your wishlist yet.",
+      "continue_shopping": "Start shopping",
+      "loading": "Loading…",
+      "view_product": "View product",
+      "remove": "Remove from wishlist"
     }
   }
 }

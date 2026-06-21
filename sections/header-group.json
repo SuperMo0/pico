@@ -26,7 +26,6 @@
         "menu": "main-menu",
         "customer_account_menu": "customer-account-main-menu",
         "show_search": true,
-        "sticky_header": true
       }
     },
     "cart-drawer": {

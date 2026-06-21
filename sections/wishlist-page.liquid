@@ -1,0 +1,271 @@
+<wishlist-page
+  class="wishlist-page full-width"
+  data-i18n-view="{{ 'sections.wishlist.view_product' | t | escape }}"
+  data-i18n-remove="{{ 'sections.wishlist.remove' | t | escape }}"
+  data-i18n-loading="{{ 'sections.wishlist.loading' | t | escape }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  aria-labelledby="wishlist-heading"
+>
+  <div class="wishlist-page__inner">
+    <h1 id="wishlist-heading" class="wishlist-page__title">{{ 'sections.wishlist.title' | t }}</h1>
+
+    <div class="wishlist-page__loading" id="wishlist-loading" aria-live="polite" hidden>
+      <span class="visually-hidden">{{ 'sections.wishlist.loading' | t }}</span>
+    </div>
+
+    <div class="wishlist-page__grid" id="wishlist-grid" role="list"></div>
+
+    <div class="wishlist-page__empty" id="wishlist-empty" hidden>
+      <p class="wishlist-page__empty-text">{{ 'sections.wishlist.empty_message' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+        {{ 'sections.wishlist.continue_shopping' | t }}
+      </a>
+    </div>
+  </div>
+</wishlist-page>
+
+{% stylesheet %}
+.wishlist-page__inner {
+  padding: var(--space-10) var(--container-pad);
+}
+
+.wishlist-page__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  color: var(--text-strong);
+  margin-bottom: var(--space-8);
+}
+
+.wishlist-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .wishlist-page__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.wishlist-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-12) var(--container-pad);
+  text-align: center;
+}
+
+.wishlist-page__empty-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--text-muted);
+}
+
+.wishlist-page__loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-10) 0;
+}
+
+.wishlist-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.wishlist-card__media {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--cream-100);
+}
+
+.wishlist-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--dur-slow) var(--ease-soft);
+}
+
+.wishlist-card:hover .wishlist-card__img { transform: scale(1.03); }
+
+.wishlist-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.wishlist-card__title {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+.wishlist-card__title:hover { color: var(--text-accent); }
+.wishlist-card__title:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; border-radius: 2px; }
+
+.wishlist-card__price {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.wishlist-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.wishlist-card__view {
+  flex: 1;
+  text-align: center;
+  font-size: var(--fs-sm);
+  padding: var(--space-2) var(--space-3);
+}
+
+.wishlist-card__remove {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  background: var(--cream-100);
+  border: 1px solid var(--border-hairline);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-soft), background var(--dur-fast) var(--ease-soft);
+}
+
+.wishlist-card__remove:hover {
+  color: var(--sale-600);
+  background: var(--cream-200);
+}
+
+.wishlist-card__remove:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+@media (hover: none) {
+  .wishlist-card__remove { min-width: 44px; min-height: 44px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+class WishlistPage extends HTMLElement {
+  connectedCallback() {
+    this._grid    = this.querySelector('#wishlist-grid');
+    this._empty   = this.querySelector('#wishlist-empty');
+    this._loading = this.querySelector('#wishlist-loading');
+    this._i18n = {
+      view:    this.dataset.i18nView    || 'View product',
+      remove:  this.dataset.i18nRemove  || 'Remove from wishlist',
+      loading: this.dataset.i18nLoading || 'Loading…'
+    };
+    this._moneyFormat = this.dataset.moneyFormat || '{amount}';
+
+    if (window.wishlist) {
+      this._render();
+    } else {
+      document.addEventListener('theme:wishlist:ready', () => this._render(), { once: true });
+    }
+
+    document.addEventListener('theme:wishlist:updated', () => this._onUpdated());
+  }
+
+  async _render() {
+    var handles = window.wishlist.getAll();
+    if (handles.length === 0) { this._showEmpty(); return; }
+
+    this._loading.hidden = false;
+    this._empty.hidden = true;
+    this._grid.innerHTML = '';
+
+    var results = await Promise.all(
+      handles.map(h =>
+        fetch('/products/' + h + '.js')
+          .then(r => r.ok ? r.json() : null)
+          .catch(() => null)
+      )
+    );
+
+    this._loading.hidden = true;
+    var products = results.filter(Boolean);
+    if (products.length === 0) { this._showEmpty(); return; }
+    this._grid.innerHTML = products.map(p => this._cardHTML(p)).join('');
+  }
+
+  _onUpdated() {
+    var items = window.wishlist.getAll();
+    this._grid.querySelectorAll('[data-handle]').forEach(card => {
+      if (!items.includes(card.dataset.handle)) card.remove();
+    });
+    if (items.length === 0 || this._grid.children.length === 0) this._showEmpty();
+  }
+
+  _showEmpty() {
+    this._grid.innerHTML = '';
+    this._loading.hidden = true;
+    this._empty.hidden = false;
+  }
+
+  _money(cents) {
+    var amount = (cents % 100 === 0)
+      ? String(cents / 100)
+      : (cents / 100).toFixed(2);
+    return this._moneyFormat.replace(/\{\{[\s]*amount[\s]*\}\}/g, amount);
+  }
+
+  _esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  _xIcon() {
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  }
+
+  _cardHTML(p) {
+    var imgSrc  = p.featured_image ? p.featured_image.replace(/\?.*$/, '') + '?width=600' : '';
+    var imgTag  = imgSrc
+      ? '<img src="' + imgSrc + '" alt="' + this._esc(p.title) + '" class="wishlist-card__img" loading="lazy" width="300" height="375">'
+      : '';
+
+    return '<div class="wishlist-card" role="listitem" data-handle="' + p.handle + '">'
+      + '<a href="' + p.url + '" class="wishlist-card__media">' + imgTag + '</a>'
+      + '<div class="wishlist-card__meta">'
+      + '<a href="' + p.url + '" class="wishlist-card__title">' + this._esc(p.title) + '</a>'
+      + '<span class="wishlist-card__price">' + this._money(p.price) + '</span>'
+      + '<div class="wishlist-card__actions">'
+      + '<a href="' + p.url + '" class="btn btn--primary wishlist-card__view">' + this._esc(this._i18n.view) + '</a>'
+      + '<button type="button" class="wishlist-card__remove" data-wishlist-handle="' + p.handle + '" data-wishlist-remove aria-label="' + this._esc(this._i18n.remove) + '">'
+      + this._xIcon()
+      + '</button>'
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+}
+
+customElements.define('wishlist-page', WishlistPage);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.wishlist.name"
+}
+{% endschema %}

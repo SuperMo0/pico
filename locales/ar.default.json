@@ -71,7 +71,8 @@
       "add_to_wishlist": "أضِف إلى المفضّلة",
       "sold_out": "نفد المخزون",
       "unavailable": "غير متوفر",
-      "sale_badge": "خصم"
+      "sale_badge": "خصم",
+      "remove_from_wishlist": "أزِل من المفضّلة"
     }
   },
   "search": {
@@ -149,6 +150,14 @@
     "footer": {
       "copyright": "© ٢٠٢٦ بيكو — جميع الحقوق محفوظة.",
       "trust_tagline": "قطن ١٠٠٪ · شحن داخل مصر · دفع آمن"
+    },
+    "wishlist": {
+      "title": "المفضّلة",
+      "empty_message": "لم تضيفي أي منتج إلى مفضّلتك بعد.",
+      "continue_shopping": "تسوّقي الآن",
+      "loading": "جارٍ التحميل…",
+      "view_product": "عرض المنتج",
+      "remove": "إزالة من المفضّلة"
     }
   }
 }

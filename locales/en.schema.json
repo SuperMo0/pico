@@ -228,6 +228,9 @@
           }
         }
       }
+    },
+    "wishlist": {
+      "name": "Wishlist page"
     }
   },
   "options": {
