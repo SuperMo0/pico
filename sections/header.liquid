@@ -58,10 +58,11 @@
 
         <a
           href="/pages/wishlist"
-          class="site-header__icon-btn"
+          class="site-header__icon-btn site-header__wishlist-btn"
           aria-label="{{ 'sections.header.wishlist_label' | t }}"
         >
           {% render 'icon', icon: 'heart', size: 20 %}
+          <span id="wishlist-count" class="site-header__wishlist-badge" hidden>0</span>
         </a>
 
         {%- if shop.customer_accounts_enabled -%}
@@ -362,9 +363,32 @@
     justify-content: center;
   }
 
-  .site-header__cart-btn {
+  .site-header__cart-btn,
+  .site-header__wishlist-btn {
     position: relative;
   }
+
+  .site-header__wishlist-badge {
+    position: absolute;
+    top: 4px;
+    inset-inline-end: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding-inline: 3px;
+    background: var(--sale-600);
+    color: var(--white);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .site-header__wishlist-badge[hidden] { display: none; }
 
   .site-header__cart-badge {
     position: absolute;

@@ -69,6 +69,7 @@
     "product": {
       "add_to_cart": "أضِف إلى السلّة",
       "add_to_wishlist": "أضِف إلى المفضّلة",
+      "added_to_wishlist": "أُضيف إلى المفضّلة",
       "sold_out": "نفد المخزون",
       "unavailable": "غير متوفر",
       "sale_badge": "خصم",

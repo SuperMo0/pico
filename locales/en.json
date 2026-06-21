@@ -69,6 +69,7 @@
     "product": {
       "add_to_cart": "Add to cart",
       "add_to_wishlist": "Add to wishlist",
+      "added_to_wishlist": "Added to wishlist",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "sale_badge": "Sale",

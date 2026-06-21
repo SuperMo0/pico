@@ -60,7 +60,29 @@
 
   window.wishlist = new WishlistManager();
 
-  // Global click delegation — handles toggle buttons and remove-only buttons
+  // ── Toast ────────────────────────────────────────────────────────
+  var _toastTimer;
+  function showToast(msg) {
+    var el = document.getElementById('wishlist-toast');
+    if (!el) return;
+    el.textContent = msg;
+    // Restart animation by briefly hiding
+    el.hidden = true;
+    el.hidden = false;
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function () { el.hidden = true; }, 2500);
+  }
+
+  // ── Count badge ──────────────────────────────────────────────────
+  function updateCountBadge() {
+    var badge = document.getElementById('wishlist-count');
+    if (!badge) return;
+    var count = window.wishlist.getAll().length;
+    badge.textContent = count;
+    badge.hidden = count === 0;
+  }
+
+  // ── Global click delegation ──────────────────────────────────────
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-wishlist-handle]');
     if (!btn) return;
@@ -77,17 +99,19 @@
     var i18n = window.__wishlistI18n || {};
     btn.setAttribute('aria-label', isActive
       ? (i18n.remove || 'Remove from wishlist')
-      : (i18n.add || 'Add to wishlist'));
+      : (i18n.add    || 'Add to wishlist'));
+    if (isActive) showToast(i18n.added || 'Added to wishlist');
   });
 
-  // Sync all toggle button states when wishlist changes
+  // ── Sync buttons + badge on every wishlist change ────────────────
   document.addEventListener('theme:wishlist:updated', function () {
     document.querySelectorAll('[data-wishlist-handle]:not([data-wishlist-remove])').forEach(function (btn) {
       btn.classList.toggle('is-active', window.wishlist.has(btn.dataset.wishlistHandle));
     });
+    updateCountBadge();
   });
 
-  // Set initial button states and signal any waiting components
+  // Initialise states and signal waiting components
   document.dispatchEvent(new CustomEvent('theme:wishlist:updated', { detail: { items: window.wishlist.getAll() } }));
   document.dispatchEvent(new Event('theme:wishlist:ready'));
 })();

@@ -23,8 +23,9 @@
       window.__wishlistCustomerId = {{ customer.id | json }};
       window.__wishlistServerItems = {{ customer.metafields.wishlist.items.value | json }};
       window.__wishlistI18n = {
-        add: {{ 'products.product.add_to_wishlist' | t | json }},
-        remove: {{ 'products.product.remove_from_wishlist' | t | json }}
+        add:   {{ 'products.product.add_to_wishlist' | t | json }},
+        remove: {{ 'products.product.remove_from_wishlist' | t | json }},
+        added: {{ 'products.product.added_to_wishlist' | t | json }}
       };
     </script>
     <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
@@ -38,5 +39,7 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    <div id="wishlist-toast" class="wishlist-toast" role="status" hidden></div>
   </body>
 </html>
