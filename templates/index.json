@@ -18,60 +18,48 @@
         "subheading": "<p>ملابس منزلية مريحة بألوان هادئة، مصنوعة من قطن لطيف على بشرة طفلك.</p>",
         "image": "shopify://shop_images/21626523-9802-4957-9ee6-91a86253f488.jpg",
         "image_position": "right",
-        "primary_cta_label": "تسوّقي المجموعة",
+        "primary_cta_label": "وصل حديثا",
         "primary_cta_url": "",
         "secondary_cta_label": "حديثو الولادة",
         "secondary_cta_url": ""
       }
     },
-    "reassurance": {
-      "type": "reassurance-strip",
+    "categories": {
+      "type": "collection-list",
       "blocks": {
-        "leaf": {
-          "type": "item",
+        "collection_zWDKkE": {
+          "type": "collection",
           "settings": {
-            "icon": "leaf",
-            "label": "قطن ١٠٠٪",
-            "subtext": ""
+            "collection": "بناتي"
           }
         },
-        "feather": {
-          "type": "item",
+        "collection_rTVzwB": {
+          "type": "collection",
           "settings": {
-            "icon": "feather",
-            "label": "لطيف على البشرة",
-            "subtext": ""
+            "collection": "اولادي"
           }
         },
-        "truck": {
-          "type": "item",
+        "collection_RJq8RB": {
+          "type": "collection",
           "settings": {
-            "icon": "truck",
-            "label": "شحن مجاني فوق ٢٠٠ ر.س",
-            "subtext": ""
+            "collection": "الأطقم"
           }
         },
-        "refresh": {
-          "type": "item",
+        "collection_nYWdPY": {
+          "type": "collection",
           "settings": {
-            "icon": "refresh-ccw",
-            "label": "إرجاع سهل ١٤ يومًا",
-            "subtext": ""
+            "collection": "حديث-الولادة"
           }
         }
       },
       "block_order": [
-        "leaf",
-        "feather",
-        "truck",
-        "refresh"
+        "collection_zWDKkE",
+        "collection_rTVzwB",
+        "collection_RJq8RB",
+        "collection_nYWdPY"
       ],
-      "settings": {}
-    },
-    "categories": {
-      "type": "collection-list",
       "settings": {
-        "heading": "تسوّقي حسب الفئة"
+        "heading": "المجموعات"
       }
     },
     "bestsellers": {
@@ -88,7 +76,7 @@
       "settings": {
         "eyebrow": "لماذا القطن؟",
         "heading": "خامة تتنفّس، تبقى ناعمة",
-        "body": "<p>نختار قطنًا طبيعيًا لطيفًا على البشرة الحسّاسة، ويحتفظ بنعومته بعد كل غسلة.</p>",
+        "body": "<p>نختار قطنًا طبيعيًا لطيفًا على البشرة الحسّاسة، يحتفظ بنعومته بعد كل غسلة.</p>",
         "cta_label": "اعرفي أكثر",
         "cta_url": "",
         "image_position": "right"
@@ -97,7 +85,6 @@
   },
   "order": [
     "hero_LHN88W",
-    "reassurance",
     "categories",
     "bestsellers",
     "editorial"
