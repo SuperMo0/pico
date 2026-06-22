@@ -236,6 +236,9 @@
         }
       }
     },
+    "search": {
+      "name": "Search page"
+    },
     "wishlist": {
       "name": "Wishlist page"
     },

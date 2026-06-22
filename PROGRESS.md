@@ -140,4 +140,10 @@ New `sections/predictive-search.liquid` outputs **pure markup only**, fetched vi
 
 ---
 
+### Search page — `sections/search.liquid` (full rebuild) (2026-06-22)
+
+Replaced the skeleton search page with a fully branded Beeko implementation. Deleted the old unstyled form + generic grid. New structure: centered search bar (pill input with icon + inline submit button) → results count → 4-col product grid (2-col mobile) → pagination. Product results render via `{% render 'product-card', product: result %}`. Article/page results render a simple text card (title + 120-char excerpt) with hover border transition. Empty state shows a localized no-results message + "تصفح المنتجات" CTA linking to the homepage. Pre-search state shows only the form with a visually-present h1. Added `search.browse_products` + updated `search.results_for_html` formatting to both `ar.default.json` and `en.json`; added `sections.search.name` to both schema locale files. `shopify theme check` — 0 errors (3 acceptable Google Fonts warnings only).
+
+---
+
 ## Active Refinements

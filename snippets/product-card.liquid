@@ -55,8 +55,7 @@
       {%- if color_option -%}
         <div class="product-card__colors" aria-hidden="true">
           {%- for val in color_option.values -%}
-            {%- assign swatch_token = 'pc-' | append: val | downcase | handleize -%}
-            <span class="product-card__swatch" style="background: var(--{{ swatch_token }}, var(--cream-100));" title="{{ val }}"></span>
+            <span class="product-card__swatch" style="background: {{val.swatch.color}}" title="{{ val }}"></span>
           {%- endfor -%}
         </div>
       {%- endif -%}

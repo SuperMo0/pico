@@ -90,7 +90,8 @@
     "placeholder": "ابحث عن مقالات أو صفحات أو منتجات",
     "submit": "بحث",
     "no_results_html": "لا توجد نتائج لـ {{ terms }}",
-    "results_for_html": "{{ count }} نتيجة لـ {{ terms }}",
+    "results_for_html": "{{ count }} نتيجة لـ «{{ terms }}»",
+    "browse_products": "تصفح المنتجات",
     "predictive": {
       "products": "المنتجات",
       "collections": "الفئات",
