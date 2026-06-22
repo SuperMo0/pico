@@ -398,14 +398,11 @@ dialog.popup-modal {
   inset: 0;
   margin: auto;
   width: min(560px, calc(100vw - var(--space-8)));
-  max-height: calc(100vh - var(--space-10));
   background: var(--surface-card);
   border: none;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: var(--space-7) var(--space-6) var(--space-6);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow: visible;
   animation: popup-modal-in var(--dur-base) var(--ease-soft) both;
 }
 
@@ -417,16 +414,16 @@ dialog.popup-modal::backdrop {
 
 .popup-modal__close {
   position: absolute;
-  top: var(--space-2);
-  inset-inline-start: var(--space-4);
+  top: -15px;
+  inset-inline-start: -15px;
+  background: var(--surface-raised);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xl);
   border: none;
-  background: transparent;
   color: var(--text-muted);
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-soft), color var(--dur-fast) var(--ease-soft);
@@ -454,6 +451,10 @@ dialog.popup-modal::backdrop {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
+  max-height: calc(100vh - var(--space-10) - var(--space-7) - var(--space-6));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
 }
 
 /* Wider dialog used for the product quick-view */
