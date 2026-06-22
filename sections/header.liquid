@@ -119,23 +119,40 @@
 
     {%- if show_search -%}
       <search-toggle id="site-search" class="site-header__search" hidden>
-        <div class="site-header__search-inner">
-          <form action="{{ routes.search_url }}" role="search" autocomplete="off" class="site-header__search-form">
-            <input
-              class="site-header__search-input"
-              type="search"
-              name="q"
-              placeholder="{{ 'sections.header.search_placeholder' | t }}"
-              aria-label="{{ 'sections.header.search_label' | t }}"
-            >
-            <button type="submit" class="site-header__icon-btn" aria-label="{{ 'search.submit' | t }}">
-              {% render 'icon', icon: 'search', size: 20 %}
+        <predictive-search class="predictive-search" data-search-url="{{ routes.search_url }}">
+          <div class="site-header__search-inner">
+            <form action="{{ routes.search_url }}" role="search" autocomplete="off" class="site-header__search-form">
+              <input
+                class="site-header__search-input"
+                type="search"
+                name="q"
+                role="combobox"
+                autocomplete="off"
+                aria-autocomplete="list"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="predictive-search-results"
+                placeholder="{{ 'sections.header.search_placeholder' | t }}"
+                aria-label="{{ 'sections.header.search_label' | t }}"
+              >
+              <button type="submit" class="site-header__icon-btn" aria-label="{{ 'search.submit' | t }}">
+                {% render 'icon', icon: 'search', size: 20 %}
+              </button>
+            </form>
+            <button type="button" class="site-header__icon-btn site-header__search-close" aria-label="{{ 'general.close' | t }}">
+              {% render 'icon', icon: 'x', size: 20 %}
             </button>
-          </form>
-          <button type="button" class="site-header__icon-btn site-header__search-close" aria-label="{{ 'general.close' | t }}">
-            {% render 'icon', icon: 'x', size: 20 %}
-          </button>
-        </div>
+          </div>
+          <div class="predictive-search__panel" hidden>
+            <div class="predictive-search__loading" role="status" hidden>{{ 'general.loading' | t }}</div>
+            <div
+              id="predictive-search-results"
+              class="predictive-search__results"
+              role="listbox"
+              aria-label="{{ 'search.predictive.results_label' | t }}"
+            ></div>
+          </div>
+        </predictive-search>
       </search-toggle>
     {%- endif -%}
   </div>
@@ -477,6 +494,184 @@
     height: 32px;
   }
 
+  .predictive-search {
+    display: block;
+  }
+
+  .predictive-search__panel {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+    padding-bottom: var(--space-3);
+    max-height: min(70dvh, 520px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .predictive-search__panel[hidden] {
+    display: none;
+  }
+
+  .predictive-search__loading {
+    padding-block: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .predictive-search__loading[hidden] {
+    display: none;
+  }
+
+  .predictive-search__group {
+    margin-top: var(--space-2);
+  }
+
+  .predictive-search__heading {
+    margin: 0;
+    padding-block: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .predictive-search__collections {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .predictive-search__chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding-inline: var(--space-3);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--text-strong);
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-soft), border-color var(--dur-fast) var(--ease-soft);
+  }
+
+  .predictive-search__chip-item.is-active .predictive-search__chip,
+  .predictive-search__chip:hover {
+    background: var(--surface-raised);
+    border-color: var(--border-strong);
+  }
+
+  .predictive-search__products {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .predictive-search__product-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    color: var(--text-strong);
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-soft);
+  }
+
+  .predictive-search__product.is-active .predictive-search__product-link,
+  .predictive-search__product-link:hover {
+    background: var(--surface-raised);
+  }
+
+  .predictive-search__thumb {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--cream-100);
+  }
+
+  .predictive-search__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .predictive-search__product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .predictive-search__product-title {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-strong);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .predictive-search__product-price {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-sale);
+  }
+
+  .predictive-search__view-all {
+    display: block;
+    margin-top: var(--space-3);
+    padding-block: var(--space-3);
+    border-top: 1px solid var(--border-hairline);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-accent);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .predictive-search__view-all:hover {
+    text-decoration: underline;
+  }
+
+  .predictive-search__empty {
+    padding-block: var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (hover: none) {
+    .predictive-search__chip {
+      min-height: 44px;
+    }
+    .predictive-search__product-link {
+      padding-block: var(--space-3);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .predictive-search__chip,
+    .predictive-search__product-link {
+      transition: none;
+    }
+  }
+
   .site-header__overlay {
     position: fixed;
     inset: 0;
@@ -711,6 +906,134 @@
 
   if (!customElements.get('search-toggle')) {
     customElements.define('search-toggle', SearchToggle);
+  }
+
+  class PredictiveSearch extends HTMLElement {
+    connectedCallback() {
+      this._input = this.querySelector('input[type="search"]');
+      this._panel = this.querySelector('.predictive-search__panel');
+      this._results = this.querySelector('.predictive-search__results');
+      this._loading = this.querySelector('.predictive-search__loading');
+      this._searchUrl = this.dataset.searchUrl || '/search';
+      this._minChars = 2;
+      this._controller = null;
+      this._options = [];
+      this._activeIndex = -1;
+
+      if (!this._input || !this._panel || !this._results) return;
+
+      this._onInput = this._debounce(() => this._search(), 300);
+      this._input.addEventListener('input', this._onInput);
+      this._input.addEventListener('keydown', (e) => this._onKeydown(e));
+    }
+
+    _search() {
+      const term = this._input.value.trim();
+      if (term.length < this._minChars) {
+        this._reset();
+        return;
+      }
+      this._fetch(term);
+    }
+
+    _fetch(term) {
+      if (this._controller) this._controller.abort();
+      this._controller = new AbortController();
+      this._showPanel();
+      this._setLoading(true);
+
+      const url = new URL(this._searchUrl, window.location.origin);
+      url.searchParams.set('q', term);
+      url.searchParams.set('type', 'product');
+      url.searchParams.set('options[prefix]', 'last');
+      url.searchParams.set('section_id', 'predictive-search');
+
+      fetch(url, { signal: this._controller.signal })
+        .then((response) => {
+          if (!response.ok) throw new Error(response.status);
+          return response.text();
+        })
+        .then((html) => {
+          const fragment = new DOMParser().parseFromString(html, 'text/html');
+          const section = fragment.querySelector('#shopify-section-predictive-search');
+          this._results.innerHTML = section ? section.innerHTML : '';
+          this._setLoading(false);
+          this._collectOptions();
+          this._showPanel();
+        })
+        .catch((error) => {
+          if (error.name === 'AbortError') return;
+          this._reset();
+        });
+    }
+
+    _collectOptions() {
+      this._options = Array.from(this._results.querySelectorAll('[role="option"]'));
+      this._activeIndex = -1;
+      this._input.setAttribute('aria-activedescendant', '');
+    }
+
+    _onKeydown(event) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        this._move(1);
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        this._move(-1);
+      } else if (event.key === 'Enter' && this._activeIndex > -1) {
+        const link = this._options[this._activeIndex].querySelector('a');
+        if (link) {
+          event.preventDefault();
+          window.location.href = link.href;
+        }
+      }
+    }
+
+    _move(direction) {
+      if (this._options.length === 0) return;
+      this._activeIndex = (this._activeIndex + direction + this._options.length) % this._options.length;
+      for (let i = 0; i < this._options.length; i++) {
+        const isActive = i === this._activeIndex;
+        this._options[i].classList.toggle('is-active', isActive);
+        this._options[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+      }
+      const current = this._options[this._activeIndex];
+      this._input.setAttribute('aria-activedescendant', current.id);
+      current.scrollIntoView({ block: 'nearest' });
+    }
+
+    _showPanel() {
+      this._panel.hidden = false;
+      this._input.setAttribute('aria-expanded', 'true');
+    }
+
+    _setLoading(isLoading) {
+      if (this._loading) this._loading.hidden = !isLoading;
+      this._results.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+    }
+
+    _reset() {
+      if (this._controller) this._controller.abort();
+      this._panel.hidden = true;
+      this._results.innerHTML = '';
+      this._setLoading(false);
+      this._options = [];
+      this._activeIndex = -1;
+      this._input.setAttribute('aria-expanded', 'false');
+      this._input.setAttribute('aria-activedescendant', '');
+    }
+
+    _debounce(fn, wait) {
+      let timer;
+      return () => {
+        clearTimeout(timer);
+        timer = setTimeout(fn, wait);
+      };
+    }
+  }
+
+  if (!customElements.get('predictive-search')) {
+    customElements.define('predictive-search', PredictiveSearch);
   }
 
   class CartCount extends HTMLElement {

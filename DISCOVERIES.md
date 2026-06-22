@@ -308,6 +308,21 @@ After this, add new strings **only** to `ar.default.json` and `ar.default.schema
 
 ---
 
+## Search & Localization
+
+### Predictive search returns nothing in Arabic — use standard search instead
+
+**Issue:** Built the header type-ahead with the Predictive Search API (`/search/suggest` + the `predictive_search` Liquid object, rendered via `section_id`). It returns zero results on this store because the buyer locale is Arabic.
+
+**Root cause:** Predictive search is only supported for a fixed list of buyer locales, and **Arabic is not on it** (see Shopify's "Predictive search — Requirements and limitations"). When unsupported, the theme's `<script id="shopify-features">` reports `predictiveSearch: false` and `/search/suggest` yields nothing. This is a hard platform limit — no theme code fixes it.
+
+**Fix:** Use the **standard storefront `search`** object, which supports Arabic full-text. Fetch `/search?q=TERM&type=product&options[prefix]=last&section_id=<section>` via the Section Rendering API (`options[prefix]=last` enables partial/prefix matching for type-ahead). Render products from `search.results`. **Collections caveat:** standard search `type` only accepts `product` / `article` / `page` — NOT `collection`. To show collections, loop the `collections` global and keep those whose downcased `title` contains the downcased `search.terms` (Arabic substring match works), bounded by Liquid's 50-iteration for-loop cap.
+
+**Files affected:** `sections/predictive-search.liquid` (rewritten to `search` object + collections-by-title), `sections/header.liquid` (`<predictive-search>` fetch URL → `routes.search_url`, params `type=product&options[prefix]=last`).
+**Date discovered:** 2026-06-22
+
+---
+
 ## Entry Template
 
 When adding a new discovery, copy this template:

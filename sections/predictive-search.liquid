@@ -1,0 +1,106 @@
+{% # These classes are intentionally styled globally in sections/header.liquid — see comment below. %}
+{% # theme-check-disable ValidScopedCSSClass %}
+{% comment %}
+  As-you-type search results, rendered on demand via the Section Rendering API:
+
+    /search?q=TERM&type=product&options[prefix]=last&section_id=predictive-search
+
+  Uses the STANDARD `search` object (not `predictive_search`), because predictive
+  search has no Arabic buyer-locale support while standard full-text search does.
+  Standard search returns product/article/page only — never collections — so
+  collections are matched separately by looping the `collections` global and
+  testing `collection.title` against `search.terms` (Arabic substring match).
+
+  IMPORTANT: the Section Rendering API returns ONLY this section's HTML — its
+  {% stylesheet %} / {% javascript %} bundles are NOT shipped with the fragment
+  (see DISCOVERIES.md). All CSS and the fetch/keyboard JS for these results live
+  globally in sections/header.liquid, which is present on every page render.
+
+  https://shopify.dev/docs/api/liquid/objects/search
+{% endcomment %}
+
+{%- if search.performed -%}
+  {%- assign term_lc = search.terms | downcase -%}
+
+  {%- comment -%} Collections aren't a search type — match the global by title. {%- endcomment -%}
+  {%- capture collection_items -%}
+    {%- assign collection_rendered = 0 -%}
+    {%- for collection in collections -%}
+      {%- if collection_rendered >= 4 -%}
+        {%- break -%}
+      {%- endif -%}
+      {%- assign collection_title_lc = collection.title | downcase -%}
+      {%- if collection_title_lc contains term_lc -%}
+        {%- assign collection_rendered = collection_rendered | plus: 1 -%}
+        <li
+          role="option"
+          id="predictive-option-collection-{{ collection_rendered }}"
+          class="predictive-search__chip-item"
+          aria-selected="false"
+        >
+          <a href="{{ collection.url }}" class="predictive-search__chip" tabindex="-1">{{ collection.title }}</a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign collection_items = collection_items | strip -%}
+
+  {%- if search.results.size == 0 and collection_items == blank -%}
+    <p class="predictive-search__empty">
+      {{- 'search.no_results_html' | t: terms: search.terms | escape -}}
+    </p>
+  {%- else -%}
+    {%- if collection_items != blank -%}
+      <div class="predictive-search__group">
+        <h2 id="predictive-search-collections-heading" class="predictive-search__heading">
+          {{- 'search.predictive.collections' | t -}}
+        </h2>
+        <ul class="predictive-search__collections" role="group" aria-labelledby="predictive-search-collections-heading">
+          {{- collection_items -}}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if search.results.size > 0 -%}
+      <div class="predictive-search__group">
+        <h2 id="predictive-search-products-heading" class="predictive-search__heading">
+          {{- 'search.predictive.products' | t -}}
+        </h2>
+        <ul class="predictive-search__products" role="group" aria-labelledby="predictive-search-products-heading">
+          {%- for product in search.results limit: 6 -%}
+            {%- liquid
+              assign product_media = product.featured_media
+              assign product_alt = product_media.alt | default: product.title
+              assign product_thumb_style = 'object-position: ' | append: product_media.presentation.focal_point
+            -%}
+            <li
+              role="option"
+              id="predictive-option-product-{{ forloop.index }}"
+              class="predictive-search__product"
+              aria-selected="false"
+            >
+              <a href="{{ product.url }}" class="predictive-search__product-link" tabindex="-1">
+                <span class="predictive-search__thumb">
+                  {%- if product_media -%}
+                    {{ product_media | image_url: width: 120 | image_tag: alt: product_alt, widths: '56,112,168', sizes: '56px', loading: 'lazy', class: 'predictive-search__thumb-img', style: product_thumb_style }}
+                  {%- endif -%}
+                </span>
+                <span class="predictive-search__product-info">
+                  <span class="predictive-search__product-title">{{ product.title }}</span>
+                  <span class="predictive-search__product-price">{{ product.price | money }}</span>
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    <a
+      href="{{ routes.search_url }}?q={{ search.terms | url_encode }}"
+      class="predictive-search__view-all"
+    >
+      {{- 'search.predictive.view_all' | t: terms: search.terms -}}
+    </a>
+  {%- endif -%}
+{%- endif -%}
