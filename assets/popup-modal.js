@@ -71,7 +71,7 @@ class PopupModal extends HTMLElement {
     this.open();
 
     try {
-      const res = await fetch(`${url}?sections=quick-view`, { signal: this.#controller.signal });
+      const res = await fetch(`${url.split('?')[0]}?sections=quick-view`, { signal: this.#controller.signal });
       if (!res.ok) throw new Error(`quick-view ${res.status}`);
       const data = await res.json();
       this.body.innerHTML = data['quick-view'];
