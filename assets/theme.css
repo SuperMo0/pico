@@ -378,3 +378,80 @@ p {
   from { opacity: 0; transform: translateX(-50%) translateY(6px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
+
+/* ---------------------------------------------------------------------------
+   Popup modal — <popup-modal> web component
+   --------------------------------------------------------------------------- */
+
+@keyframes popup-modal-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popup-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+dialog.popup-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(560px, calc(100vw - var(--space-8)));
+  max-height: calc(100vh - var(--space-10));
+  background: var(--surface-card);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-7) var(--space-6) var(--space-6);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: popup-modal-in var(--dur-base) var(--ease-soft) both;
+}
+
+dialog.popup-modal::backdrop {
+  background: rgba(43, 39, 33, 0.5);
+  backdrop-filter: blur(2px);
+  animation: popup-backdrop-in var(--dur-base) var(--ease-soft) both;
+}
+
+.popup-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  inset-inline-start: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-soft), color var(--dur-fast) var(--ease-soft);
+}
+
+.popup-modal__close:hover {
+  background: var(--surface-raised);
+  color: var(--text-strong);
+}
+
+.popup-modal__close:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+@media (hover: none) {
+  .popup-modal__close {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.popup-modal__body {
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}

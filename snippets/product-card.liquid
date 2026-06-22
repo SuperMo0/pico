@@ -39,16 +39,15 @@
       {% render 'icon', icon: 'heart', size: 18 %}
     </button>
 
+
+
     <div class="product-card__quick-add-wrap">
-      <form action="{{ routes.cart_add_url }}" method="post" class="product-card__quick-add-form">
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <input type="hidden" name="quantity" value="1">
         <button type="submit" class="product-card__quick-add-btn">
           {{ 'products.product.add_to_cart' | t }}
         </button>
-      </form>
-    </div>
-  </div>
+    </div> 
+
+  </div> 
 
   <div class="product-card__meta">
     {%- unless product.has_only_default_variant -%}
@@ -255,47 +254,11 @@
 {% javascript %}
 class ProductCard extends HTMLElement {
   connectedCallback() {
-    this._form = this.querySelector('.product-card__quick-add-form');
     this._btn  = this.querySelector('.product-card__quick-add-btn');
-    if (this._form) {
-      this._form.addEventListener('submit', this._handleSubmit.bind(this));
-    }
-  }
-
-  async _handleSubmit(event) {
-    event.preventDefault();
-    if (this._btn.getAttribute('aria-busy') === 'true') return;
-
-    this._btn.setAttribute('aria-busy', 'true');
-    this._btn.disabled = true;
-
-    try {
-      const formData = new FormData(this._form);
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('cart/add failed');
-
-      const cartSectionId = document.getElementById('cart-drawer')?.dataset.sectionId || 'cart-drawer';
-      const [cartRes, sectionRes] = await Promise.all([
-        fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } }),
-        fetch(`${window.location.pathname}?sections=${cartSectionId}`)
-      ]);
-      const cart = await cartRes.json();
-      const sectionData = await sectionRes.json();
-
-      document.dispatchEvent(new CustomEvent('theme:cart:updated', {
-        detail: { cart, sectionHtml: sectionData[cartSectionId] }
-      }));
-    } catch (err) {
-      console.error('ProductCard quick-add error:', err);
-    } finally {
-      this._btn.setAttribute('aria-busy', 'false');
-      this._btn.disabled = false;
-    }
+    this._btn.addEventListener('click', () => {
+    const modal = document.getElementById('quick-view-modal');
+    modal.loadProduct(this.dataset.productUrl);
+    });
   }
 }
 
