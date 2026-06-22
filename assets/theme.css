@@ -413,10 +413,11 @@ dialog.popup-modal::backdrop {
 }
 
 .popup-modal__close {
+  z-index: 500;
   position: absolute;
   top: -15px;
   inset-inline-start: -15px;
-  background: var(--surface-raised);
+  /* background: var(--surface-raised); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -427,6 +428,8 @@ dialog.popup-modal::backdrop {
   color: var(--text-muted);
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-soft), color var(--dur-fast) var(--ease-soft);
+  background-color: var(--ink-900);
+
 }
 
 .popup-modal__close:hover {
@@ -455,6 +458,7 @@ dialog.popup-modal::backdrop {
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
+  padding-block: var(--space-3);
 }
 
 /* Wider dialog used for the product quick-view */
