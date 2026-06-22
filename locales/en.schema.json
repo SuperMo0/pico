@@ -224,7 +224,9 @@
       "settings": {
         "brand_description": "Brand description",
         "copyright_text": "Copyright text",
-        "trust_tagline": "Trust tagline (bottom bar)"
+        "trust_tagline": "Trust tagline (bottom bar)",
+        "logo": "Logo image",
+        "logo_width": "Logo width (px)"
       },
       "blocks": {
         "link_list": {

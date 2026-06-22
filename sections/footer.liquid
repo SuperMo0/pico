@@ -7,11 +7,11 @@
   if trust == blank
     assign trust = 'sections.footer.trust_tagline' | t
   endif
-  assign logo_img = settings.logo
+  assign logo_img = section.settings.logo
   unless logo_img
     assign logo_img = shop.brand.logo
-  endunless
-  assign logo_w = settings.logo_width | default: 120
+  endunless 
+  assign logo_w = section.settings.logo_width | default: 120
   assign logo_w2x = logo_w | times: 2
   assign logo_widths = logo_w | append: ',' | append: logo_w2x
   assign logo_sizes = logo_w | append: 'px'
@@ -117,7 +117,7 @@
   width: var(--footer-logo-w, 120px);
   height: auto;
   display: block;
-  filter: brightness(0) invert(1);
+  /* filter: brightness(0) invert(1); */
   opacity: 0.9;
 }
 
@@ -226,6 +226,21 @@
       "type": "text",
       "id": "trust_tagline",
       "label": "t:sections.footer.settings.trust_tagline"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.footer.settings.logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "t:sections.footer.settings.logo_width",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "default": 120,
+      "unit": "px"
     }
   ],
   "max_blocks": 3,

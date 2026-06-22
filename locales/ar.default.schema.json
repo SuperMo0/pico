@@ -221,9 +221,11 @@
     "footer": {
       "name": "تذييل الصفحة",
       "settings": {
+        "logo": "الشعار",
         "brand_description": "وصف المتجر",
         "copyright_text": "نص حقوق النشر",
-        "trust_tagline": "عبارة الثقة (أسفل الصفحة)"
+        "trust_tagline": "عبارة الثقة (أسفل الصفحة)",
+        "logo_width": "عرض الشعار (بكسل)"
       },
       "blocks": {
         "link_list": {

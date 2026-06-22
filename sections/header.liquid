@@ -25,11 +25,11 @@
       </button>
 
       <a href="{{ routes.root_url }}" class="site-header__logo-link" aria-label="{{ shop.name }}">
-        {%- if logo_img != blank -%}
+        {% comment %} {%- if logo_img != blank -%}
           {{ logo_img | image_url: width: logo_w | image_tag: alt: logo_alt, width: logo_w, class: 'site-header__logo-img', loading: 'eager', fetchpriority: 'high' }}
-        {%- else -%}
+        {%- else -%} {% endcomment %}
           <span class="site-header__shop-name">{{ shop.name }}</span>
-        {%- endif -%}
+        {% comment %} {%- endif -%} {% endcomment %}
       </a>
 
       {%- if section.settings.menu != blank -%}
@@ -296,6 +296,7 @@
     font-size: var(--fs-h3);
     font-weight: 800;
     line-height: 1;
+    color: var(--ink-900);
   }
 
   .site-header__nav {
