@@ -1,0 +1,23 @@
+{% doc %}
+  Renders the price for the selected (or first available) variant, with sale and
+  compare-at handling. The wrapping element id is used by ProductForm to swap the
+  price on variant change. Shared by the product page and the quick-view modal.
+
+  @param {object} product - The product to render
+  @param {string} section_id - Host section id, used for the price element id
+  @param {string} [shopify_attributes] - Theme editor block attributes (product page only)
+
+  @example
+  {% render 'product-price', product: product, section_id: section.id %}
+{% enddoc %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div class="product__price" id="product-price-{{ section_id }}" role="status" {{ shopify_attributes }}>
+  {%- if current_variant.compare_at_price > current_variant.price -%}
+    <span class="product__price--sale">{{ current_variant.price | money }}</span>
+    <s class="product__price--was">{{ current_variant.compare_at_price | money }}</s>
+  {%- else -%}
+    <span class="product__price--regular">{{ current_variant.price | money }}</span>
+  {%- endif -%}
+</div>

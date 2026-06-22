@@ -1,0 +1,22 @@
+{% doc %}
+  Renders the product title heading with an optional badge from the
+  custom.badge metafield. Shared by the product page and the quick-view modal.
+
+  @param {object} product - The product to render
+  @param {string} section_id - Host section id, used for the heading id
+  @param {string} [shopify_attributes] - Theme editor block attributes (product page only)
+
+  @example
+  {% render 'product-title', product: product, section_id: section.id %}
+{% enddoc %}
+
+{%- assign card_badge = product.metafields.custom.badge.value -%}
+
+<div class="product__title-block" {{ shopify_attributes }}>
+  {%- if card_badge != blank -%}
+    <div class="product__badge-wrap">
+      <span class="product__badge">{{ card_badge }}</span>
+    </div>
+  {%- endif -%}
+  <h1 id="product-title-{{ section_id }}" class="product__title">{{ product.title }}</h1>
+</div>

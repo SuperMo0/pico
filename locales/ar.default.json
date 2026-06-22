@@ -78,7 +78,11 @@
       "sold_out": "نفد المخزون",
       "unavailable": "غير متوفر",
       "sale_badge": "خصم",
-      "remove_from_wishlist": "أزِل من المفضّلة"
+      "remove_from_wishlist": "أزِل من المفضّلة",
+      "quick_view": "نظرة سريعة",
+      "view_full_details": "عرض التفاصيل كاملة",
+      "added": "تمت الإضافة",
+      "quick_view_error": "تعذّر تحميل المنتج. حاول مرة أخرى."
     }
   },
   "search": {

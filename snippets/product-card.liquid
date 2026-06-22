@@ -42,10 +42,10 @@
 
 
     <div class="product-card__quick-add-wrap">
-        <button type="submit" class="product-card__quick-add-btn">
-          {{ 'products.product.add_to_cart' | t }}
+        <button type="button" class="product-card__quick-add-btn" data-quick-add aria-haspopup="dialog">
+          {{ 'products.product.quick_view' | t }}
         </button>
-    </div> 
+    </div>
 
   </div> 
 
@@ -254,10 +254,10 @@
 {% javascript %}
 class ProductCard extends HTMLElement {
   connectedCallback() {
-    this._btn  = this.querySelector('.product-card__quick-add-btn');
-    this._btn.addEventListener('click', () => {
-    const modal = document.getElementById('quick-view-modal');
-    modal.loadProduct(this.dataset.productUrl);
+    this._btn = this.querySelector('[data-quick-add]');
+    this._btn?.addEventListener('click', () => {
+      const modal = document.getElementById('quick-view-modal');
+      modal?.loadProduct(this.dataset.productUrl);
     });
   }
 }

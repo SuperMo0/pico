@@ -1,0 +1,101 @@
+{%- comment -%}
+  Quick-view modal body. Fetched via the Section Rendering API
+  (/products/<handle>?sections=quick-view) and injected into <popup-modal> by
+  assets/popup-modal.js. Composes the same shared snippets as the product page.
+
+  NOTE: styles use {% style %} (inline, ships with the HTML fragment) rather than
+  {% stylesheet %} (a separate bundle the Sections API does not return). Shared
+  component styles come from assets/theme.css, loaded globally.
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'quick-view-form-' | append: section.id
+-%}
+
+<product-form
+  class="quick-view"
+  data-section-id="{{ section.id }}"
+  data-in-modal="true"
+  data-product-url="{{ product.url }}"
+  data-added-label="{{ 'products.product.added' | t }}">
+
+  <script type="application/json" id="product-json-{{ section.id }}">{{ product | json }}</script>
+
+  <div class="quick-view__grid">
+
+    {% render 'product-gallery', product: product, section_id: section.id %}
+
+    <div class="quick-view__info">
+      {%- form 'product', product, id: form_id -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" id="variant-id-{{ section.id }}">
+
+        {% render 'product-title', product: product, section_id: section.id %}
+        {% render 'product-price', product: product, section_id: section.id %}
+        {% render 'product-variant-picker', product: product, section_id: section.id %}
+        {% render 'product-buy-buttons', product: product, section_id: section.id %}
+      {%- endform -%}
+
+      <a href="{{ product.url }}" class="quick-view__full-link">
+        {{ 'products.product.view_full_details' | t }}
+      </a>
+    </div>
+
+  </div>
+</product-form>
+
+{% style %}
+  .quick-view {
+    display: block;
+  }
+
+  .quick-view__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .quick-view__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quick-view__full-link {
+    align-self: flex-start;
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-accent);
+    text-decoration: none;
+  }
+
+  .quick-view__full-link:hover {
+    text-decoration: underline;
+  }
+
+  .quick-view__full-link:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  /* The product title is an <h1> on the product page; in the compact modal it
+     should read smaller. */
+  .quick-view .product__title {
+    font-size: var(--fs-h3);
+  }
+
+  @media (min-width: 700px) {
+    .quick-view__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      align-items: start;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "t:sections.quick_view.name"
+}
+{% endschema %}

@@ -78,7 +78,11 @@
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "sale_badge": "Sale",
-      "remove_from_wishlist": "Remove from wishlist"
+      "remove_from_wishlist": "Remove from wishlist",
+      "quick_view": "Quick view",
+      "view_full_details": "View full details",
+      "added": "Added",
+      "quick_view_error": "Couldn't load the product. Please try again."
     }
   },
   "search": {

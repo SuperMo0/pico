@@ -251,6 +251,9 @@
         "position_top_right": "أعلى اليمين",
         "position_top_left": "أعلى اليسار"
       }
+    },
+    "quick_view": {
+      "name": "نظرة سريعة"
     }
   },
   "options": {

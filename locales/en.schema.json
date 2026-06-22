@@ -252,6 +252,9 @@
         "position_top_right": "Top right",
         "position_top_left": "Top left"
       }
+    },
+    "quick_view": {
+      "name": "Quick view"
     }
   },
   "options": {

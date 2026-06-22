@@ -16,6 +16,19 @@
 
 ## JavaScript & Shopify Bundling
 
+### Section Rendering API does not ship `{% javascript %}` / `{% stylesheet %}` bundles
+
+**Issue:** Built a quick-view modal that fetches `/products/<handle>?sections=quick-view` and injects the returned HTML. Expected the section's `{% javascript %}` (variant picker, add-to-cart) and `{% stylesheet %}` to come along. They didn't — the injected markup was inert and unstyled.
+
+**Root cause:** The Section Rendering API returns **only the rendered HTML string** for the section. A section's `{% javascript %}` and `{% stylesheet %}` are compiled into separate theme bundles that load only on full page renders where that section is present. Injected `<script>` tags (via `innerHTML`) also never execute.
+
+**Fix:** Any JS/CSS the injected fragment needs must already be **global** on the host page. Lift interactive web components into a standalone `assets/*.js` loaded in `theme.liquid` (so injected custom elements upgrade), put shared styles in `assets/theme.css`, and for fragment-local CSS use `{% style %}` (inline, ships with the HTML) — never `{% stylesheet %}`. Components that assumed `window.location` is the product must read the product URL from a `data-*` attribute instead.
+
+**Gotcha within the gotcha:** A CSS comment containing the literal text `{% stylesheet %}` trips theme-check's `StaticStylesheetAndJavascriptTags` (it reads it as a real tag inside the CSS block). Reword such comments.
+
+**Files affected:** `assets/product-form.js` (lifted from `sections/product.liquid`), `assets/theme.css`, `sections/quick-view.liquid`, `assets/popup-modal.js`.
+**Date discovered:** 2026-06-22
+
 ### `document.currentScript` is always `null` in `{% javascript %}` blocks
 
 **Issue:** Tried to find the parent section using:

@@ -1,0 +1,84 @@
+{% doc %}
+  Renders the <variant-picker> with colour swatches and size chips, derived from
+  the product's options. Shared by the product page and the quick-view modal.
+
+  @param {object} product - The product to render
+  @param {string} section_id - Host section id, used for data-section-id
+  @param {boolean} [show_size_guide] - Whether to show the size-guide link
+  @param {object} [size_guide_page] - Page object linked from the size-guide link
+  @param {string} [shopify_attributes] - Theme editor block attributes (product page only)
+
+  @example
+  {% render 'product-variant-picker', product: product, section_id: section.id %}
+{% enddoc %}
+
+{%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign current_variant = product.selected_or_first_available_variant
+    assign color_option = nil
+    assign size_option  = nil
+    for option in product.options_with_values
+      if option.name == 'اللون' or option.name == 'Color'
+        assign color_option = option
+      elsif option.name == 'المقاس' or option.name == 'Size' or option.name == 'Age'
+        assign size_option = option
+      endif
+    endfor
+  -%}
+  <variant-picker class="product__variant-picker" data-section-id="{{ section_id }}" {{ shopify_attributes }}>
+    {%- if color_option != nil -%}
+      {%- assign color_idx = color_option.position | minus: 1 -%}
+      <div class="product-option">
+        <div class="product-option__label">{{ color_option.name }}</div>
+        <div class="product-option__values product-option__values--swatches">
+          {%- for value in color_option.values -%}
+            {%- liquid
+              assign is_selected  = false
+              if current_variant.options[color_idx] == value
+                assign is_selected = true
+              endif
+            -%}
+            <button type="button"
+                    class="product-swatch{% if is_selected %} product-swatch--active{% endif %}"
+                    style="background: {{value.swatch.color}}"
+                    aria-label="{{ value | escape }}"
+                    title="{{ value | escape }}"
+                    data-option-position="{{ color_option.position }}"
+                    data-option-value="{{ value | escape }}">
+            </button>
+            {{value}}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if size_option != nil -%}
+      {%- assign size_idx = size_option.position | minus: 1 -%}
+      <div class="product-option">
+        <div class="product-option__header">
+          <span class="product-option__label">{{ size_option.name }}</span>
+          {%- if show_size_guide and size_guide_page != blank -%}
+            <a href="{{ size_guide_page.url }}" class="product-option__size-guide">{{ 'sections.product.size_guide' | t }}</a>
+          {%- endif -%}
+        </div>
+        <div class="product-option__values product-option__values--chips">
+          {%- for value in size_option.values -%}
+            {%- liquid
+              assign sz_selected = false
+              if current_variant.options[size_idx] == value
+                assign sz_selected = true
+              endif
+            -%}
+            <button type="button"
+                    class="product-size-chip{% if sz_selected %} product-size-chip--active{% endif %}"
+                    data-option-position="{{ size_option.position }}"
+                    data-option-value="{{ value | escape }}">
+              {{ value }}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+  </variant-picker>
+{%- endunless -%}

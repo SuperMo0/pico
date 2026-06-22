@@ -19,6 +19,7 @@
     {% render 'meta-tags' %}
 
     <script src="{{ 'slider-component.js' | asset_url }}" defer></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer></script>
     <script src="{{ 'popup-modal.js' | asset_url }}" defer></script>
     <script>
       window.__wishlistCustomerId = {{ customer.id | json }};
@@ -38,8 +39,11 @@
     {% sections 'header-group' %}
 
     {{ content_for_layout }}
-    <popup-modal id="quick-view-modal"></popup-modal>
-    
+    <popup-modal
+      id="quick-view-modal"
+      data-close-label="{{ 'accessibility.close_modal' | t }}"
+      data-error-text="{{ 'products.product.quick_view_error' | t }}"></popup-modal>
+
     {% sections 'footer-group' %}
 
     <div id="wishlist-toast" class="wishlist-toast" role="status" hidden></div>

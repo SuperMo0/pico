@@ -1,0 +1,62 @@
+{% doc %}
+  Renders the product media gallery — a swipeable <slider-component> track with a
+  thumbnail strip — wrapped in a <product-gallery> custom element. Shared by the
+  product page and the quick-view modal.
+
+  @param {object} product - The product whose media is rendered
+  @param {string} section_id - The host section id, used for data-section-id
+
+  @example
+  {% render 'product-gallery', product: product, section_id: section.id %}
+{% enddoc %}
+
+<product-gallery class="product-gallery" data-section-id="{{ section_id }}">
+
+  {%- comment -%}
+    Thumbs are first in DOM so they land in column 1 of the desktop grid.
+    On mobile, CSS order:2 pushes them below the slider.
+  {%- endcomment -%}
+  {%- if product.media.size > 1 -%}
+    <div class="product-gallery__thumbs" aria-label="{{ 'sections.product.gallery_label' | t }}">
+      {%- for media in product.media -%}
+        {%- liquid
+          assign t_img   = media.preview_image
+          assign t_alt   = t_img.alt | default: product.title
+          assign t_focal = t_img.presentation.focal_point | default: 'center center'
+          assign t_style = 'object-fit:cover;object-position:' | append: t_focal
+        -%}
+        <button type="button"
+                class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
+                data-index="{{ forloop.index0 }}"
+                aria-label="{{ t_alt | escape }}">
+          {{ t_img | image_url: width: 180 | image_tag: alt: '', loading: 'lazy', style: t_style }}
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <slider-component class="product-gallery__slider-wrap">
+    {%- if product.featured_media -%}
+      <div class="product-gallery__track" data-slider-track>
+        {%- for media in product.media -%}
+          {%- liquid
+            assign s_img   = media.preview_image
+            assign s_alt   = s_img.alt | default: product.title
+            assign s_focal = s_img.presentation.focal_point | default: 'center center'
+            assign s_style = 'object-fit:cover;object-position:' | append: s_focal
+          -%}
+          <div class="product-gallery__slide" data-media-id="{{ media.id }}">
+            {%- if forloop.first -%}
+              {{ s_img | image_url: width: 900 | image_tag: alt: s_alt, class: 'product-gallery__img', widths: '400,600,900', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', style: s_style }}
+            {%- else -%}
+              {{ s_img | image_url: width: 900 | image_tag: alt: s_alt, class: 'product-gallery__img', widths: '400,600,900', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'lazy', style: s_style }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
+    {%- endif -%}
+  </slider-component>
+
+</product-gallery>

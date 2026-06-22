@@ -1,0 +1,44 @@
+{% doc %}
+  Renders the quantity stepper and the add-to-cart / sold-out submit button.
+  Must be rendered inside a {% form 'product' %}. The button id is used by
+  ProductForm to toggle availability on variant change. Shared by the product
+  page and the quick-view modal.
+
+  @param {object} product - The product to render
+  @param {string} section_id - Host section id, used for the button id
+  @param {string} [shopify_attributes] - Theme editor block attributes (product page only)
+
+  @example
+  {% render 'product-buy-buttons', product: product, section_id: section.id %}
+{% enddoc %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div class="product__atc-row" {{ shopify_attributes }}>
+  <quantity-input class="product-qty">
+    <button type="button" class="product-qty__btn" data-qty-decrement aria-label="{{ 'sections.product.quantity_decrement' | t }}">
+      {%- render 'icon', icon: 'minus', size: 16 -%}
+    </button>
+    <input type="number"
+           name="quantity"
+           value="1"
+           min="1"
+           max="99"
+           class="product-qty__input"
+           aria-label="{{ 'sections.product.quantity_label' | t }}">
+    <button type="button" class="product-qty__btn" data-qty-increment aria-label="{{ 'sections.product.quantity_increment' | t }}">
+      {%- render 'icon', icon: 'plus', size: 16 -%}
+    </button>
+  </quantity-input>
+
+  <button type="submit"
+          id="atc-btn-{{ section_id }}"
+          class="btn btn--primary btn--lg product__atc"
+          {% unless current_variant.available %}disabled{% endunless %}>
+    {%- if current_variant.available -%}
+      {{ 'sections.product.add_to_cart' | t }}
+    {%- else -%}
+      {{ 'sections.product.sold_out' | t }}
+    {%- endif -%}
+  </button>
+</div>

@@ -511,7 +511,9 @@ class CartDrawer extends HTMLElement {
     document.addEventListener('theme:cart:updated', (e) => {
       if (!e.detail?.sectionHtml) return;
       this.#applySection(e.detail.sectionHtml);
-      this.open();
+      // Quick-view adds refresh the drawer contents but keep it closed so the
+      // modal can stay open with its own confirmation.
+      if (!e.detail.suppressDrawer) this.open();
     });
 
     document.addEventListener('theme:cart:open', () => {
