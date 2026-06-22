@@ -207,7 +207,7 @@
   }
 
   .site-header__inner {
-    padding-inline: var(--space-5);;
+    padding-inline: var(--space-10);
     height: 72px;
     display: flex;
     align-items: center;
@@ -439,7 +439,6 @@
     align-items: center;
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-md);
-    padding-inline: var(--space-3);
     background: var(--surface-card);
     transition: border-color var(--dur-fast) var(--ease-soft);
   }
@@ -458,7 +457,13 @@
     padding-block: var(--space-3);
     outline: none;
     min-width: 0;
+    width: 100%;
+    padding-inline: var(--space-3);
   }
+  .site-header__search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
 
   .site-header__search-input::placeholder {
     color: var(--text-muted);

@@ -37,7 +37,10 @@
         {%- if section.settings.brand_description != blank -%}
           <div class="footer__brand-desc">{{ section.settings.brand_description }}</div>
         {%- endif -%}
+        <div class="footer__brand-desc__social">
+          تابعنا على 
         {%- render 'social-icons', tone: 'light' -%}
+        </div>
       </div>
 
       {%- for block in section.blocks -%}
@@ -78,8 +81,14 @@
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-7);
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: var(--space-5);
+  padding-inline: var(--space-2);
+}
+
+.footer__brand{
+  grid-column: 1/-1;
 }
 
 @media (min-width: 601px) {
@@ -91,7 +100,11 @@
 @media (min-width: 900px) {
   .footer__grid {
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
   }
+  .footer__brand{
+  grid-column: 1/2;
+}
 }
 
 .footer__logo {
@@ -124,8 +137,14 @@
   margin: 0;
 }
 
+.footer__brand-desc__social{
+    margin-top: var(--space-5);
+    display: flex;
+    gap: var(--space-1);
+    align-items: center;
+}
+
 .footer__brand .social-icons {
-  margin-top: var(--space-5);
   margin-inline-start: calc(var(--space-1) * -1);
 }
 
