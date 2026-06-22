@@ -260,6 +260,29 @@
     },
     "quick_view": {
       "name": "Quick view"
+    },
+    "product_recommendations": {
+      "name": "Product recommendations",
+      "settings": {
+        "heading": "Heading",
+        "intent": "Recommendation type",
+        "intent_related": "Related products",
+        "intent_complementary": "Complementary products",
+        "product_count": "Number of products"
+      },
+      "presets": {
+        "name": "Product recommendations"
+      }
+    },
+    "same_collection": {
+      "name": "From the same collection",
+      "settings": {
+        "heading": "Heading",
+        "product_count": "Number of products"
+      },
+      "presets": {
+        "name": "From the same collection"
+      }
     }
   },
   "options": {

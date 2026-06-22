@@ -179,6 +179,13 @@
     },
     "whatsapp_button": {
       "aria_label": "Chat with us on WhatsApp"
+    },
+    "product_recommendations": {
+      "heading_related": "You may also like",
+      "heading_complementary": "Pair it with"
+    },
+    "same_collection": {
+      "heading": "From the same collection"
     }
   }
 }

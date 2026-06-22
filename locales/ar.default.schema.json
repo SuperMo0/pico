@@ -259,6 +259,29 @@
     },
     "quick_view": {
       "name": "نظرة سريعة"
+    },
+    "product_recommendations": {
+      "name": "توصيات المنتجات",
+      "settings": {
+        "heading": "العنوان",
+        "intent": "نوع التوصية",
+        "intent_related": "منتجات ذات صلة",
+        "intent_complementary": "منتجات مكمّلة",
+        "product_count": "عدد المنتجات"
+      },
+      "presets": {
+        "name": "توصيات المنتجات"
+      }
+    },
+    "same_collection": {
+      "name": "من نفس المجموعة",
+      "settings": {
+        "heading": "العنوان",
+        "product_count": "عدد المنتجات"
+      },
+      "presets": {
+        "name": "من نفس المجموعة"
+      }
     }
   },
   "options": {

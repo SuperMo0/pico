@@ -849,3 +849,100 @@ product-form {
   .product-size-chip,
   .product-gallery__img { transition: none; }
 }
+
+/* ── Product carousel (shared swipeable slider) ───────────────
+   Used by featured-collection, product-recommendations and
+   same-collection sections. Kept global so it also styles markup
+   injected via the Section Rendering API. */
+.product-carousel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.product-carousel__heading {
+  font-size: var(--fs-h2);
+  margin: 0;
+}
+
+.product-carousel__view-all {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-body);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.product-carousel__view-all:hover { color: var(--text-accent); }
+.product-carousel__view-all:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.product-carousel__slider {
+  position: relative;
+  display: block;
+}
+
+.product-carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(80vw, 300px);
+  gap: var(--grid-gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.product-carousel__track::-webkit-scrollbar { display: none; }
+.product-carousel__item { scroll-snap-align: start; }
+
+@media (min-width: 768px) {
+  .product-carousel__track {
+    grid-auto-columns: calc((100% - (3 * var(--grid-gutter))) / 4);
+  }
+}
+
+.product-carousel__placeholder {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--cream-100);
+}
+.product-carousel__placeholder .placeholder-svg { width: 100%; height: 100%; }
+
+/* Nav buttons: hidden on mobile (native touch scroll), shown on desktop */
+.product-carousel__btn { display: none; }
+
+@media (min-width: 768px) {
+  .product-carousel__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-page, #fff);
+    border: 1px solid var(--border-strong);
+    color: var(--text-strong);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  .product-carousel__btn:hover {
+    background: var(--surface-raised);
+    transform: translateY(-50%) scale(1.05);
+  }
+  .product-carousel__btn--prev { inset-inline-start: -20px; }
+  .product-carousel__btn--prev svg { transform: rotate(270deg); }
+  .product-carousel__btn--next { inset-inline-end: -20px; }
+  .product-carousel__btn--next svg { transform: rotate(90deg); }
+}

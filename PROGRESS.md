@@ -2,6 +2,20 @@
 
 ## Completed Tasks
 
+### Product page recommendations — two swipeable sections (2026-06-22)
+
+Added two sections below `main` on the product page (`templates/product.json` order: `main → product_recommendations → same_collection`). Both reuse the existing `<slider-component>` (RTL-aware, already global in `theme.liquid`).
+
+- **Shared snippet `snippets/product-carousel.liquid`** — heading + swipeable `slider-component` track of `product-card` tiles, with prev/next buttons. Params: `products`, `heading`, `id` (→ `{id}-heading` for aria-labelledby), optional `limit`, `exclude_id`, `view_all_url`/`view_all_text`, `placeholder_count`. All carousel CSS moved to a global `.product-carousel*` block in `assets/theme.css` (so it also styles Section-Rendering-API-injected markup). **`featured-collection.liquid` was refactored onto this snippet** and its duplicated slider CSS deleted.
+- **`sections/product-recommendations.liquid` (API)** — renders `<product-recommendations data-url="{{ routes.product_recommendations_url }}?section_id=…&product_id=…&limit=…&intent=…">`. `intent` is a schema select (`related` default / `complementary`); heading auto-switches by intent (`heading_related`/`heading_complementary`) with a manual text override. New global `assets/product-recommendations.js` web component: IntersectionObserver (`200px` rootMargin) lazy-fetches the section, injects the carousel, and `this.remove()`s itself when the API returns nothing (so empty product-rec rows leave no shell).
+- **`sections/same-collection.liquid` (pure Liquid)** — pulls siblings from `product.collections.first`, excludes the current product via `exclude_id`, hides the whole section when there are no siblings. Always-available content; also the reason `product-card`'s scoped CSS/JS is present on the page for the injected API fragment (see DISCOVERIES).
+- Locale keys added Arabic-first then mirrored to English: `sections.product_recommendations.{heading_related,heading_complementary}`, `sections.same_collection.heading` (storefront) + section/setting/preset keys in both `*.schema.json` files.
+- Gotcha hit & logged: filters inside `{% render %}` args silently break parsing — pre-compute `carousel_id` first (DISCOVERIES.md).
+
+`shopify theme check` — 0 errors (only the 3 pre-existing Google Fonts RemoteAsset warnings). **Not yet browser-verified — needs a `shopify theme dev` pass** (esp. that the related API returns products on this store and that injected cards are styled/upgraded).
+
+---
+
 ### Task 2 — `snippets/product-card.liquid` (2026-06-20)
 
 Created reusable product tile snippet. Pre-computes all `image_tag` params in `{% liquid %}` blocks to avoid formatter mangling (DISCOVERIES.md). Web component (`<product-card>`) intercepts quick-add form, POSTs to `/cart/add.js`, then fetches `/cart.js` and dispatches `theme:cart:updated` on `document`. Color swatches guarded with `unless product.has_only_default_variant`. Added `products.product.add_to_wishlist` to both Arabic and English locale files.

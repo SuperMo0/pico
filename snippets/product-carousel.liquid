@@ -1,0 +1,59 @@
+{% doc %}
+  Renders a heading + horizontally swipeable product slider (RTL-aware).
+  Wraps the shared `<slider-component>` track with prev/next controls and
+  `product-card` tiles. Shared by featured collection, product recommendations
+  and same-collection sections. All styling lives in `assets/theme.css`
+  (`.product-carousel*`) so the markup also works when injected via the
+  Section Rendering API.
+
+  @param {string} heading - Heading text shown above the slider
+  @param {string} id - Unique id; the heading gets `{id}-heading` for aria-labelledby
+  @param {object} [products] - Product objects to render as cards
+  @param {number} [limit] - Max number of products to show
+  @param {number} [exclude_id] - Product id to skip (e.g. the current product)
+  @param {string} [view_all_url] - Optional "view all" link href
+  @param {string} [view_all_text] - Optional "view all" link label
+  @param {number} [placeholder_count] - Render N placeholder tiles when products is empty
+
+  @example
+  {% render 'product-carousel', products: collection.products, heading: 'الأكثر مبيعًا', id: section.id, limit: 8 %}
+{% enddoc %}
+
+<div class="product-carousel">
+  <div class="product-carousel__header">
+    <h2 id="{{ id }}-heading" class="product-carousel__heading">{{ heading }}</h2>
+    {%- if view_all_url and view_all_text -%}
+      <a href="{{ view_all_url }}" class="product-carousel__view-all">{{ view_all_text }} ←</a>
+    {%- endif -%}
+  </div>
+
+  <slider-component class="product-carousel__slider">
+    <button type="button" name="previous" class="product-carousel__btn product-carousel__btn--prev"
+      aria-label="{{ 'accessibility.previous' | t }}">
+      {% render 'icon', icon: 'chevron-down', size: 24 %}
+    </button>
+
+    <div class="product-carousel__track" data-slider-track>
+      {%- if products and products.size > 0 -%}
+        {%- assign shown = 0 -%}
+        {%- for card_product in products -%}
+          {%- if exclude_id and card_product.id == exclude_id -%}{%- continue -%}{%- endif -%}
+          {%- if limit and shown >= limit -%}{%- break -%}{%- endif -%}
+          <div class="product-carousel__item">{% render 'product-card', product: card_product %}</div>
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      {%- elsif placeholder_count -%}
+        {%- for i in (1..placeholder_count) -%}
+          <div class="product-carousel__item product-carousel__placeholder">
+            {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <button type="button" name="next" class="product-carousel__btn product-carousel__btn--next"
+      aria-label="{{ 'accessibility.next' | t }}">
+      {% render 'icon', icon: 'chevron-down', size: 24 %}
+    </button>
+  </slider-component>
+</div>

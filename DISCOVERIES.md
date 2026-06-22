@@ -341,3 +341,17 @@ When adding a new discovery, copy this template:
 **Files affected:** Which files were fixed and where.
 **Date discovered:** YYYY-MM-DD
 ```
+
+### Filters inside `{% render %}` arguments break theme-check (and are unreliable)
+**Issue:** Passing a filtered value directly as a render argument — e.g. `{% render 'product-carousel', id: 'fc-' | append: section.id %}` — made theme-check report `OrphanedSnippet` on the snippet and `UnusedAssign` on variables only consumed inside that render call. The render tag silently failed to parse.
+**Root cause:** Liquid's `{% render %}` argument list does not reliably accept inline filter expressions; theme-check's parser drops the whole tag, so it neither registers the snippet reference nor sees the variable usages (mirrors the pre-computed-`image_tag`-params gotcha).
+**Fix:** Pre-compute any filtered value into a variable in a `{% liquid %}` block first, then pass the plain variable: `assign carousel_id = 'fc-' | append: section.id` → `id: carousel_id`.
+**Files affected:** `sections/featured-collection.liquid`, `sections/same-collection.liquid`, `sections/product-recommendations.liquid`.
+**Date discovered:** 2026-06-22
+
+### Async product-recommendations fragment depends on globally-present product-card assets
+**Issue:** `sections/product-recommendations.liquid` lazy-fetches its carousel via `routes.product_recommendations_url` and injects the HTML. That HTML contains `product-card` tiles, but the Section Rendering API does not ship a snippet's `{% stylesheet %}`/`{% javascript %}` (see the Section Rendering API entry above), so the cards could be unstyled / not upgraded.
+**Root cause:** `product-card`'s CSS and JS live in its own snippet tags, which only bundle onto the page when the snippet is rendered server-side somewhere on that page.
+**Fix:** The carousel CSS was lifted to the global `.product-carousel*` block in `assets/theme.css`, and `<slider-component>` is already global. `product-card`'s own assets are present on the product page because `sections/same-collection.liquid` renders `product-card` server-side on initial load. Edge case: a product in zero collections hides same-collection, leaving the injected recommendation cards unstyled — acceptable for now; the robust fix would be to make `product-card`'s CSS/JS global like the product-detail components.
+**Files affected:** `assets/theme.css`, `assets/product-recommendations.js`, `sections/product-recommendations.liquid`, `sections/same-collection.liquid`.
+**Date discovered:** 2026-06-22

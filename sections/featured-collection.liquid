@@ -5,185 +5,37 @@ assign view_all_text = section.settings.view_all_label
 if view_all_text == blank
 assign view_all_text = 'sections.featured_collection.view_all' | t
 endif
+assign carousel_id = 'fc-' | append: section.id
 -%}
-<section class="featured-collection" aria-labelledby="fc-heading-{{ section.id }}">
+<section class="featured-collection" aria-labelledby="{{ carousel_id }}-heading">
   <div class="featured-collection__inner">
-    <div class="featured-collection__header">
-      <h2 id="fc-heading-{{ section.id }}" class="featured-collection__heading">
-        {{ section.settings.heading }}
-      </h2>
-      {%- if fc_col != blank -%}
-      <a href="{{ fc_col.url }}" class="featured-collection__view-all">
-        {{- view_all_text }} ←
-      </a>
-      {%- endif -%}
-    </div>
-
-
-
-    <slider-component class="featured-collection__slider-wrapper">
-      <!-- Previous Button (Right side in RTL) -->
-      <button type="button" name="previous" class="fc-slider-btn fc-slider-btn--prev"
-        aria-label="{{ 'accessibility.previous' | t }}">
-        {% render 'icon', icon: 'chevron-down', size: 24 %}
-      </button>
-
-      <div class="featured-collection__grid" data-slider-track>
-        {%- if fc_col != blank -%}
-        {%- for product in fc_col.products limit: fc_count -%}
-        <div>{% render 'product-card', product: product %}</div>
-        {%- endfor -%}
-        {%- else -%}
-        {%- for i in (1..4) -%}
-        <div class="featured-collection__placeholder">
-          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
-        </div>
-        {%- endfor -%}
-        {%- endif -%}
-      </div>
-
-      <!-- Next Button (Left side in RTL) -->
-      <button type="button" name="next" class="fc-slider-btn fc-slider-btn--next"
-        aria-label="{{ 'accessibility.next' | t }}">
-        {% render 'icon', icon: 'chevron-down', size: 24 %}
-      </button>
-    </slider-component>
-
+    {%- if fc_col != blank -%}
+      {% render 'product-carousel',
+        products: fc_col.products,
+        heading: section.settings.heading,
+        id: carousel_id,
+        limit: fc_count,
+        view_all_url: fc_col.url,
+        view_all_text: view_all_text
+      %}
+    {%- else -%}
+      {% render 'product-carousel',
+        heading: section.settings.heading,
+        id: carousel_id,
+        placeholder_count: 4
+      %}
+    {%- endif -%}
   </div>
 </section>
 
 {% stylesheet %}
 .featured-collection {
-padding-block: var(--space-5);
+  padding-block: var(--space-5);
 }
 
 .featured-collection__inner {
-margin-inline: auto;
-padding-inline: var(--container-pad);
+  padding-inline: var(--container-pad);
 }
-
-.featured-collection__header {
-display: flex;
-justify-content: space-between;
-align-items: baseline;
-margin-bottom: var(--space-6);
-gap: var(--space-4);
-}
-
-.featured-collection__heading {
-font-size: var(--fs-h2);
-margin: 0;
-}
-
-.featured-collection__view-all {
-font-family: var(--font-body);
-font-size: var(--fs-sm);
-font-weight: var(--fw-semibold);
-color: var(--text-body);
-text-decoration: none;
-white-space: nowrap;
-flex-shrink: 0;
-}
-
-.featured-collection__view-all:hover {
-color: var(--text-accent);
-}
-
-.featured-collection__view-all:focus-visible {
-outline: 2px solid var(--border-focus);
-outline-offset: 2px;
-}
-
-.featured-collection__grid {
-display: grid;
-grid-auto-flow: column;
-grid-auto-columns: min(80vw, 300px); /* Card width on mobile */
-gap: var(--grid-gutter);
-overflow-x: auto;
-overscroll-behavior-x: contain;
-scroll-snap-type: x mandatory;
-scrollbar-width: none;
--ms-overflow-style: none;
-}
-.featured-collection__grid::-webkit-scrollbar {
-display: none;
-}
-.featured-collection__grid > div {
-scroll-snap-align: start;
-}
-
-@media (min-width: 768px) {
-.featured-collection__grid {
-grid-auto-columns: calc((100% - (3 * var(--grid-gutter))) / 4);
-}
-}
-
-.featured-collection__placeholder {
-aspect-ratio: 4 / 5;
-border-radius: var(--radius-lg);
-overflow: hidden;
-background: var(--cream-100);
-}
-
-.featured-collection__placeholder .placeholder-svg {
-width: 100%;
-height: 100%;
-}
-
-.featured-collection__slider-wrapper {
-  position: relative;
-  display: block;
-}
-
-/* Hide on mobile, touch natively handles scrolling */
-.fc-slider-btn {
-  display: none; 
-}
-
-@media (min-width: 768px) {
-  .fc-slider-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--surface-page, #fff);
-    border: 1px solid var(--border-strong);
-    color: var(--text-strong);
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.2s, background-color 0.2s;
-  }
-  
-  .fc-slider-btn:hover {
-    background: var(--surface-raised);
-    transform: translateY(-50%) scale(1.05);
-  }
-
-  .fc-slider-btn--prev {
-    inset-inline-start: -20px; 
-  }
-  .fc-slider-btn--prev svg {
-    transform: rotate(270deg);
-  }
-  
-  .fc-slider-btn--next {
-    inset-inline-end: -20px;
-  }
-  .fc-slider-btn--next svg {
-    transform: rotate(90deg);
-  }
-}
-
-
-
-
-
 {% endstylesheet %}
 
 {% schema %}

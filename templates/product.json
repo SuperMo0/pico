@@ -73,9 +73,24 @@
         "accordion_fabric",
         "accordion_shipping"
       ]
+    },
+    "product_recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "intent": "related",
+        "product_count": "8"
+      }
+    },
+    "same_collection": {
+      "type": "same-collection",
+      "settings": {
+        "product_count": "8"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "product_recommendations",
+    "same_collection"
   ]
 }

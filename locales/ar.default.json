@@ -179,6 +179,13 @@
     },
     "whatsapp_button": {
       "aria_label": "تواصل معنا عبر واتساب"
+    },
+    "product_recommendations": {
+      "heading_related": "قد يعجبك أيضًا",
+      "heading_complementary": "اشترِ معه"
+    },
+    "same_collection": {
+      "heading": "من نفس المجموعة"
     }
   }
 }
