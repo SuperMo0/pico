@@ -3,7 +3,7 @@
   unless logo_img
     assign logo_img = shop.brand.logo
   endunless
-  assign logo_w = settings.logo_width | default: 120
+  assign logo_w = 80
   assign logo_alt = logo_img.alt | default: shop.name
   assign show_search = section.settings.show_search
   assign sticky_mode = section.settings.sticky_header
@@ -25,11 +25,12 @@
       </button>
 
       <a href="{{ routes.root_url }}" class="site-header__logo-link" aria-label="{{ shop.name }}">
-        {% comment %} {%- if logo_img != blank -%}
+         {%- if logo_img != blank -%}
           {{ logo_img | image_url: width: logo_w | image_tag: alt: logo_alt, width: logo_w, class: 'site-header__logo-img', loading: 'eager', fetchpriority: 'high' }}
-        {%- else -%} {% endcomment %}
+        {%- else -%} 
           <span class="site-header__shop-name">{{ shop.name }}</span>
-        {% comment %} {%- endif -%} {% endcomment %}
+          <span class="site-header__shop-name">{{ shop.brand.slogan }}</span>
+         {%- endif -%}
       </a>
 
       {%- if section.settings.menu != blank -%}
@@ -287,8 +288,8 @@
     display: block;
     height: auto;
     max-height: 48px;
-    width: auto;
     max-width: 100%;
+    width: 50px;
   }
 
   .site-header__shop-name {
@@ -310,6 +311,10 @@
     .site-header__nav {
       display: flex;
     }
+
+    .site-header__logo-img {
+    width: 80px;
+  }
   }
 
   .site-header__nav-link {
